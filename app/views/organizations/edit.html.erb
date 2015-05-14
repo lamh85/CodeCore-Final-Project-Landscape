@@ -1,0 +1,18 @@
+<h1>Edit Organization: <%= @organization.name %></h1>
+
+
+<%= render "form" %>
+
+<script>
+
+var competitorsArray = [];
+
+<% @organization.inverse_competitors.each do |competitor| %>
+  competitorsArray.push(parseInt('<%= competitor.id.to_json %>'));
+<% end %>
+
+for (i = 0; i < competitorsArray.length; i++) {
+  $('.organization_competitors input[value="' +competitorsArray[i]+ '"]').attr('checked','checked');
+}
+
+</script>

@@ -1,0 +1,251 @@
+<!-- SET THE VARIABLES FOR LEFT AND RIGHT -->
+<% org_instance_vars = [@org1,@org2] %>
+<% canvas_container = ["canvas-container-left","canvas-container-right"] %>
+<% canvas = ["canvas-left","canvas-right"] %>
+
+<!-- My org's suppliers, clients, and competitors -->
+<% my_suppliers = current_user.organization.suppliers.pluck(:id) %>
+<% my_clients = current_user.organization.clients.pluck(:id) %>
+<% my_competitors = current_user.organization.competitors.pluck(:id) | current_user.organization.inverse_competitors.pluck(:id) %>
+
+<% if @org1 && @org2 %>
+
+<!-- 3 charts -->
+
+<script>
+  var orgName0 = '<%= j @org1.name %>';
+  var orgName1  = '<%= j @org2.name %>';
+
+  var revenue0 = <%= @org1.revenue.to_json %>;
+  var revenue1 = <%= @org2.revenue.to_json %>;
+
+  var numOfClients0 = <%= @org1.clients.count.to_json %>;
+  var numOfClients1 = <%= @org2.clients.count.to_json %>;
+
+  var numOfSuppliers0 = <%= @org1.suppliers.count.to_json %>;
+  var numOfSuppliers1 = <%= @org2.suppliers.count.to_json %>;
+</script>
+
+<!-- BAR CHARTS -->
+
+<div class="col-md-4 canvas-container">
+  <h3>Revenue</h3>
+  <canvas id="revenue-sxs" height="400"></canvas>
+</div>
+
+<div class="col-md-4 canvas-container">
+  <h3>Number of Clients</h3>
+  <canvas id="num-clients-sxs" height="400"></canvas>
+</div>
+
+<div class="col-md-4 canvas-container">
+  <h3>Number of Suppliers</h3>
+  <canvas id="num-suppliers-sxs" height="400"></canvas>
+</div>
+
+<div class="clear"></div>
+
+<!-- START PUBLISHING TWO COLUMNS -->
+
+<% 2.times do |x| %>
+  <div class="col-md-6" >
+    <h2><%= org_instance_vars[x].name %></h2>
+
+    <% relationships_string = "" %>
+
+    
+    <!-- <div class="col-md-12"> -->
+    <!-- </div> -->
+    <div class="col-md-4">
+      <p class="p-header">Address</p>
+      <%= org_instance_vars[x].street %>
+      <br><%= org_instance_vars[x].city %>
+      <br><%= org_instance_vars[x].province %>
+      <br><%= org_instance_vars[x].country %>
+    </div>
+
+    <div class="col-md-4">
+      <p class="p-header">Priority Level</p>
+      <%= org_instance_vars[x].priority.name %>
+
+      <p class="p-header">Relationship(s) to me</p>
+     
+        <ul>
+        <% if my_competitors.include? org_instance_vars[x].id %>
+          <li>Competitor</li>
+        <% end %>
+        <% if my_clients.include? org_instance_vars[x].id %>
+          <li>Client</li>
+        <% end %>
+        <% if my_suppliers.include? org_instance_vars[x].id %>
+          <li>Supplier</li>
+        <% end %>
+        <% if !(my_competitors.include? org_instance_vars[x].id) && !(my_clients.include? org_instance_vars[x].id) && !(my_suppliers.include? org_instance_vars[x].id) %>
+          <li>None</li>
+        <% end %>
+        </ul>  
+
+    </div>
+
+    <div class="col-md-4">
+
+      <p class="p-header">
+        I want to...
+      </p>
+      <%= link_to edit_organization_path(org_instance_vars[x]) do %>
+        <span class="glyphicon glyphicon-pencil"></span> Edit this org
+      <% end %>
+      <br>
+      <%= link_to organization_path(org_instance_vars[x]), method: :delete, data: {prompt: "Are you sure that you want to delete this organization?"} do %>
+        <span class="glyphicon glyphicon-trash"></span> Delete this org
+      <% end %>   
+
+
+      <%#= link_to "Edit this org", edit_organization_path(org_instance_vars[x]), class: "btn btn-primary" %>
+      <!--br--><%#= link_to "Delete this org", organization_path(org_instance_vars[x]), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} %>
+    </div>
+
+    <div class="clear"></div>
+    
+  </div>
+<% end %>
+
+<h3>--- Revenue ---</h3>
+<% 2.times do |x| %>
+  <div class="col-md-6" >
+    Annual revenue for <%= org_instance_vars[x].name %>.
+    <ul>
+    <% if org_instance_vars[x].revenue %>
+      <li><%= number_to_currency(org_instance_vars[x].revenue) %></li>
+    <% else %>
+      <li>There is no revenue entered for <%= org_instance_vars[x].name %>.</li>
+    <% end %>
+    </ul>
+  </div>
+
+<% end %>
+
+<div class="clear"></div>
+
+<h3>--- Client Base ---</h3>
+<% 2.times do |x| %>
+  <div class="col-md-6" >
+    Client base for <%= org_instance_vars[x].name %>
+    <ul>
+    <% if org_instance_vars[x].clients.count > 0 %>
+      
+      <% org_instance_vars[x].clients.each do |client| %>
+        <li><%= link_to client.name, client %></li>
+      <% end %>
+
+    <% else %>
+      <li>None - Please enter more information</li>
+    </ul>
+    <% end %>
+
+  </div>
+<% end %>
+
+<div class="clear"></div>
+
+<h3>--- Sales ---</h3>
+<% 2.times do |x| %>
+  <div class="col-md-6" >
+    Top markets for <%= org_instance_vars[x].name %>
+
+    <% if org_instance_vars[x].markets.count > 0 %>
+    <% sales_total = 0 %>
+
+      <div id="<%= canvas_container[x] %>" class="canvas-container">
+        <canvas id="<%= canvas[x] %>" class="canvas" height="300"></canvas>
+      </div>
+
+      <table id="compare-markets-table">
+        <tr>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Province</th>
+          <th>Country</th>
+          <th>Sales</th>
+          <th>Description</th>
+        </tr>
+
+        <script>
+          var productsArray<%= x %> = [];
+          var salesArray<%= x %> = [];
+        </script>
+        <% org_instance_vars[x].markets.order(sales: :desc).each do |market| %>
+          <tr>
+            <td><%= market.product %></td>
+            <td><%= market.category.name %></td>
+            <td><%= market.province %></td>
+            <td><%= market.country %></td>
+            <td class="cell-number">
+              <%= number_to_currency(market.sales, precision: 0) %>
+              <% sales_total = sales_total + market.sales %>
+            </td>
+            <td><%= market.description %></td>
+          </tr>
+
+          <script>
+            productsArray<%= x %>.push('<%= j market.product %>');
+            console.log("finished pushing this PRODUCT into the array: " + '<%= j market.product %>');
+            salesArray<%= x %>.push('<%= market.sales.to_json %>');
+            console.log("finished pushing this SALE into the array: " + '<%= market.sales.to_json %>');
+          </script>
+        <% end %>
+
+        <tr class="row-total">
+          <td>Total Sales</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="cell number"><%= number_to_currency(sales_total, precision: 0) %></td>
+          <td></td>
+        </tr>
+      </table>
+
+    <% else %>
+      <ul>
+        <li>None - Please enter more information</li>
+      </ul>
+      <script>
+        var productsArray<%= x %> = [];
+        var salesArray<%= x %> = [];
+      </script>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="clear"></div>
+
+<script>
+  comparisonResultsLoaded();
+</script>
+
+<h3>--- Suppliers ---</h3>
+<% 2.times do |x| %>
+  <div class="col-md-6" >
+    Suppliers for <%= org_instance_vars[x].name %>
+    <ul>
+    <% if org_instance_vars[x].suppliers.count > 0 %>
+      
+      <% org_instance_vars[x].suppliers.each do |supplier| %>
+        <li><%= link_to supplier.name, supplier %></li>
+      <% end %>
+
+    <% else %>
+      <li>None - Please enter more information</li>
+    </ul>
+    <% end %>
+
+  </div>
+
+<% end %>
+
+<div class="clear"></div>
+
+
+
+<!-- If @org1 && @org2 -->
+<% end %>

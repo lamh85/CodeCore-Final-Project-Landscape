@@ -1,0 +1,2 @@
+module ReportSearchesHelper
+end

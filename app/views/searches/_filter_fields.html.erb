@@ -1,0 +1,52 @@
+<% group_array = [
+  ["All Organizations","all"],
+  ["Competitors of...","competitors"],
+  ["Clients of...","clients"],
+  ["Suppliers of...","suppliers"]
+  ]%>
+
+<% property_array = [
+  ["Revenue","revenue"],
+  ["Company Name","name"],
+  ["Description","description"],
+  ["Priority Level","priority"],
+  ["City","city"],
+  ["Province","province"],
+  ["Country","country"],
+  ] %>
+
+<% equality_array = [
+  ["contains text","includes"],
+  ["< less than","<"],
+  ["≤ less than or equal","<="],  
+  ["= equals","="],
+  ["> greater than",">"],
+  ["≥ greater than or equal",">="]
+  ] %>  
+
+<div class="nested-fields" class="col-md-12 trim-children-padding">
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :group, collection: group_array, include_blank: false %>
+  </div>
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :organizations, collection: Organization.sort_by_name, label: "Org. Name" %>
+  </div>
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :property, collection: property_array %>
+  </div>
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :equality, collection: equality_array, label: "Logic" %>
+  </div>
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :search_term %>
+  </div>
+  <div class="col-md-2 del-filter-bound trim-col-padding">
+    <%= link_to_remove_association "Remove this filter", f, {class: "btn btn-danger"} %>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<script>
+  // hideOrgList();
+</script>

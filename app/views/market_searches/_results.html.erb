@@ -1,0 +1,93 @@
+<% if @market_search.errors.any? %>
+  <p>We could not perform your search. Please correct the errors below:
+  <ul class="error-validation">
+    <% @market_search.errors.messages.each do |key,value| %>
+      <li><%= value.to_s[2..-3] %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @final_results %>
+
+    Found <%= @final_results.length %> results.
+    
+    <!-- Start displaying pie chart -->
+
+    <h2>Pie Charts</h2>
+
+    <% col_pie = ["col-left-pie","col-right-pie" ] %>
+    <% pie_drop_down = ["pie-drop-down-left","pie-drop-down-right"] %>
+    <% load_button = ["load-button-left","load-button-right"] %>
+    <% canvas_container = ["canvas-container-left","canvas-container-right"] %>
+    <% canvas = ["canvas-left","canvas-right"] %>
+    <% legend_container = ["legend-container-left","legend-container-right"] %>
+
+    <% 2.times do |x| %>
+
+      <div class="col-md-6" id="<%= col_pie[x] %>">
+        Select how to divide your chart
+        <select class="pie-drop-down" id="<%= pie_drop_down[x] %>">
+          <option value="Company">by Company</option>
+          <option value="Product">by Product</option>
+          <option value="Category">by Product Category</option>
+          <option value="Province">by Province</option>
+          <option value="Country">by Country</option>
+        </select>
+
+        <br><button id="<%= load_button[x] %>" class="btn load-button">Load Chart</button>
+        <div id="<%= canvas_container[x] %>" class="canvas-container">
+          <canvas id="<%= canvas[x] %>" class="canvas" width="400" height="400"></canvas>    
+        </div>
+
+        <div id="<%= legend_container[x] %>" class="legend-container"></div>
+
+        </div>
+      </div>
+
+    <% end %>
+
+    <div class="clear"></div>
+
+    <!-- Start displaying raw data -->
+
+    <h2>Full Results</h2>
+
+    <table id="results-table">
+      <tr>
+        <th>Company</th>
+        <th>Priority Level</th>
+        <th>Product</th>
+        <th>Category</th>
+        <th>Province</th>
+        <th>Country</th>
+        <th>Sales</th>
+        <th>Description</th>
+      </tr>
+
+      <% @final_results.each do |result| %>
+
+      <tr>
+        <td><%= link_to result.organization.name, result.organization %></td>
+        <td><%= result.organization.priority.name %></td>
+        <td><%= result.product %></td>
+        <td><%= result.category.name %></td>
+        <td><%= result.province %></td>
+        <td><%= result.country %></td>
+        <td class="cell-number"><%= number_to_currency(result.sales) %></td>
+        <td><%= result.description %></td>
+      </tr>
+      <% end %><!-- End looping through each row -->
+    </table>
+
+  <script>
+    resultsLoaded(); // Trigger market_searches.js
+  </script>
+
+<% else %><!-- If there are no search results -->
+  
+  <p>There are no search results<p>
+
+<% end %>
+<script>
+  $('#loading-shell').hide();
+</script>

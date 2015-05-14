@@ -1,0 +1,122 @@
+<!-- My org's suppliers, clients, and competitors -->
+<% my_suppliers = current_user.organization.suppliers.pluck(:id) %>
+<% my_clients = current_user.organization.clients.pluck(:id) %>
+<% my_competitors = current_user.organization.competitors.pluck(:id) | current_user.organization.inverse_competitors.pluck(:id) %>
+<% relationships_string = "" %>
+
+<!-- Content starts -->
+
+<h1><%= @organization.name %></h1>
+
+<p><%= link_to edit_organization_path(@organization) do %>
+  <span class="glyphicon glyphicon-pencil"></span> Edit this org
+<% end %>
+&nbsp;
+<%= link_to organization_path(@organization), method: :delete, data: {prompt: "Are you sure that you want to delete this organization?"} do %>
+  <span class="glyphicon glyphicon-trash"></span> Delete this org
+<% end %>
+
+<div class="tag">
+  <span class="glyphicon glyphicon-tag"></span>&nbsp;Priority Level: <%= @organization.priority.name %>
+</div>
+<div class="tag">
+<span class="glyphicon glyphicon-tag"></span>&nbsp;Relationship(s) to me:&nbsp;
+  <% if my_competitors.include? @organization.id %>
+      <% relationships_string = "Competitor" %>
+  <% end %>
+  <% if my_clients.include? @organization.id %>
+      <% if relationships_string == "" %>
+        <% relationships_string = "Client" %>
+      <% else %>
+        <% relationships_string = "Competitor, Client" %>
+      <% end %>
+  <% end %>
+  <% if my_suppliers.include? @organization.id %>
+      <% if relationships_string == "" %>
+        <% relationships_string = "Supplier" %>
+      <% else %>
+        <% relationships_string = "#{relationships_string}, Supplier" %>
+      <% end %>
+  <% end %>
+  <% if !(my_competitors.include? @organization.id) && !(my_clients.include? @organization.id) && !(my_suppliers.include? @organization.id) %>
+      <% relationships_string = "None" %>
+  <% end %>
+  <%= relationships_string %>
+</div>
+
+<div class="clear"></div>
+
+<h2>Profile</h2>
+
+<div class="col-md-4 trim-col-padding">
+  <p class="p-header">Address:</p>
+  <%= @organization.street %>
+  <br><%= @organization.city %>, <%= @organization.province %>, <%= @organization.country %>
+</div>
+
+<div class="col-md-4 trim-col-padding">
+  <p class="p-header">Revenue:</p>
+  <%= number_to_currency(@organization.revenue) %>
+</div>
+
+<div class="col-md-4 trim-col-padding">
+  <p class="p-header">Description:</p>
+  <%= @organization.description %>
+</div>
+
+<div class="clear"></div>
+
+<h2>Sales</h2>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Category</th>
+    <th>Province</th>
+    <th>Country</th>
+    <th>Sales</th>
+    <th>Description</th>
+  </tr>
+  <% if @organization.markets %>
+    <% @organization.markets.each do |market| %>
+      <tr>
+        <td><%= market.product %></td>
+        <td><%= market.category.name %></td>
+        <td><%= market.province %></td>
+        <td><%= market.country %></td>
+        <td class="cell-number"><%= number_to_currency(market.sales) %></td>
+        <td><%= market.description %></td>
+      </tr>
+    <% end %>
+  <% end %> <!-- If there are any sales data -->
+</table>
+
+<!-- ASSOCIATIONS -->
+<div id="single-org-competitors">
+  <h2>Competitors</h2>
+  <% @single_org_competitors = @organization.competitors | @organization.inverse_competitors %>
+  <%= render partial: "/searches/results" %>
+  <% @single_org_competitors = false %>
+</div>
+
+<div id="single-org-clients">
+  <h2>Clients</h2>
+  <% @single_org_clients = @organization.clients %>
+  <%= render partial: "/searches/results" %>
+  <% @single_org_clients = false %>
+</div>
+
+<div id="single-org-suppliers">
+  <h2>Suppliers</h2>
+  <% @single_org_suppliers = @organization.suppliers %>
+  <%= render partial: "/searches/results" %>
+  <% @single_org_suppliers = false %>
+</div>
+
+<p>&nbsp;</p>
+<%= link_to edit_organization_path(@organization), class: "btn btn-primary" do %>
+  Edit details for <%= @organization.name %>
+<% end %>
+
+<%= link_to organization_path(@organization), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} do %>
+  Delete <%= @organization.name %>
+<% end %>

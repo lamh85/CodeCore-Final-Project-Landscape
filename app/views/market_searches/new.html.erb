@@ -1,0 +1,27 @@
+<h1>
+  Market Share
+</h1>
+
+Search by market characteristics
+
+<div id="form-market-search">
+  <%= render "form" %>
+</div>
+
+<!-- BOUNDARIES FOR LOADING MODAL -->
+<div id="boundaries">
+
+  <!-- "LOADING" MODAL -->
+  <div id="loading-shell">
+    <div id="loading" class="container">
+      <h1>Loading...</h1>
+      <span class="glyphicon glyphicon-refresh"></span>
+    </div>
+  </div>
+
+  <!-- Results section -->  
+  <div id="results-market">
+    <%= render partial: "results" %>
+  </div>
+
+</div>

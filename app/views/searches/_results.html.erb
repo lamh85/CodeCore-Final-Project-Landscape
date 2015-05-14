@@ -1,0 +1,148 @@
+<% if @search %>
+  <% if @search.errors.any? %>
+    <p>We cannot perform your search. Please correct these errors:
+    <ul class="error-validation">
+      <% @search.errors.messages.each do |key,value| %>
+        <li><%= value.to_s[2..-3] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
+
+<% if @single_org_competitors %>
+  <% @final_results = @single_org_competitors %>
+<% end %>
+<% if @single_org_clients %>
+  <% @final_results = @single_org_clients %>
+<% end %>
+<% if @single_org_suppliers %>
+  <% @final_results = @single_org_suppliers %>
+<% end %>
+
+<% if @final_results %>
+
+    <!-- My org's suppliers, clients, and competitors -->
+    <% my_suppliers = current_user.organization.suppliers.pluck(:id) %>
+    <% my_clients = current_user.organization.clients.pluck(:id) %>
+    <% my_competitors = current_user.organization.competitors.pluck(:id) | current_user.organization.inverse_competitors.pluck(:id) %>
+
+    Found <%= @final_results.length %> results:
+
+    <table>
+      <tr>
+        <th>Company Name</th>
+        <th>City</th>
+        <th>Province</th>
+        <th>Country</th>
+        <th>Revenue</th>
+        <th>Priority</th>
+        <% if current_user.organization_id %>
+          <th>Relationship(s) to me</th>
+        <% end %>
+        <th>I want to...</th>
+      </tr>
+
+      <% if @competitor_search %>
+        <script>
+          var competitorRevenueObject = [];
+          competitorRevenueObject.push({
+              company: '<%= j current_user.organization.name %>',
+              revenue: parseInt('<%= current_user.organization.revenue.to_json %>'),
+              home: true
+            });
+          // Yes, competitorRevenueObject does reset for each query!
+        </script>
+      <% end %>
+
+      <% revenue_total = 0 %>
+
+      <% @final_results.each do |result| %>
+
+        <tr>
+          <td><%= link_to result.name, result %></td>
+
+          <td><%= result.city %></td>
+          <td><%= result.province %></td>
+          <td><%= result.country %></td>
+          <td class="cell-number">
+            <%= number_to_currency(result.revenue) %>
+            <% revenue_total = revenue_total + result.revenue %>
+          </td>
+          <td><%= result.priority.name %></td>
+          <% if current_user.organization_id %>
+            <td>
+              <ul>
+              <% if my_competitors.include? result.id %>
+                <li>Competitor</li>
+              <% end %>
+              <% if my_clients.include? result.id %>
+                <li>Client</li>
+              <% end %>
+              <% if my_suppliers.include? result.id %>
+                <li>Supplier</li>
+              <% end %>
+              <% if !(my_competitors.include? result.id) && !(my_clients.include? result.id) && !(my_suppliers.include? result.id) %>
+                <li>None</li>
+              <% end %>
+              </ul>
+            </td>
+          <% end %>
+          <td nowrap>
+            <%#= link_to "Edit Org", edit_organization_path(result), class: "btn btn-primary" %>
+            <%#= link_to "Delete Org", organization_path(result), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} %>
+            <%= link_to result do %>
+              <span class="glyphicon glyphicon-zoom-in"></span> View
+            <% end %>
+            &nbsp;
+            <%= link_to edit_organization_path(result) do %>
+              <span class="glyphicon glyphicon-pencil"></span> Edit
+            <% end %>
+            &nbsp;
+            <%= link_to organization_path(result), method: :delete, data: {prompt: "Are you sure that you want to delete this organization?"} do %>
+              <span class="glyphicon glyphicon-trash"></span> Delete
+            <% end %>            
+          </td>
+        </tr>
+
+        <% if @competitor_search %>
+          <script>
+            competitorRevenueObject.push({
+                company: '<%= j result.name %>',
+                revenue: parseInt('<%= result.revenue.to_json %>'),
+                home: false
+              });
+            // Yes, competitorRevenueObject does reset for each query!
+          </script>
+        <% end %>
+
+      <% end %><!-- End looping through each row -->
+
+      <tr class="row-total">
+        <td>Total Revenue</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="cell-number"><%= number_to_currency(revenue_total) %></td>
+        <td></td>
+        <% if current_user.organization_id %>
+          <td></td>
+        <% end %>
+        <td></td>        
+      </tr>
+
+    </table>
+
+<% else %>
+  
+  <p>There are no search results<p>
+
+<% end %>
+
+<script>
+  <% if @competitor_search %>
+    console.log("foo");
+    loadCompetitorsBarChart();
+  <% else %>
+    $('#loading-shell').hide();
+  <% end %>
+</script>

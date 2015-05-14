@@ -1,0 +1,12 @@
+<%= simple_form_for @search, html: { class: 'form-group' }, remote: true do |f| %>
+
+  <%= f.simple_fields_for :filters do |filter| %>
+    <%= render "filter_fields", f: filter %>
+  <% end %>
+  <div class="links">
+    <%= link_to_add_association "Add another filter", f, :filters, {id: "add-filter", class: "btn btn-primary"} %>
+  </div>
+
+  <%= f.submit "Submit Search" %>
+
+<% end %>

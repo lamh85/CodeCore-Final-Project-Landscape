@@ -1,0 +1,309 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.clear {
+  clear: both;
+}
+
+body {
+  padding-bottom: 3em;
+}
+
+#welcome-to {
+  text-align: center;
+  font-size: 2em;
+  margin-top: 3em;
+}
+
+#logo-welcome {
+  text-align: center;
+  font-size: 5em;
+  font-family: 'Syncopate', 'Roboto', sans-serif;
+}
+
+.trim-col-padding {
+  padding: 0px;
+}
+
+.trim-children-padding > div {
+  padding: 0px;
+}
+
+/* FONTS */
+/*********/
+
+* {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+}
+
+h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 23pt;
+  font-weight: 100;
+}
+
+h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+h1 {
+  font-family: 'Oswald', 'Roboto', sans-serif;
+  font-size: 23pt;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0px;
+  margin-top: 1em;
+}
+
+.p-header {
+  font-weight: bold;
+}
+
+.tag {
+  padding: 0.5em;
+  margin: 0.5em 0.5em 0px 0px;
+  display: inline-block;
+  background: rgb(18, 76, 32);
+  color: white;
+  float: left;
+}
+
+/*.tag .glyphicon*/
+
+/* NAVIGATION BAR */
+/******************/
+
+#alert, .error-validation {
+  color: white;
+  background: red;
+  font-weight: bold;
+}
+
+#notice {
+  color: white;
+  background: green;
+  font-weight: bold;
+}
+
+#navOne {
+  background: black;
+}
+
+#navOne, #navTwo {
+  width: 100%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5em;
+  color: white;
+}
+
+#navOne a, #navTwo a, #quick-find {
+  font-family: 'Oswald', sans-serif;  
+  color: white;
+}
+
+#navOne a:hover, #navTwo a:hover {
+  text-decoration: none;
+}
+
+#navOne ul, #navTwo ul {
+  margin-bottom: 0px;
+}
+
+#navOne ul li, #navTwo .container ul li { /*style the list items in nav*/
+  display: inline;
+  padding-left: 1em;
+  background: none;
+}
+
+#navTwo {
+  text-align: right;
+  background: rgb(18, 76, 32);
+}
+
+#navTwo .container div{
+  float: right;
+  padding: 0px;
+  text-align: right;
+  background: none;
+}
+
+#navOne .left {
+  float: left;
+  background: none;
+}
+
+#navOne .right, #navTwo .right {
+  float: right;
+  background: none;
+}
+
+#current-user {
+  float: right;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 1em;
+  font-weight: bold;
+}
+
+#current-user .glyphicon {
+  margin-left: 1em;
+}
+
+#current-user a {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
+#logo, #logo a {
+  font-family: 'Syncopate', 'Roboto', sans-serif;
+  font-size: 17pt;
+}
+
+/* FORMS */
+
+.form-group .list-checkboxes {
+  height: 300px;
+  overflow: scroll;
+}
+
+.del-filter-bound .btn-danger {
+  margin-top: 23px;
+  text-align: center;
+}
+
+#add-filter {
+  margin-bottom: 20px
+}
+
+.form-control {
+  border-radius: 0px;
+}
+
+/* "LOADING" MODAL */
+
+#boundaries {
+  position: relative
+}
+
+#loading {
+  color: white;
+  text-align: center;
+  background: rgba(128, 128, 128, 0.5);
+  padding: 1em;
+  width: 200px;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-100px);
+}
+
+#loading .glyphicon-refresh {
+  font-size: 9em;
+}
+
+#loading-shell {
+  display: none;  
+}
+
+/* RESULTS */
+
+td, th {
+  border: 1px solid white;
+  border-width: 0px 1px;
+  padding: 0.5em;
+  vertical-align: top;
+}
+
+th {
+  font-weight: bold;
+  background: black;
+  color: white;
+}
+
+table {
+  width: 100%;
+}
+
+#compare-markets-table tr:nth-child(odd), table tr:nth-child(odd) {
+  background: #D9E8DA;
+  /* rgb(230,230,230); 
+  :not(.legend-container table tr) */
+}
+
+table ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.foo {
+  color: red;
+  font-size: 3em
+}
+
+.cell-number {
+  text-align: right;
+}
+
+.column-actions {
+  text-align: center;
+}
+
+/* CHART */
+/*********/
+
+.legend-container td {
+  background: none;
+  font-weight: 100;
+}
+
+.legend-container td, .legend-container th {
+  color: white;
+}
+
+.legend-container th {
+  background: black;
+}
+
+.canvas-container {
+  text-align: center;
+}
+
+.row-total td {
+  background: grey;
+  color: white;
+}
+
+canvas {
+  /*max-height: 300px;*/
+}
+
+#competitors-revenue {
+  height: 400px;
+  width: 75%;
+}
+
+.canvas-container .competitor-bar {
+  width: 100%;
+}

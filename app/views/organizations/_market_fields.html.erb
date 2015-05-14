@@ -1,0 +1,26 @@
+<div class="nested-fields">
+
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :product %>
+    <%= link_to_remove_association "Remove this row", f, {class: "btn btn-danger"} %>
+  </div>
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :category_id, collection: Category.all, label: "Product Category" %>
+  </div>
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :province %>
+  </div>
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :country %>    
+  </div>
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :sales %>
+  </div>
+  <div class="col-md-2 trim-col-padding">
+    <%= f.input :description, :input_html => {:rows => 2} %>
+  </div>
+
+  <div class="clear"></div>
+
+
+</div>

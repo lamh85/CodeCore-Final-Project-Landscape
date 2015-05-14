@@ -1,0 +1,26 @@
+
+<!-- 
+THIS FORM:
+
+<%#= form_tag organizations_path, :method => 'get' do %>
+  <p>
+    <%#= text_field_tag :search, params[:search] %>
+    <%#= submit_tag "Search", :name => nil %>
+  </p>
+<%# end %>
+
+RETURNS THIS:
+
+(byebug) params
+{"utf8"=>"✓", "search"=>"doohicky", "controller"=>"organizations", "action"=>"index"} 
+
+http://railscasts.com/episodes/37-simple-search-form
+-->
+
+<!-- Parameters: {"utf8"=>"✓", "authenticity_token"=>"5Ro2D+4SIuOz71jW8u7Whj9XLjXPtUVsgnPhUlp3q9Nxg2yqjqG1UMPSTb9G0+dGtx0h5YFXBNn/uRVfx2LYUQ==", "/organizations"=>{"city"=>"USA_symbol"}, "commit"=>"Save /organizations"} -->
+
+<h1>All Organizations</h1>
+
+<% @organizations.each do |org| %>
+  <p><%= link_to org.name, org %>
+<% end %>

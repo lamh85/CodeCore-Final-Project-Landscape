@@ -1,0 +1,86 @@
+<% if @organization.errors.any? %>
+  Cannot save your organization. Please correct these errors:
+  <ul class="error-validation">
+    <% @organization.errors.messages.each do |key,value| %>
+      <li><%= value.to_s[2..-3] %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= simple_form_for @organization, html: { class: 'form-group' } do |f| %>
+
+  <div class="col-md-4">
+    <%= f.input :name, label: "Company Name" %>
+  </div>  
+
+  <div class="col-md-4">
+    <%= f.input :street, label: "Street Address" %>
+    <div class="col-md-6 trim-col-padding">
+      <%= f.input :city %>
+    </div>
+    <div class="col-md-6 trim-col-padding">
+      <%= f.input :province %>
+    </div>
+    <%= f.input :country %>
+  </div>
+
+  <div class="col-md-4">
+    <%= f.input :priority_id, collection: Priority.all, label: "Priority Level" %>
+    <%= f.input :revenue %>
+    <%= f.input :description %>
+  </div>
+
+  <div class="clear"></div>
+
+<!-- SALES DATA -->
+  <h2>Market Data</h2>
+
+  <%= f.simple_fields_for :markets do |market| %>
+    <%= render "market_fields", f: market %>
+  <% end %>
+
+  <div class="links">
+    <%= link_to_add_association "Add another market", f, :markets, {id: "add-filter", class: "btn btn-primary"} %>
+  </div>
+
+<!-- ASSOCIATIONS -->
+  <h2>Associations</h2>
+
+  <div class="group-sort list-checkboxes col-md-4 list-competitors">
+    <%= f.association :competitors, as: :check_boxes, collection: Organization.sort_by_name %>
+  </div>
+
+  <div class="group-sort list-checkboxes col-md-4 list-clients">
+    <%= f.association :clients, as: :check_boxes, collection: Organization.sort_by_name %>
+  </div>
+
+  <div class="group-sort list-checkboxes col-md-4 list-suppliers">
+    <%= f.association :suppliers, as: :check_boxes, collection: Organization.sort_by_name %>
+  </div>  
+
+  <div class="clear"></div>
+
+  <p><%= f.submit "Submit", {class: "btn btn-success"} %>
+<% end %>
+
+<!-- <br>Filter (case sensitive) -->
+<!-- <input id="inputFilterCheckBox"><button id="clearFilterCheckBox">Clear</button> -->
+
+<!-- <input id="inputFilter">
+<ul id="listFilter">
+<li>abc</li>
+<li>bcd</li>
+<li>cde</li>
+<li>def</li>
+</ul> -->
+
+<!-- From group project: sharing ideas with teams: -->
+
+<%# else %>
+  <%#= simple_form_for Share.new, url: idea_shares_path(idea), method: :post do |f| %>
+    <%#= f.collection_check_boxes :team_ids, current_user.teams, :id, :name %>
+    <%#br>
+    <%#= f.submit "Share With These Groups", class: "btn btn-success" %>
+  <%# end %>
+
+<%# end %>

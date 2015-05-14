@@ -1,0 +1,35 @@
+<h1>Compare Organizations</h1>
+
+<%= simple_form_for @comparison, remote: true do |f| %>
+<!-- remote: true -->
+
+  <div class="col-md-6">
+    <%= f.input :org1, collection: Organization.sort_by_name, label: "First Organization" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= f.input :org2, collection: Organization.sort_by_name, label: "Second Organization" %>
+  </div>
+
+  <div class="clear"></div>
+
+  <%= f.submit "Compare" %>
+
+<% end %>
+
+<!-- Results section -->  
+<div id="results-comparison">
+  <%= render partial: "results" %>
+</div>
+
+<!-- STYLES SPECIFIC TO THIS PAGE -->
+<style>
+#results-comparison h3 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  text-decoration: underline;
+}
+</style>
