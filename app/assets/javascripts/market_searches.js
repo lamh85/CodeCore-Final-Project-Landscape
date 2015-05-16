@@ -1,8 +1,9 @@
 var chartDrawing = [];
-
-var foo = "hello world";
+var chartDrawingLeft;
+var chartDrawingRight;
 
 var resultsLoaded = function(){
+  $('.canvas').slideUp();
 
   var marketProperty;
 
@@ -38,7 +39,7 @@ var resultsLoaded = function(){
   var ctx;
   var loadPieChart
   var legend;
-  var totalSales = 0;
+  // var totalSales = 0;
 
   var insertCommas = function(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -57,8 +58,6 @@ var resultsLoaded = function(){
   var canvasContID;
   var canvasID;
   var legendContID;
-  var chartDrawingLeft;
-  var chartDrawingRight;
 
   var fooData = [ // One array is a pie chart
     { // Each object represents a wedge in the pie chart
@@ -69,19 +68,19 @@ var resultsLoaded = function(){
   chartDrawingLeft = new Chart(ctx0).Pie(fooData);
   ctx1 = $('canvas').get(1).getContext("2d");
   chartDrawingRight = new Chart(ctx1).Pie(fooData);
-  console.log("foo data loaded into pie");
 
   // When user submits choice
-  // ////////////////////////
+  // //////////////////////////////////////////////////////////////////////////
 
   var buttonHandler = function(dropDownValue, buttonID, canvasContID, canvasID, chartDrawing, legendContID){
 
-    // Re-initialize variabls
+    console.log("is chartDrawingLeft defined? " + (chartDrawingLeft == undefined));
+
+    // Re-initialize variables
     // if (chartDrawing != undefined) {
-    //   // chartDrawing.clear();
+      // chartDrawing.clear();
     //   chartDrawing.destroy();
     // }
-    // $(canvasContID).html('<canvas id="' +canvasID+ '" width="400" height="400"></canvas>');
 
     var pieCompanies = [];
     var pieProducts = [];
@@ -108,12 +107,7 @@ var resultsLoaded = function(){
       error: function() { console.log("Cannot GET AJAX file") },
       success: function(data){
 
-        // Get the JSON data and find the total
         jsonData = data;
-        totalSales = 0;
-        for (i=0; i<jsonData.length; i++) {
-          totalSales += jsonData[i].sales;
-        }
 
         console.log("total sales = " + totalSales);
 
@@ -156,7 +150,7 @@ var resultsLoaded = function(){
               highlight: "#071C4B",
               label: marketPropArrays[arrayFeeder][i]
             }); // .push
-            console.log("color index =" + colorIndex);
+            // console.log("color index =" + colorIndex);
           } // for loop
         }
 
@@ -211,11 +205,6 @@ var resultsLoaded = function(){
 
         ctx = $(canvasID).get(0).getContext("2d");
 
-        if (buttonID == '#load-button-left')
-          { chartDrawingLeft = new Chart(ctx).Pie(pieSelected) }
-        else if (buttonID == '#load-button-right')
-          { chartDrawingRight = new Chart(ctx).Pie(pieSelected) }
-
         tableFromLoop = "";
 
         tableFromLoop = "<table><tr> <th>" +dropDownValue+ "</th><th>Sales ($)</th><th>Market Share</th></tr>";
@@ -231,16 +220,39 @@ var resultsLoaded = function(){
         tableFromLoop += "</table>";
 
         $(legendContID).html(tableFromLoop);
+        $('.legend-container').slideDown();
+
+
+        if (buttonID == '#load-button-left') {
+          chartDrawingLeft.destroy();
+          $('#canvas-left').remove();
+          $('#canvas-container-left').html('<canvas id="canvas-left" class="canvas market-search" width="400" height="400"></canvas>');
+          ctx = $('#canvas-left').get(0).getContext("2d");
+          setTimeout(function(){ chartDrawingLeft = new Chart(ctx).Pie(pieSelected) }, 500);
+        }
+        else if (buttonID == '#load-button-right') {
+          $('#canvas-right').remove();
+          $('#canvas-container-right').html('<canvas id="canvas-right" class="canvas market-search" width="400" height="400"></canvas>');
+          ctx = $('#canvas-right').get(0).getContext("2d");
+          chartDrawingRight.destroy();
+          setTimeout(function(){ chartDrawingRight = new Chart(ctx).Pie(pieSelected) }, 500);
+        }
 
       }// end the success function
     });// AJAX function 
 
-  }; // click handler function 
+    Chart.defaults.global.showTooltips = true;
+
+  }; // click handler function for loading the pie charts
+
+  $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
 
   // Function for left button
   $('#load-button-left').click(function(){
+    Chart.defaults.global.showTooltips = false;
     chartDrawingLeft.destroy();
-    $('.canvas').show(function(){      
+    console.log(chartDrawingLeft);
+    $('.canvas').slideDown('fast',function(){      
       dropDownValue = $('#pie-drop-down-left').val();
       buttonID = '#load-button-left';
       canvasContID = '#canvas-container-left';
@@ -248,18 +260,25 @@ var resultsLoaded = function(){
       legendContID = '#legend-container-left';
       buttonHandler( dropDownValue, buttonID, canvasContID, canvasID, chartDrawingLeft, legendContID );
     });
-  }); 
+  }); // End click handler
 
     // Function for right button
   $('#load-button-right').click(function(){
+    Chart.defaults.global.showTooltips = false;
     chartDrawingRight.destroy();
-    // $('.canvas').slideDown();
-    dropDownValue = $('#pie-drop-down-right').val();
-    buttonID = '#load-button-right';
-    canvasContID = '#canvas-container-right';
-    canvasID = '#canvas-right';
-    legendContID = '#legend-container-right';
-    buttonHandler( dropDownValue, buttonID, canvasContID, canvasID, chartDrawingRight, legendContID );
+    $('.canvas').slideDown('fast',function(){      
+      dropDownValue = $('#pie-drop-down-right').val();
+      buttonID = '#load-button-right';
+      canvasContID = '#canvas-container-right';
+      canvasID = '#canvas-right';
+      legendContID = '#legend-container-right';
+      buttonHandler( dropDownValue, buttonID, canvasContID, canvasID, chartDrawingRight, legendContID );
+      });
+  }); // End click handler
+
+  $('.hide-pie').click(function(){
+    $('.canvas').slideUp('fast');
+    $('.legend-container').slideUp('fast');
   });
 
-}
+} // load this whole JS when raw results finish loading

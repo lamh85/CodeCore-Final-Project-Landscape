@@ -1,11 +1,13 @@
 class SearchesController < ApplicationController
 
   def all_orgs
+    session[:nav_link_pressed] = "All Orgs"
     @final_results = Organization.all
     render "all_orgs"
   end
 
   def competitors
+    session[:nav_link_pressed] = "My Competitors"
     @final_results = current_user.organization.competitors
     @inverse_competitors = current_user.organization.inverse_competitors
     if @inverse_competitors != nil
@@ -17,16 +19,19 @@ class SearchesController < ApplicationController
   end
 
   def clients
+    session[:nav_link_pressed] = "My Clients"
     @final_results = current_user.organization.clients
     render "clients"
   end
 
   def suppliers
+    session[:nav_link_pressed] = "My Suppliers"    
     @final_results = current_user.organization.suppliers
     render "suppliers"
   end
 
   def new
+    session[:nav_link_pressed] = "Search Orgs"    
     @search = Search.new
     1.times { @search.filters.build }
   end

@@ -4,9 +4,14 @@
     <%= render "market_filter_fields", f: market_filter %>
   <% end %>
   <div class="links">
-    <%= link_to_add_association "Add another filter", f, :market_filters, {id: "add-filter", class: "btn btn-primary"} %>
+    <%= link_to_add_association "<span class='glyphicon glyphicon-filter'></span> Add another filter".html_safe, f, :market_filters, {id: "add-filter", class: "btn btn-primary"} %>
   </div>
+  <div class="clear"></div>
 
-  <%= f.submit "Search" %>
+  <div class="wrapper-market-search">
+    <%= button_to :controller => "market_searches", :action => "create" do %>
+      <span class="glyphicon glyphicon-search"></span> Search
+    <% end %>
+  </div>
 
 <% end %>

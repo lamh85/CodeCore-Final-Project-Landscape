@@ -4,9 +4,13 @@
     <%= render "filter_fields", f: filter %>
   <% end %>
   <div class="links">
-    <%= link_to_add_association "Add another filter", f, :filters, {id: "add-filter", class: "btn btn-primary"} %>
+    <%= link_to_add_association "<span class='glyphicon glyphicon-filter'></span> Add another filter".html_safe, f, :filters, {id: "add-filter", class: "btn btn-primary"} %>
   </div>
 
-  <%= f.submit "Submit Search" %>
+  <div class="wrapper-search">
+    <%= button_to :controller => "searches", :action => "create" do %>
+      <span class="glyphicon glyphicon-search"></span> Search
+    <% end %>
+  </div>
 
 <% end %>

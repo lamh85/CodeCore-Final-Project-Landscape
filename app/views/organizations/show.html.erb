@@ -20,7 +20,7 @@
   <span class="glyphicon glyphicon-tag"></span>&nbsp;Priority Level: <%= @organization.priority.name %>
 </div>
 <div class="tag">
-<span class="glyphicon glyphicon-tag"></span>&nbsp;Relationship(s) to me:&nbsp;
+  <span class="glyphicon glyphicon-tag"></span>&nbsp;Relationship(s) to me:&nbsp;
   <% if my_competitors.include? @organization.id %>
       <% relationships_string = "Competitor" %>
   <% end %>

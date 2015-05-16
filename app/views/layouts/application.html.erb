@@ -1,3 +1,5 @@
+<% greeting_question = ["How are you today?","What is your focus today?","Have you played 'Apples or Chuck Norris'?","Have you had your caffeine today?"].sample %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +8,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <link href='http://fonts.googleapis.com/css?family=Oswald:400,300|Roboto:400italic,700italic,700,400' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Syncopate:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
 
@@ -18,94 +21,135 @@
   <% end %>
 <% end %>
 
-
 <body>
-
-  <div id="alert"><div class="container">
-    <%= flash[:alert] %>
-  </div></div>
-  <div id="notice"><div class="container">
-    <%= flash[:notice] %>
-  </div></div>
-
-  <div id="navOne">
-    <div class="container">
-      <div class="left">
-        <div id="logo"> <!-- LOGO -->
-          <span class="glyphicon glyphicon-signal"></span>
-          <span class="glyphicon glyphicon-qrcode"></span>
-          <span class="glyphicon glyphicon-picture"></span>
-          <%= link_to "LANDSCAPE", root_path %>
-        </div>
-      </div>
-      <div class="right">
-        <ul>
-
-          <li>
-            <%= link_to "New Org", new_organization_path %>
-          </li>
-
-          <li>
-            <% if current_user %>
-              <% if current_user.organization_id %>
-                <%= link_to "My Org", my_org_path %>
-              <% else %>
-                <%= link_to "Set My Home Org.", settings_path %>
-              <% end %>
-            <% end %>
-          </li>
-          
-          <li id="quick-find">
-            View an org:&nbsp;
-            <%= select_tag "Organizations", options_from_collection_for_select(Organization.sort_by_name, "id", "name"), html: {class: "form-control"}, include_blank: "SELECT AN ORG" %>
-          </li>
-
-        </ul>
-      </div><!-- END RIGHT COLUMN -->
-    </div><!-- END CONTAINER -->
-    <div class="clear"></div>
-  </div>
-
-  <div id="navTwo">
-    <div class="container"> <!-- CONTAINER FOR SECOND NAV BAR -->
-      <div class="left">
-      </div>
-      <ul>
-        <li><%= link_to "Search Orgs", new_search_path %></li>                    
-        <li><%= link_to "Market Share", new_market_search_path %></li>
-        <li><%= link_to "Compare Orgs", new_comparison_path %></li>
-        <% if current_user %>
-          <li><%= link_to "My Suppliers", "/searches/suppliers" %></li>
-          <li><%= link_to "My Clients", "/searches/clients" %></li>
-          <li><%= link_to "My Competitors", "/searches/competitors" %></li>
-        <% end %>
-        <li><%= link_to "All Orgs", "/searches/all_orgs" %></li>
-      </ul>
+  <div id="loading-shell">
+    <div id="loading" class="container">
+      <h1>Loading...</h1>
+      <span class="glyphicon glyphicon-refresh"></span>
     </div>
   </div>
 
-<!-- END TOP BARS -->
+  <div id="nav-all-rows">
 
-<div class="container">
+    <div id="alert"><div class="container">
+      <%= flash[:alert] %>
+    </div></div>
+    <div id="notice"><div class="container">
+      <%= flash[:notice] %>
+    </div></div>
 
-  <div id="current-user">
-    <% if user_signed_in? %>
-      <span class="glyphicon glyphicon-user"></span>
-      Hello, <%= current_user.name_display %>
-      <span class="glyphicon glyphicon-cog"></span>
-      <%= link_to "Settings", settings_path %>
-      <span class="glyphicon glyphicon-log-out"></span>
-      <%= link_to "Sign out", destroy_user_session_path %>
-    <% else %>
-      <span class="glyphicon glyphicon-log-out"></span>
-      <%= link_to "Please sign in", new_user_session_path %>
-    <% end %>
+    <div id="navOne">
+      <div class="container">
+        <div class="left">
+          <div id="logo"> <!-- LOGO -->
+            <span class="glyphicon glyphicon-signal"></span>
+            <span class="glyphicon glyphicon-qrcode"></span>
+            <span class="glyphicon glyphicon-picture"></span>
+            <%= link_to "LANDSCAPE", root_path %>
+          </div>
+        </div>
+        <div class="right">
+          
+          <div id="quick-find" class="wrapper-link">
+            View an org:&nbsp;
+            <%= select_tag "Organizations", options_from_collection_for_select(Organization.sort_by_name, "id", "name"), html: {class: "form-control"}, include_blank: "SELECT AN ORG" %>
+          </div>
+
+          <% if current_user %>
+            <% if current_user.organization_id %>
+              <%= link_to my_org_path do %>
+                <div class="wrapper-link">My Org</div>
+              <% end %>
+            <% else %>
+              <%= link_to settings_path do %>
+                <div class="wrapper-link">Set My Home Org</div>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <%= link_to new_organization_path do %>
+            <div class="wrapper-link">New Org</div>
+          <% end %>
+          
+        </div><!-- END RIGHT COLUMN -->
+      </div><!-- END CONTAINER -->
+      <div class="clear"></div>
+    </div>
+
+    <div id="navTwo">
+      <div class="container"> <!-- CONTAINER FOR SECOND NAV BAR -->
+
+      <div class="left">
+      </div>
+
+      <div class="right">
+
+        <%= link_to "/searches/all_orgs" do %>
+          <div class="wrapper-link">All Orgs</div>
+        <% end %>
+
+        <% if current_user %>
+          <%= link_to "/searches/competitors" do %>
+            <div class="wrapper-link">My Competitors</div>
+          <% end %>
+
+          <%= link_to "/searches/clients" do %>
+            <div class="wrapper-link">My Clients</div>            
+          <% end %>
+
+          <%= link_to "/searches/suppliers" do %>
+            <div class="wrapper-link">My Suppliers</div>            
+          <% end %>
+        <% end %>
+
+        <%= link_to new_comparison_path do %>
+          <div class="wrapper-link">Compare Orgs</div>          
+        <% end %>
+
+        <%= link_to new_market_search_path do %>
+          <div class="wrapper-link">Market Share</div>
+        <% end %>
+
+        <%= link_to new_search_path do %>
+          <div class="wrapper-link">Search Orgs</div>
+        <% end %>
+      </div>
+        
+      </div>
+    </div>
+
+    <div class="container"> <!-- USER ACCOUNT LINKS -->
+      <div id="current-user">
+        <% if user_signed_in? %>
+          <span class="glyphicon glyphicon-user"></span>
+          Hello, <%= current_user.name_display %>. <%= greeting_question %>
+          <span class="glyphicon glyphicon-cog"></span>
+          <%= link_to "Settings", settings_path %>
+          <span class="glyphicon glyphicon-log-out"></span>
+          <%= link_to "Sign out", destroy_user_session_path %>
+        <% else %>
+          <span class="glyphicon glyphicon-log-out"></span>
+          <%= link_to "Please sign in", new_user_session_path %>
+        <% end %>
+      </div> <!-- END CURRENT USER CONTAINER -->
+      <div class="clear"></div>
+    </div>
+
+  </div><!-- END TOP BARS INCLUDING USER-ACCOUNT LINKS-->
+
+  <!-- END TOP BARS INCLUDING USER-ACCOUNT LINKS-->
+
+  <div class="container">
+
+    <!-- YIELD -->
+    <%= yield %>
   </div>
-  <div class="clear"></div>
-
-
-  <%= yield %>
-</div>
 
 </body>
+
+<script>
+  $('#navTwo .wrapper-link:contains("<%= j session[:nav_link_pressed] %>")').css('background','#2E723E').css('border','1px solid rgb(18, 76, 32)').css('border-width','0px 1px');  
+  // .addClass('link-pressed');
+</script>
+
 </html>

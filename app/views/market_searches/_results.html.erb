@@ -24,19 +24,33 @@
 
     <% 2.times do |x| %>
 
-      <div class="col-md-6" id="<%= col_pie[x] %>">
-        Select how to divide your chart
-        <select class="pie-drop-down" id="<%= pie_drop_down[x] %>">
-          <option value="Company">by Company</option>
-          <option value="Product">by Product</option>
-          <option value="Category">by Product Category</option>
-          <option value="Province">by Province</option>
-          <option value="Country">by Country</option>
-        </select>
+      <div class="col-md-6 trim-col-padding" id="<%= col_pie[x] %>">
 
-        <br><button id="<%= load_button[x] %>" class="btn load-button">Load Chart</button>
+        <div class="col-md-4 trim-col-padding">
+          Divide my chart by...
+          <select class="pie-drop-down" id="<%= pie_drop_down[x] %>">
+            <option value="Company">Company</option>
+            <option value="Product">Product</option>
+            <option value="Category">Product Category</option>
+            <option value="Province">Province</option>
+            <option value="Country">Country</option>
+          </select>
+        </div>
+
+        <div class="col-md-8 trim-col-padding">
+          <div id="<%= load_button[x] %>" class="tag load-button btn btn-success">
+            <i class="fa fa-pie-chart"></i> Load Chart
+          </div>
+
+          <div class="button-pie hide-pie tag danger load-button btn">
+            <span class="glyphicon glyphicon-minus-sign"></span> Hide Charts and Tables
+          </div>
+
+        </div>
+
         <div id="<%= canvas_container[x] %>" class="canvas-container">
-          <canvas id="<%= canvas[x] %>" class="canvas" width="400" height="400"></canvas>    
+          <canvas id="<%= canvas[x] %>" class="canvas market-search" width="400" height="400"></canvas>
+
         </div>
 
         <div id="<%= legend_container[x] %>" class="legend-container"></div>
@@ -50,7 +64,7 @@
 
     <!-- Start displaying raw data -->
 
-    <h2>Full Results</h2>
+    <h2 class="full-results">Full Results</h2>
 
     <table id="results-table">
       <tr>
@@ -64,6 +78,7 @@
         <th>Description</th>
       </tr>
 
+      <% sales_total = 0 %>
       <% @final_results.each do |result| %>
 
       <tr>
@@ -74,12 +89,26 @@
         <td><%= result.province %></td>
         <td><%= result.country %></td>
         <td class="cell-number"><%= number_to_currency(result.sales) %></td>
+          <% sales_total = sales_total + result.sales %>
         <td><%= result.description %></td>
       </tr>
       <% end %><!-- End looping through each row -->
+
+      <tr class="row-total">
+        <td>TOTAL</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= number_to_currency(sales_total) %></td>
+        <td></td>
+      </tr>
+
     </table>
 
   <script>
+    var totalSales = parseInt(<%= sales_total.to_json %>);
     resultsLoaded(); // Trigger market_searches.js
   </script>
 

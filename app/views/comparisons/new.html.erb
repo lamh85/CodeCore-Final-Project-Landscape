@@ -1,19 +1,29 @@
 <h1>Compare Organizations</h1>
 
+<p>Select two organizations to compare.
+
+<p>&nbsp;
+
 <%= simple_form_for @comparison, remote: true do |f| %>
 <!-- remote: true -->
 
-  <div class="col-md-6">
+  <div class="col-md-5 trim-col-padding">
     <%= f.input :org1, collection: Organization.sort_by_name, label: "First Organization" %>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-5 trim-col-padding">
     <%= f.input :org2, collection: Organization.sort_by_name, label: "Second Organization" %>
+  </div>
+
+  <div class="col-md-2 trim-col-padding wrapper-compare">
+    <%= button_to :controller => "comparisons", :action => "create" do %>
+      <span class="glyphicon glyphicon-stats"></span> Compare
+    <% end %>
+
   </div>
 
   <div class="clear"></div>
 
-  <%= f.submit "Compare" %>
 
 <% end %>
 

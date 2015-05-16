@@ -8,12 +8,13 @@
 <% end %>
 
 <%= simple_form_for @organization, html: { class: 'form-group' } do |f| %>
+  <h2>Profile</h2>
 
-  <div class="col-md-4">
+  <div class="col-md-3 trim-col-padding">
     <%= f.input :name, label: "Company Name" %>
   </div>  
 
-  <div class="col-md-4">
+  <div class="col-md-3 trim-col-padding">
     <%= f.input :street, label: "Street Address" %>
     <div class="col-md-6 trim-col-padding">
       <%= f.input :city %>
@@ -24,10 +25,12 @@
     <%= f.input :country %>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-3 trim-col-padding">
     <%= f.input :priority_id, collection: Priority.all, label: "Priority Level" %>
     <%= f.input :revenue %>
-    <%= f.input :description %>
+  </div>
+  <div class="col-md-3 trim-col-padding">    
+    <%= f.input :description, input_html: {rows: 8} %>
   </div>
 
   <div class="clear"></div>

@@ -11,7 +11,16 @@ var pieOrg1 = [];
 var pieDrawing0;
 var pieDrawing1;
 
+var totalSales0 = 0;
+var totalSales1 = 0;
+
 var comparisonResultsLoaded = function(){
+
+  // Hide the loading modal
+  $('#loading-shell').hide();
+
+  totalSales0 = 0;
+  totalSales1 = 0;
 
   console.log("***STARTING FUNCTION***");
 
@@ -89,8 +98,10 @@ var comparisonResultsLoaded = function(){
         color: colorArray[colorIndex],
         highlight: "#071C4B",
         label: productsArray0[i]
-      })
+      }) // Push wedges into pieOrg0
+      totalSales0 += parseInt(salesArray0[i]);
     }; // Loop through the arrays to populate the pie charts
+    $('#total-header-left').append("$" +insertCommas(totalSales0));
 
     setTimeout(function(){
       pieDrawing0 = new Chart(ctx0).Pie(pieOrg0);
@@ -112,7 +123,9 @@ var comparisonResultsLoaded = function(){
         highlight: "#071C4B",
         label: productsArray1[i]
       })
+      totalSales1 += parseInt(salesArray1[i]);
     }; // Loop through the arrays to populate the pie charts  
+    $('#total-header-right').append("$" +insertCommas(totalSales1));
 
     setTimeout(function(){
       pieDrawing1 = new Chart(ctx1).Pie(pieOrg1);

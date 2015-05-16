@@ -1,6 +1,7 @@
 class ComparisonsController < ApplicationController
 
   def new
+    session[:nav_link_pressed] = "Compare Orgs"    
     @comparison = Comparison.new
   end
 

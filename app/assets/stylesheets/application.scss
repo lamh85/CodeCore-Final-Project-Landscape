@@ -88,7 +88,13 @@ p {
   float: left;
 }
 
-/*.tag .glyphicon*/
+.tag.danger {
+  background: #BC4141;
+}
+
+.tag:hover {
+  color: white;
+}
 
 /* NAVIGATION BAR */
 /******************/
@@ -111,8 +117,6 @@ p {
 
 #navOne, #navTwo {
   width: 100%;
-  padding-top: 1em;
-  padding-bottom: 1em;
   font-family: 'Oswald', sans-serif;
   font-size: 1.5em;
   color: white;
@@ -142,13 +146,6 @@ p {
   background: rgb(18, 76, 32);
 }
 
-#navTwo .container div{
-  float: right;
-  padding: 0px;
-  text-align: right;
-  background: none;
-}
-
 #navOne .left {
   float: left;
   background: none;
@@ -157,6 +154,10 @@ p {
 #navOne .right, #navTwo .right {
   float: right;
   background: none;
+}
+
+#navTwo .left {
+  float: left;
 }
 
 #current-user {
@@ -175,12 +176,53 @@ p {
   font-weight: bold;
 }
 
+#logo {
+  margin: 17px 0;
+}
+
 #logo, #logo a {
   font-family: 'Syncopate', 'Roboto', sans-serif;
-  font-size: 17pt;
+  font-size: 20pt;
+}
+
+#nav-all-rows { 
+}
+
+/* NAV BAR LINK WRAPPERS */
+/*************************/
+
+#navOne .container .right .wrapper-link {
+  float: right;
+  padding: 1em;
+  font-family: 'Oswald', sans-serif;
+}
+
+#navOne .container .right .wrapper-link:hover {
+  background: rgb(40, 40, 40);
+}
+
+#navTwo .container .wrapper-link {
+  float: right;
+}
+
+#navTwo .wrapper-link {
+  padding: 1em;
+  font-family: 'Oswald', sans-serif;
+  background: rgb(18, 76, 32);  
+}
+
+#navTwo .wrapper-link:hover {
+  background: #2E723E;
+}
+
+.link-pressed {
+  background: #2E723E;
+  border: 1px solid rgb(18, 76, 32);
+  border-width: 0px 1px;  
 }
 
 /* FORMS */
+/*********/
 
 .form-group .list-checkboxes {
   height: 300px;
@@ -188,7 +230,7 @@ p {
 }
 
 .del-filter-bound .btn-danger {
-  margin-top: 23px;
+  margin-top: 25px;
   text-align: center;
 }
 
@@ -200,6 +242,19 @@ p {
   border-radius: 0px;
 }
 
+.col-md-4 .btn-danger, .col-md-2 .btn-danger, .wrapper-compare button {
+  width: 100%;
+}
+
+.wrapper-compare button {
+  top: 25px;
+  position: relative;  
+}
+
+.btn {
+  border-bottom: 3px solid black;
+}
+  
 /* "LOADING" MODAL */
 
 #boundaries {
@@ -209,13 +264,14 @@ p {
 #loading {
   color: white;
   text-align: center;
-  background: rgba(128, 128, 128, 0.5);
+  background: rgba(79, 151, 93, 0.5);
   padding: 1em;
   width: 200px;
   position: absolute;
   z-index: 1;
   left: 50%;
-  transform: translate(-100px);
+  top: 50%;
+  transform: translate(-100px, -111px);
 }
 
 #loading .glyphicon-refresh {
@@ -266,12 +322,16 @@ table ul {
   text-align: right;
 }
 
-.column-actions {
-  text-align: center;
+.column-actions a {
+font-weight: bold;
 }
 
 /* CHART */
 /*********/
+/*
+.canvas.market-search {
+  display: none;
+}*/
 
 .legend-container td {
   background: none;
@@ -286,8 +346,8 @@ table ul {
   background: black;
 }
 
-.canvas-container {
-  text-align: center;
+#results-market {
+  position: relative;
 }
 
 .row-total td {
@@ -295,8 +355,8 @@ table ul {
   color: white;
 }
 
-canvas {
-  /*max-height: 300px;*/
+.canvas-container {
+  text-align: center;
 }
 
 #competitors-revenue {

@@ -1,6 +1,6 @@
 class Organization < ActiveRecord::Base
 
-  default_scope { order(:revenue => :desc) }
+  default_scope { order(:name => :asc) }
 
   # ASSOCIATE WITH PRODUCTS
 

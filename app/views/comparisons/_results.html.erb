@@ -2,6 +2,7 @@
 <% org_instance_vars = [@org1,@org2] %>
 <% canvas_container = ["canvas-container-left","canvas-container-right"] %>
 <% canvas = ["canvas-left","canvas-right"] %>
+<% total_header = ["total-header-left","total-header-right"] %>
 
 <!-- My org's suppliers, clients, and competitors -->
 <% my_suppliers = current_user.organization.suppliers.pluck(:id) %>
@@ -51,7 +52,36 @@
   <div class="col-md-6" >
     <h2><%= org_instance_vars[x].name %></h2>
 
+    <div class="tag">
+      <span class="glyphicon glyphicon-tag"></span>&nbsp;Priority Level: <%= org_instance_vars[x].priority.name %>
+    </div>
+
     <% relationships_string = "" %>
+    <div class="tag">
+      <span class="glyphicon glyphicon-tag"></span>&nbsp;Relationship(s) to me:&nbsp;
+      <% if my_competitors.include? org_instance_vars[x].id %>
+          <% relationships_string = "Competitor" %>
+      <% end %>
+      <% if my_clients.include? org_instance_vars[x].id %>
+          <% if relationships_string == "" %>
+            <% relationships_string = "Client" %>
+          <% else %>
+            <% relationships_string = "Competitor, Client" %>
+          <% end %>
+      <% end %>
+      <% if my_suppliers.include? org_instance_vars[x].id %>
+          <% if relationships_string == "" %>
+            <% relationships_string = "Supplier" %>
+          <% else %>
+            <% relationships_string = "#{relationships_string}, Supplier" %>
+          <% end %>
+      <% end %>
+      <% if !(my_competitors.include? org_instance_vars[x].id) && !(my_clients.include? org_instance_vars[x].id) && !(my_suppliers.include? org_instance_vars[x].id) %>
+          <% relationships_string = "None" %>
+      <% end %>
+      <%= relationships_string %>
+    </div>
+    <div class="clear"></div>
 
     
     <!-- <div class="col-md-12"> -->
@@ -65,26 +95,8 @@
     </div>
 
     <div class="col-md-4">
-      <p class="p-header">Priority Level</p>
-      <%= org_instance_vars[x].priority.name %>
-
-      <p class="p-header">Relationship(s) to me</p>
-     
-        <ul>
-        <% if my_competitors.include? org_instance_vars[x].id %>
-          <li>Competitor</li>
-        <% end %>
-        <% if my_clients.include? org_instance_vars[x].id %>
-          <li>Client</li>
-        <% end %>
-        <% if my_suppliers.include? org_instance_vars[x].id %>
-          <li>Supplier</li>
-        <% end %>
-        <% if !(my_competitors.include? org_instance_vars[x].id) && !(my_clients.include? org_instance_vars[x].id) && !(my_suppliers.include? org_instance_vars[x].id) %>
-          <li>None</li>
-        <% end %>
-        </ul>  
-
+      <p class="p-header">Description</p>
+      <%= org_instance_vars[x].description %>
     </div>
 
     <div class="col-md-4">
@@ -104,11 +116,12 @@
       <%#= link_to "Edit this org", edit_organization_path(org_instance_vars[x]), class: "btn btn-primary" %>
       <!--br--><%#= link_to "Delete this org", organization_path(org_instance_vars[x]), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} %>
     </div>
-
-    <div class="clear"></div>
     
   </div>
 <% end %>
+
+<div class="clear"></div>
+
 
 <h3>--- Revenue ---</h3>
 <% 2.times do |x| %>
@@ -160,6 +173,7 @@
         <canvas id="<%= canvas[x] %>" class="canvas" height="300"></canvas>
       </div>
 
+      <p class="p-header" id="<%= total_header[x] %>">Total sales - </p>
       <table id="compare-markets-table">
         <tr>
           <th>Product</th>
@@ -220,7 +234,7 @@
 <div class="clear"></div>
 
 <script>
-  comparisonResultsLoaded();
+  comparisonResultsLoaded(); // Loads comparisons.js
 </script>
 
 <h3>--- Suppliers ---</h3>
@@ -245,7 +259,23 @@
 
 <div class="clear"></div>
 
+<!-- If @org1 && @org2 -->
+<% else %>
 
+  <!-- VALIDATION ERROR MESSAGES -->
+  <% if @comparison.errors.any? %>
+    <p>We could not perform your search. Please correct the errors below:
+    <ul class="error-validation">
+      <% @comparison.errors.messages.each do |key,value| %>
+        <li><%= value.to_s[2..-3] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <script>
+    // Hide the loading modal
+    $('#loading-shell').hide();  
+  </script>
 
 <!-- If @org1 && @org2 -->
 <% end %>

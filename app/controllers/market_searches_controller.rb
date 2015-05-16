@@ -1,6 +1,7 @@
 class MarketSearchesController < ApplicationController
 
   def new
+    session[:nav_link_pressed] = "Market Share"    
     @market_search = MarketSearch.new
     1.times { @market_search.market_filters.build }
   end

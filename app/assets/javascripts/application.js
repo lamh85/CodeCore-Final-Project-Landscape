@@ -17,6 +17,10 @@
 //= require turbolinks
 //= require cocoon
 //= require_tree .
+  
+var insertCommas = function(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 $(document).ready(function() {
 
@@ -34,6 +38,8 @@ $(document).ready(function() {
   //   orgSortFn( orgArray[i] );
   // }
 
+  // FILTER CHECKBOXES
+  // /////////////////
   $("#clearFilterCheckBox").click(function(event){
     event.preventDefault();
     $('#inputFilterCheckBox').val("").change();
@@ -47,23 +53,24 @@ $(document).ready(function() {
     $(this).change();
   });
 
-  // Add a "loading..." indicator
-  var showLoading = function(){
-    $('input[type="submit"]').click(function(){ 
-      $('#loading-shell').show();
-      var degrees = 0;
-      setInterval(function(){
-        $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
-        if (degrees == 359) {
-          degrees = 0
-        } else {
-          degrees ++      
-        }
-      }, 5);
-    });
-  }
-  showLoading();
+  // LOADING ANIMATION
+  // /////////////////
+  $('#navOne a, #navTwo a, #current-user a, input[type="submit"], .wrapper-search button, .wrapper-market-search button, .wrapper-compare button').click(function(){ 
+  // $('input[type="submit"]').click(function(){ 
+    $('#loading-shell').show();
+    var degrees = 0;
+    setInterval(function(){
+      $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
+      if (degrees == 359) {
+        degrees = 0
+      } else {
+        degrees ++
+      }
+    }, 1);
+  });
 
+  // DROP DOWN VALIDATION
+  // ////////////////////
   var formValidation = function(){
     // Listener for change in ALL "select" tags
     $('select[name*="group"]').change(function(){
@@ -92,13 +99,24 @@ $(document).ready(function() {
     formValidation();
   });
 
+  // QUICK FIND ORG
+  // //////////////
   var quickFindSelectTag = $('#quick-find').find('select');
   quickFindSelectTag.change(function(){
     if ( $(this).val() != "" ) {
     window.location.href = '/organizations/' + quickFindSelectTag.val();
     }
   }).change();
-  
+
+  // Add classes to SUBMIT buttons
+  // /////////////////////////////
+  $('.wrapper-compare button').addClass('btn btn-primary');
+  $('.wrapper-market-search button, .wrapper-search button').addClass('btn btn-success');
+
+  // MAKE THE CURRENT PAGE'S LINK PRESSED IN
+  // ////////////////////////////////////////
+  // $('#navTwo .wrapper-link:contains("My S")');
+
   // var addCommas = function(x) {
   //   return x + "foo";
   //   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
