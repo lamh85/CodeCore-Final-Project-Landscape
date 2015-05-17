@@ -56,7 +56,6 @@ $(document).ready(function() {
   // LOADING ANIMATION
   // /////////////////
   $('#navOne a, #navTwo a, #current-user a, input[type="submit"], .wrapper-search button, .wrapper-market-search button, .wrapper-compare button').click(function(){ 
-  // $('input[type="submit"]').click(function(){ 
     $('#loading-shell').show();
     var degrees = 0;
     setInterval(function(){
