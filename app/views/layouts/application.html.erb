@@ -12,14 +12,14 @@
   <%= csrf_meta_tags %>
 </head>
 
-<% if user_signed_in? %>
-  <% if current_user.organization %>
-    <% my_org_path = organization_path(current_user.organization) %>
-  <% else %>
-    <% my_org_path = new_organization_path %>
-    <% flash[:alert] = "You have not set your home organization. Please set one so you can access all of your reports.\nVisit your SETTINGS to set your home organization" %>
-  <% end %>
-<% end %>
+<%# if user_signed_in? %>
+  <%# if current_user.organization %>
+    <%# my_org_path = organization_path(current_user.organization) %>
+  <%# else %>
+    <%# my_org_path = new_organization_path %>
+    <%# flash[:alert] = "You have not set your home organization. Please set one so you can access all of your reports.\nVisit your SETTINGS to set your home organization" %>
+  <%# end %>
+<%# end %>
 
 <body>
   <div id="loading-shell">
@@ -55,17 +55,17 @@
             <%= select_tag "Organizations", options_from_collection_for_select(Organization.sort_by_name, "id", "name"), html: {class: "form-control"}, include_blank: "SELECT AN ORG" %>
           </div>
 
-          <% if current_user %>
-            <% if current_user.organization_id %>
-              <%= link_to my_org_path do %>
+          <%# if current_user %>
+            <%# if current_user.organization_id %>
+              <%#= link_to my_org_path do %>
                 <div class="wrapper-link">My Org</div>
-              <% end %>
-            <% else %>
-              <%= link_to settings_path do %>
+              <%# end %>
+            <%# else %>
+              <%#= link_to settings_path do %>
                 <div class="wrapper-link">Set My Home Org</div>
-              <% end %>
-            <% end %>
-          <% end %>
+              <%# end %>
+            <%# end %>
+          <%# end %>
 
           <%= link_to new_organization_path do %>
             <div class="wrapper-link">New Org</div>
@@ -88,10 +88,10 @@
           <div class="wrapper-link">All Orgs</div>
         <% end %>
 
-        <% if current_user %>
-          <%= link_to "/searches/competitors" do %>
+        <%# if current_user %>
+          <%#= link_to "/searches/competitors" do %>
             <div class="wrapper-link">My Competitors</div>
-          <% end %>
+          <%# end %>
 
           <%= link_to "/searches/clients" do %>
             <div class="wrapper-link">My Clients</div>            
@@ -100,7 +100,7 @@
           <%= link_to "/searches/suppliers" do %>
             <div class="wrapper-link">My Suppliers</div>            
           <% end %>
-        <% end %>
+        <%# end %>
 
         <%= link_to new_comparison_path do %>
           <div class="wrapper-link">Compare Orgs</div>          
@@ -120,17 +120,17 @@
 
     <div class="container"> <!-- USER ACCOUNT LINKS -->
       <div id="current-user">
-        <% if user_signed_in? %>
+        <%# if user_signed_in? %>
           <span class="glyphicon glyphicon-user"></span>
-          Hello, <%= current_user.name_display %>. <%= greeting_question %>
+          Hello, <%#= current_user.name_display %>. <%#= greeting_question %>
           <span class="glyphicon glyphicon-cog"></span>
-          <%= link_to "Settings", settings_path %>
+          <%#= link_to "Settings", settings_path %>
           <span class="glyphicon glyphicon-log-out"></span>
-          <%= link_to "Sign out", destroy_user_session_path %>
-        <% else %>
+          <%#= link_to "Sign out", destroy_user_session_path %>
+        <%# else %>
           <span class="glyphicon glyphicon-log-out"></span>
-          <%= link_to "Please sign in", new_user_session_path %>
-        <% end %>
+          <%#= link_to "Please sign in", new_user_session_path %>
+        <%# end %>
       </div> <!-- END CURRENT USER CONTAINER -->
       <div class="clear"></div>
     </div>

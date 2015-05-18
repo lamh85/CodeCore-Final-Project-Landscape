@@ -1,5 +1,20 @@
 class UsersController < ApplicationController
 
+  def new
+    @user = User.new
+  end
+
+  def create
+    user = User.new(user_params)
+    if user.save
+      session[:user_id] = user.id
+      redirect_to "/"
+      flash[:notice] = "You have sucessfully created your account."
+    else
+      render :new
+      flash[:alert] = "We could not create your account."
+  end
+
   def update
     # render text: params
     if current_user.update(user_params)
@@ -16,7 +31,12 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :organization_id)
+    params.require(:user).permit(
+      :first_name,
+      :last_name,
+      :password,
+      :password_confirmation,
+      :organization_id)
   end
 
 end
