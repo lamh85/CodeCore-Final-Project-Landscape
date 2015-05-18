@@ -22,9 +22,11 @@
 <% if @final_results %>
 
     <!-- My org's suppliers, clients, and competitors -->
-    <% my_suppliers = current_user.organization.suppliers.pluck(:id) %>
-    <% my_clients = current_user.organization.clients.pluck(:id) %>
-    <% my_competitors = current_user.organization.competitors.pluck(:id) | current_user.organization.inverse_competitors.pluck(:id) %>
+    <% if current_user %>
+      <% my_suppliers = current_user.organization.suppliers.pluck(:id) %>
+      <% my_clients = current_user.organization.clients.pluck(:id) %>
+      <% my_competitors = current_user.organization.competitors.pluck(:id) | current_user.organization.inverse_competitors.pluck(:id) %>
+    <% end %>
 
     Found <%= @final_results.length %> results:
 
@@ -36,8 +38,10 @@
         <th>Country</th>
         <th>Revenue</th>
         <th>Priority</th>
-        <% if current_user.organization_id %>
-          <th>Relationship(s) to me</th>
+        <% if current_user %>
+          <% if current_user.organization_id %>
+            <th>Relationship(s) to me</th>
+          <% end %>
         <% end %>
         <th>I want to...</th>
       </tr>
@@ -69,23 +73,25 @@
             <% revenue_total = revenue_total + result.revenue %>
           </td>
           <td><%= result.priority.name %></td>
-          <% if current_user.organization_id %>
-            <td>
-              <ul>
-              <% if my_competitors.include? result.id %>
-                <li>Competitor</li>
-              <% end %>
-              <% if my_clients.include? result.id %>
-                <li>Client</li>
-              <% end %>
-              <% if my_suppliers.include? result.id %>
-                <li>Supplier</li>
-              <% end %>
-              <% if !(my_competitors.include? result.id) && !(my_clients.include? result.id) && !(my_suppliers.include? result.id) %>
-                <li>None</li>
-              <% end %>
-              </ul>
-            </td>
+          <% if current_user %>
+            <% if current_user.organization_id %>
+              <td>
+                <ul>
+                <% if my_competitors.include? result.id %>
+                  <li>Competitor</li>
+                <% end %>
+                <% if my_clients.include? result.id %>
+                  <li>Client</li>
+                <% end %>
+                <% if my_suppliers.include? result.id %>
+                  <li>Supplier</li>
+                <% end %>
+                <% if !(my_competitors.include? result.id) && !(my_clients.include? result.id) && !(my_suppliers.include? result.id) %>
+                  <li>None</li>
+                <% end %>
+                </ul>
+              </td>
+            <% end %>
           <% end %>
           <td nowrap class="column-actions">
             <%#= link_to "Edit Org", edit_organization_path(result), class: "btn btn-primary" %>
@@ -124,8 +130,10 @@
         <td></td>
         <td class="cell-number"><%= number_to_currency(revenue_total) %></td>
         <td></td>
-        <% if current_user.organization_id %>
-          <td></td>
+        <% if current_user %>
+          <% if current_user.organization_id %>
+            <td></td>
+          <% end %>
         <% end %>
         <td></td>        
       </tr>

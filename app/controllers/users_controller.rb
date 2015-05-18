@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     else
       render :new
       flash[:alert] = "We could not create your account."
+    end
   end
 
   def update

@@ -1,5 +1,11 @@
 class SessionsController < ApplicationController
 
+  before_action :clear_link_pressed
+
+  def clear_link_pressed
+    session[:nav_link_pressed] = "fff"
+  end  
+
   def new
   end
 
@@ -10,6 +16,7 @@ class SessionsController < ApplicationController
       redirect_to "/"
     else
       redirect_to "/login"
+    end
   end
 
   def destroy

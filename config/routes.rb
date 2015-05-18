@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  # resources :users, only: [:edit, :update, :show]
-
   # CUSTOM ROUTES *** MUST BE MENTIONED HERE BEFORE "resources"
   get "searches/all_orgs" => "searches#all_orgs"
   get "searches/competitors" => "searches#competitors"
@@ -15,7 +13,9 @@ Rails.application.routes.draw do
   post "/login" => "sessions#create"
   get "/logout" => "sessions#destroy"
 
-  resources :settings, only: [:index]
+  resources :users, only: [:update]
+
+  resources :settings, only: [:index, :edit]
 
   root "welcome#index"
 
