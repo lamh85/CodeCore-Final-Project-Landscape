@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  # CREATE
+
   def new
     @user = User.new
   end
@@ -16,6 +18,11 @@ class UsersController < ApplicationController
     end
   end
 
+  # READ
+
+
+  # UPDATE
+
   def update
     # render text: params
     if current_user.update(user_params)
@@ -30,6 +37,12 @@ class UsersController < ApplicationController
       render "/settings/"
     end
   end
+
+  # DESTROY
+
+  # OTHER
+
+  private
 
   def user_params
     params.require(:user).permit(

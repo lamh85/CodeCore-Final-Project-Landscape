@@ -1,6 +1,6 @@
 <h1>Settings</h1>
 
-<h2>My Profile</h2>
+<h2>Change my name</h2>
 
 <%= simple_form_for current_user, :url => user_path(current_user), html: { class: 'form-group' } do |f| %>
 
@@ -9,6 +9,14 @@
   <%= f.submit "Save" %>
 
 <% end %>
+
+<h2>Change my password</h2>
+
+<%#=simple_form_for current_user, :url => user_path(current_user) do |f| %>
+
+  <%#= f.input :
+
+<%# end %>
 
 <h2>Set my home organization</h2>
 
