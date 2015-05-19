@@ -322,16 +322,12 @@ table ul {
   text-align: right;
 }
 
-.column-actions a {
+.column-actions, .column-actions a {
 font-weight: bold;
 }
 
 /* CHART */
 /*********/
-/*
-.canvas.market-search {
-  display: none;
-}*/
 
 .legend-container td {
   background: none;

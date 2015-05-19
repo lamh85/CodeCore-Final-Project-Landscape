@@ -64,12 +64,11 @@
               <%= link_to settings_path do %>
                 <div class="wrapper-link">Set My Home Org</div>
               <% end %>
+            <% end %><!-- If home org is set -->            
+            <%= link_to new_organization_path do %>
+              <div class="wrapper-link">New Org</div>
             <% end %>
-          <% end %>
-
-          <%= link_to new_organization_path do %>
-            <div class="wrapper-link">New Org</div>
-          <% end %>
+          <% end %><!-- If current_user -->
           
         </div><!-- END RIGHT COLUMN -->
       </div><!-- END CONTAINER -->
@@ -130,8 +129,8 @@
         <% else %>
           <span class="glyphicon glyphicon-log-in"></span>
           <%= link_to "Sign in", login_path %>
-          <span class="glyphicon glyphicon-user"></span>
-          <%= link_to "Create a new user account", signup_path %>
+          <!-- <span class="glyphicon glyphicon-user"></span> -->
+          <%#= link_to "Create a new user account", signup_path %>
         <% end %>
       </div> <!-- END CURRENT USER CONTAINER -->
       <div class="clear"></div>

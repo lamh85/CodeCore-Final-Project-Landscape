@@ -37,7 +37,7 @@
         <th>Province</th>
         <th>Country</th>
         <th>Revenue</th>
-        <th>Priority</th>
+        <th>Priority Level</th>
         <% if current_user %>
           <% if current_user.organization_id %>
             <th>Relationship(s) to me</th>
@@ -54,7 +54,6 @@
               revenue: parseInt('<%= current_user.organization.revenue.to_json %>'),
               home: true
             });
-          // Yes, competitorRevenueObject does reset for each query!
         </script>
       <% end %>
 
@@ -94,19 +93,21 @@
             <% end %>
           <% end %>
           <td nowrap class="column-actions">
-            <%#= link_to "Edit Org", edit_organization_path(result), class: "btn btn-primary" %>
-            <%#= link_to "Delete Org", organization_path(result), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} %>
             <%= link_to result do %>
               <span class="glyphicon glyphicon-zoom-in"></span> View
             <% end %>
-            &nbsp;
-            <%= link_to edit_organization_path(result) do %>
-              <span class="glyphicon glyphicon-pencil"></span> Edit
-            <% end %>
-            &nbsp;
-            <%= link_to organization_path(result), method: :delete, data: {prompt: "Are you sure that you want to delete this organization?"} do %>
-              <span class="glyphicon glyphicon-trash"></span> Delete
-            <% end %>            
+            <% if current_user %>
+              &nbsp;
+              <%= link_to edit_organization_path(result) do %>
+                <span class="glyphicon glyphicon-pencil"></span> Edit
+              <% end %>
+              &nbsp;
+              <%= link_to organization_path(result), method: :delete, data: {prompt: "Are you sure that you want to delete this organization?"} do %>
+                <span class="glyphicon glyphicon-trash"></span> Delete
+              <% end %>
+            <% else %>
+              - Log in to edit or delete              
+            <% end %><!-- if current_user -->
           </td>
         </tr>
 
@@ -117,7 +118,6 @@
                 revenue: parseInt('<%= result.revenue.to_json %>'),
                 home: false
               });
-            // Yes, competitorRevenueObject does reset for each query!
           </script>
         <% end %>
 
