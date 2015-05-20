@@ -100,7 +100,7 @@ var resultsLoaded = function(){
     console.log("pieSelected = " + dropDownValue);
 
     $.ajax({
-      url: "http://localhost:3000/market_searches/show.json",
+      url: "/market_searches/show.json",
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       dataType: "json",
       method: "get",
