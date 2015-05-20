@@ -16,14 +16,6 @@ class Market < ActiveRecord::Base
   validates :sales, numericality: { message: "You must enter an integer for the sales." }
 
   def self.seed(number)
-    # number.times do |x| 
-    #   Market.create(
-    #   organization: Organization.all.sample,
-    #   product: Faker::Commerce.product_name,
-    #   category: Category.all.sample,
-    #   sales: rand(10000..1000000),
-    #   country: Faker::Address.country,
-    #   description: Faker::Lorem.paragraph)
 
     provinces = [
     "British Columbia",

@@ -76,12 +76,6 @@ class Organization < ActiveRecord::Base
     end
   end
 
-  # org = Organization.new ; org.name = Faker::Company.name ; org.revenue = rand(1000..1000000) ; org.description = Faker::Lorem.paragraph(1) ; org.street = Faker::Address.street_address ; org.city = Faker::Address.city ; org.province = provinces.sample ; org.country = "Canada" ; org.priority_id = Priority.all.sample.id ; org.save
-
-  # c = Competition.new; c.competitor_id = Organization.all.sample.id; c.organization_id = Organization.all.sample.id; c.save
-
-  # 2.times {|x| c = Competition.new; c.competitor_id = Organization.all.sample.id; c.organization_id = Organization.all.sample.id; c.save}
-
   def self.canadaize
 
     provinces = [

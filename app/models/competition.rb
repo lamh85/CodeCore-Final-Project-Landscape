@@ -26,6 +26,4 @@ class Competition < ActiveRecord::Base
       c.save}
   end
 
-  # number.times {|x| c = Competition.new; c.competitor_id = Organization.all.sample.id; c.organization_id = Organization.all.sample.id; c.save}
-
 end
