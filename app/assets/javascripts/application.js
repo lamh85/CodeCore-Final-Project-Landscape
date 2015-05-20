@@ -24,20 +24,6 @@ var insertCommas = function(x) {
 
 $(document).ready(function() {
 
-  // Function: Sort checkboxes
-  // var orgSortFn = function (parent) {
-  //   $(parent + " .check_boxes .checkbox").sort(asc_sort).appendTo(parent + " .check_boxes");
-  //   function asc_sort(a, b){
-  //       return ($(b).text()) < ($(a).text()) ? 1 : -1;    
-  //   };
-  // }
-
-  // Feed lists into the function above
-  // var orgArray = [".list-competitors",".list-suppliers",".list-clients"];
-  // for (i = 0; i < orgArray.length; i ++) {
-  //   orgSortFn( orgArray[i] );
-  // }
-
   // FILTER CHECKBOXES
   // /////////////////
   $("#clearFilterCheckBox").click(function(event){
@@ -81,20 +67,17 @@ $(document).ready(function() {
       // DISABLE the list of org names
       if ( $(this).val() == "all" ) {
         $(this).parent().parent().next().find($('select')).attr("disabled",true);
-        // $(this).parent().parent().next().slideUp('fast').css('background','yellow');
       } else {
         $(this).parent().parent().next().find($('select')).attr("disabled",false);
-        // $(this).parent().parent().next().slideDown('fast').css('background','white');
       };
+    }).change();
 
-      // HIDE "contains text" option
-      if ( $(this).val() == "revenue" ) {
-        $(this).parent().parent().next().find('select').find('option[value="includes"]').hide();
-      } else {
-        $(this).parent().parent().next().find('select').find('option[value="includes"]').show();
+    $('.field-property').change(function(){
+      if ( ( $(this).val() != "revenue" ) && ( $(this).val() != "" ) ) {
+        $(this).parent().parent().next().find('.field-logic').val('includes');
+      } else if ( $(this).val() == "revenue" ) {
+        $(this).parent().parent().next().find('.field-logic').val('<');
       }
-
-      // $('.nested-fields').children().eq(2).children().find('select').val() == "revenue"
     }).change();
   };
   formValidation();
