@@ -1,10 +1,4 @@
-<!-- My org's suppliers, clients, and competitors -->
-<% if current_user %>
-  <% my_suppliers = current_user.organization.suppliers.pluck(:id) %>
-  <% my_clients = current_user.organization.clients.pluck(:id) %>
-  <% my_competitors = current_user.organization.competitors.pluck(:id) | current_user.organization.inverse_competitors.pluck(:id) %>
-  <% relationships_string = "" %>
-<% end %>
+<% relationships_string = "" %>
 
 <!-- Content starts -->
 
@@ -27,24 +21,25 @@
 <% if current_user %>
   <div class="tag">
     <span class="glyphicon glyphicon-tag"></span>&nbsp;Relationship(s) to me:&nbsp;
-    <% if my_competitors.include? @organization.id %>
+    <% if my_competitors && (my_competitors.include? @organization.id) %>
         <% relationships_string = "Competitor" %>
     <% end %>
-    <% if my_clients.include? @organization.id %>
+    <% if my_clients && (my_clients.include? @organization.id) %>
         <% if relationships_string == "" %>
           <% relationships_string = "Client" %>
         <% else %>
           <% relationships_string = "Competitor, Client" %>
         <% end %>
     <% end %>
-    <% if my_suppliers.include? @organization.id %>
+    <% if my_suppliers && (my_suppliers.include? @organization.id) %>
         <% if relationships_string == "" %>
           <% relationships_string = "Supplier" %>
         <% else %>
           <% relationships_string = "#{relationships_string}, Supplier" %>
         <% end %>
     <% end %>
-    <% if !(my_competitors.include? @organization.id) && !(my_clients.include? @organization.id) && !(my_suppliers.include? @organization.id) %>
+    <% if (!my_competitors && !my_clients && !my_suppliers) ||
+      ( !(my_competitors.include? @organization.id) && !(my_clients.include? @organization.id) && !(my_suppliers.include? @organization.id) ) %>
         <% relationships_string = "None" %>
     <% end %>
     <%= relationships_string %>

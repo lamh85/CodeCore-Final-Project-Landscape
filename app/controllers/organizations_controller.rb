@@ -99,5 +99,4 @@ class OrganizationsController < ApplicationController
     params.require(:organization).permit({supplier_ids: []})
   end
 
-  # Parameters: {"utf8"=>"✓", "authenticity_token"=>"Zd0DwmwVSh5IJrGuFb01RFXOz8SmSPd4T666WcdX9QwZzXaNUr2ka7DNURdUPeA/icX/oqO8VIXixJdgMBmuHw==", "organization"=>{"name"=>"Best Company Ever", "street"=>"123 Fake Street", "city"=>"Vancouver", "province"=>"British Columbia", "country"=>"CA", "priority_id"=>"1", "revenue"=>"5678", "description"=>"some fake company", "markets_attributes"=>{"0"=>{"product"=>"iPod", "category_id"=>"1", "province"=>"British Columbia", "country"=>"CA", "sales"=>"400", "description"=>"", "_destroy"=>"false"}, "1"=>{"product"=>"", "category_id"=>"", "province"=>"", "country"=>"", "sales"=>"", "description"=>"", "_destroy"=>"false"}}, "competitor_ids"=>["4", ""], "supplier_ids"=>["5", ""], "client_ids"=>["6", ""]}, "commit"=>"Add Organization"}
 end
