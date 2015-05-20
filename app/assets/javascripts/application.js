@@ -53,20 +53,25 @@ $(document).ready(function() {
     $(this).change();
   });
 
-  // LOADING ANIMATION
-  // /////////////////
-  $('#navOne a, #navTwo a, #current-user a, input[type="submit"], .wrapper-search button, .wrapper-market-search button, .wrapper-compare button').click(function(){ 
-    $('#loading-shell').show();
-    var degrees = 0;
-    setInterval(function(){
-      $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
-      if (degrees == 359) {
-        degrees = 0
-      } else {
-        degrees ++
-      }
-    }, 1);
-  });
+  // "LOADING" ANIMATION
+  // ///////////////////
+  $('#navOne a, #navTwo a, #current-user a, input[type="submit"], .wrapper-search button, .wrapper-market-search button, .wrapper-compare button').click(function(event){ 
+
+    // Prevents the handler from binding to CMD+click, SHIFT+click, etc.
+    if (!event.shiftKey && !event.ctrlKey && !event.metaKey) {
+
+      $('#loading-shell').show();
+      var degrees = 0;
+      setInterval(function(){
+        $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
+        if (degrees == 359) {
+          degrees = 0
+        } else {
+          degrees ++
+        }
+      }, 1); // setInterval
+    } // if not event.shiftKey, not event.ctrlKey, AND not event.metaKey
+  }); // click handler
 
   // DROP DOWN VALIDATION
   // ////////////////////
@@ -111,24 +116,5 @@ $(document).ready(function() {
   // /////////////////////////////
   $('.wrapper-compare button').addClass('btn btn-primary');
   $('.wrapper-market-search button, .wrapper-search button').addClass('btn btn-success');
-
-  // MAKE THE CURRENT PAGE'S LINK PRESSED IN
-  // ////////////////////////////////////////
-  // $('#navTwo .wrapper-link:contains("My S")');
-
-  // var addCommas = function(x) {
-  //   return x + "foo";
-  //   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  // }  
-  // Chart.defaults.global.scaleLabel = "<%= addCommas(value) %>";
-
-
-
-  // Manually render a form
-  // var formSearchFn = function()
-  // $('#results').html('<%= j render partial: "results" %>');
-
-  // Find the element with ID containing "org"
-  // $("[id*='org']").attr('disabled',true)
 
 }) // Close the ready method

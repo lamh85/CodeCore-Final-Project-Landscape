@@ -9,4 +9,40 @@
     <span class="glyphicon glyphicon-picture"></span>
     LANDSCAPE
   </div>
+
+  <div id="welcome-info-row">
+    <div class="col-md-3 welcome-col">
+      <div class="welcome-glyph-cont">
+        <span class="glyphicon glyphicon-question-sign"></span>
+      </div>
+      <h1>What is Landscape?</h1>
+      <p>Landscape is an analytical tool that gives you different perspectives of your business environment of suppliers, competitors, and clients.
+      <p>Imagine a version of Salesforce that is designed for tracking your suppliers and competitors, and not just clients.
+    </div>
+    <div class="col-md-3 welcome-col">
+      <div class="welcome-glyph-cont">
+        <span class="glyphicon glyphicon-briefcase"></span>
+      </div>    
+      <h1>View by organization</h1>
+      <p><%= link_to "Compare organizations",new_comparison_path %> to view two companies' details side by side.
+      <p>Use an <%= link_to "advanced search", new_search_path %> to compile a list of orgs according to your criteria, in as much detail as you desire.
+      <p>Or use the simple search features. View an org from the drop-down menu on the top right. You can also see all of the database's orgs here.
+    </div>
+    <div class="col-md-3 welcome-col">
+      <div class="welcome-glyph-cont">
+        <span class="glyphicon glyphicon-stats"></span>
+      </div>  
+      <h1>Analyze <br>a market</h1>
+      <p><%= link_to "Specify the type of market", new_market_search_path %> that you want to view and summarize the data with pie charts.
+      <p>For instance, you may want to view all electronics sales across Canada or all sales in Alberta.
+    </div>
+    <div class="col-md-3 welcome-col">
+      <div class="welcome-glyph-cont">
+        <span class="glyphicon glyphicon-envelope"></span>
+      </div>  
+      <h1>More questions? Contact me.</h1>
+      <p>Contact me on <%= link_to "LinkedIn", "https://www.linkedin.com/profile/view?id=13378768", target: "_blank" %>
+    </div>
+  </div>
+
 </p>

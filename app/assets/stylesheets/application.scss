@@ -24,24 +24,38 @@ body {
   padding-bottom: 3em;
 }
 
-#welcome-to {
-  text-align: center;
-  font-size: 2em;
-  margin-top: 3em;
-}
-
-#logo-welcome {
-  text-align: center;
-  font-size: 5em;
-  font-family: 'Syncopate', 'Roboto', sans-serif;
-}
-
 .trim-col-padding {
   padding: 0px;
 }
 
 .trim-children-padding > div {
   padding: 0px;
+}
+
+/* WELCOME PAGE */
+/****************/
+
+#welcome-to {
+  text-align: center;
+  font-size: 2em;
+  margin-top: 2em;
+}
+
+#logo-welcome {
+  text-align: center;
+  font-size: 5em;
+  font-family: 'Syncopate', 'Roboto', sans-serif;
+  margin-bottom: 1em;
+}
+
+.welcome-glyph-cont {
+  text-align: center;
+  font-size: 6em;
+}
+
+.welcome-col h1 {
+  margin-top: 0px;
+  text-align: center;
 }
 
 /* FONTS */
@@ -139,6 +153,10 @@ p {
   display: inline;
   padding-left: 1em;
   background: none;
+}
+
+#navOne select, #navOne option {
+  color: black;
 }
 
 #navTwo {
