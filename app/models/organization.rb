@@ -76,6 +76,10 @@ class Organization < ActiveRecord::Base
     end
   end
 
+      # org.city = Faker::Address.city
+      # org.province = provinces.sample
+      # org.country = "Canada"
+
   def self.canadaize
 
     provinces = [
