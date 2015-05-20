@@ -127,8 +127,7 @@
           <span class="glyphicon glyphicon-log-out"></span>
           <%= link_to "Sign out", logout_path %>
         <% else %>
-          <span class="glyphicon glyphicon-log-in"></span>
-          <%= link_to "Sign in", login_path %>
+          <span class="glyphicon glyphicon-log-in"></span>&nbsp;<%= link_to "Admin sign in", login_path %>
           <!-- <span class="glyphicon glyphicon-user"></span> -->
           <%#= link_to "Create a new user account", signup_path %>
         <% end %>
