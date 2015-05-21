@@ -47,6 +47,8 @@ gem 'awesome_print'
 gem 'interactive_editor'
 gem 'faker'
 
+gem 'cancancan', '~> 1.10'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
