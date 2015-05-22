@@ -67,13 +67,10 @@ class SearchesController < ApplicationController
           # ###################################
           if filter.equality == "includes" || filter.property == "priority"
             org_equality = nil
-            # LOGIC FOR DELETING BLANKS AND TRIMMING WHITE SPACES
-            # ###################################################
-            search_terms_array = filter.search_term.split(",")
-            search_terms_array.each do |cs_term| # for every CommaSeparated_Term ...
-              cs_term.strip! # trim whitespaces
-            end
-            search_terms_array.delete("") # Delete blank elements
+
+            # Delete blanks and trim white spaces - calling application_controller
+            # ####################################################################
+            search_terms_array = sanitize_array(filter.search_term)            
 
             # LOOP THROUGH EVERY COMMA-SEPARATED TERM
             # #######################################            

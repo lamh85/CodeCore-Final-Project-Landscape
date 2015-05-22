@@ -16,6 +16,19 @@ class ApplicationController < ActionController::Base
     redirect_to "/login" unless current_user
   end
 
+  # COMMON SEARCH METHODS
+  # #####################
+
+  # Deleting blanks and trimming white spaces
+  def sanitize_array(search_term)
+    search_terms_array = search_term.split(",")
+    search_terms_array.each do |element| # for every comma-separated search term
+      element.strip! # trim whitespaces
+    end
+    search_terms_array.delete("") # Delete blank elements
+    return search_terms_array
+  end
+
   # MY ORG'S ASSOCATIONS
   # ####################
 

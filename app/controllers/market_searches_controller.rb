@@ -16,19 +16,9 @@ class MarketSearchesController < ApplicationController
         filters = MarketSearch.find(@market_search).market_filters
         filters.each do |filter| # for every filter...
 
-          # LOGIC FOR DELETING BLANKS AND TRIMMING WHITE SPACES
-          # ###################################################
-          search_terms_array = filter.search_term.split(",")
-          search_terms_array.each do |cs_term| # for every CommaSeparated_Term ...
-            cs_term.strip! # trim whitespaces
-          end
-          search_terms_array.delete("") # Delete blank elements
-
-          # CREATE THE FINAL ARRAY FOR ACTIVERECORD QUERY
-          # #############################################
-          if search_terms_array.length > 0 # If there are STILL cs_terms after deleting blank ones
-            search_terms_array.each do |cs_term| cs_term.replace("%#{cs_term}%") end
-          end # If there are comma-separated terms
+          # Delete blanks and trim white spaces - calling application_controller
+          # ####################################################################
+          search_terms_array = sanitize_array(filter.search_term)
 
           # MERGE THE FILTER RESULTS WITH FINAL RESULTS
           # ###########################################
@@ -48,6 +38,7 @@ class MarketSearchesController < ApplicationController
 
         end # End the looping through each filter
         @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
+        @call_me = call_me
         format.html { render :new, notice: "Search complete"}
         format.js {render}
         if @final_results
