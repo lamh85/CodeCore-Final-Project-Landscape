@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
       element.strip! # trim whitespaces
     end
     search_terms_array.delete("") # Delete blank elements
+    search_terms_array.each do |element| element.replace("%#{element}%") end
     return search_terms_array
   end
 

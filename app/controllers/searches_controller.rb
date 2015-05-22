@@ -56,61 +56,30 @@ class SearchesController < ApplicationController
             # Add inverse competitors
             # -----------------------
             if filter.group == "competitors"
+              # Organization.joins(:competitions).where("competitor_id = 1")
               org_group = org_group | Organization.find(filter.organizations).inverse_competitors
             end
           else
             org_group = Organization.all
           end
 
-          # Make an array based on :search_term
-          # If the user did NOT choose revenue
-          # ###################################
-          if filter.equality == "includes" || filter.property == "priority"
-            org_equality = nil
-
-            # Delete blanks and trim white spaces - calling application_controller
-            # ####################################################################
-            search_terms_array = sanitize_array(filter.search_term)            
-
-            # LOOP THROUGH EVERY COMMA-SEPARATED TERM
-            # #######################################            
-            if search_terms_array.length > 0 # If there are STILL cs_terms after deleting blank ones
-                search_terms_array.each do |cs_term| # for every CommaSeparated_Term ...
-                  cs_term.strip!
-                  search_terms_array.delete("")
-                  if filter.property == "priority"
-                    priority_id_array = Priority.where("name ILIKE ?", "%#{cs_term}%").pluck(:id)
-                    cs_term_results = nil
-                    priority_id_array.each do |id| # Loop through every Priority ID
-                      priority_id_orgs = Priority.find(id).organizations
-                      cs_term_results ||= priority_id_orgs
-                      cs_term_results = cs_term_results | priority_id_orgs
-                    end
-                  elsif filter.equality == "includes"
-                    cs_term_results = Organization.where("#{filter.property} ILIKE ?", "%#{cs_term}%")
-                  end
-
-                  # Combine the single term's results with previous comman-separated terms
-                  if cs_term_results != nil 
-                    if org_equality == nil
-                      org_equality = cs_term_results
-                    elsif
-                      org_equality = org_equality | cs_term_results
-                    end
-                  end # Combine the single term's results with previous comman-separated terms
-                end # loop through every comma-separated term
-              
-            end # if there are no blanks in the array of search terms
-
-          # IF NOT SEARCH BY SEARCH TERM
-          # ############################
+          # Delete blanks and trim white spaces - calling application_controller
+          # ####################################################################
+          if filter.equality == "includes"
+            search_terms_array = sanitize_array(filter.search_term)
           elsif filter.property == "revenue"
             filter.search_term.strip!
-            if filter.search_term != ""
-              org_equality = Organization.where("revenue #{filter.equality} ?", "#{filter.search_term}")
-            end
-          else # If the user did not specify what proprty to search
-            org_equality = nil
+          end
+
+          org_equality = nil
+
+          if filter.property == "priority"
+            # Must specify that you're searching proprities.name because "name" is also a column in Organization table"
+            org_equality = Organization.joins(:priority).where("priorities.name ILIKE any (array[?])",search_terms_array)
+          elsif filter.property == "revenue"
+            org_equality = Organization.where("revenue #{filter.equality} #{filter.search_term}")
+          elsif filter.equality == "includes"
+            org_equality = Organization.where("#{filter.property} ILIKE any (array[?])",search_terms_array)
           end
 
           # Comebine the two arrays

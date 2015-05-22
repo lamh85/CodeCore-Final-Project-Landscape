@@ -38,7 +38,6 @@ class MarketSearchesController < ApplicationController
 
         end # End the looping through each filter
         @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
-        @call_me = call_me
         format.html { render :new, notice: "Search complete"}
         format.js {render}
         if @final_results
