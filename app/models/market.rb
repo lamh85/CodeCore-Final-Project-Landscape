@@ -54,4 +54,4 @@ class Market < ActiveRecord::Base
 
   end
 
-end
+end # End the class
