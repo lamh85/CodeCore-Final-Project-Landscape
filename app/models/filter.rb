@@ -15,6 +15,7 @@ class Filter < ActiveRecord::Base
       if equality == "includes"
         errors.add(:equality, "You must choose a mathematical option when filtering by revenue: less than, greater than, etc.")
       end
+      
       if search_term.to_f <= 0
         errors.add(:search_term, "You must enter a number greater than 0 when filtering by revenue.")
       end

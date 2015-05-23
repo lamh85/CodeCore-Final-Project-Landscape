@@ -49,18 +49,15 @@ class SearchesController < ApplicationController
         # This "do" loop is for *one* filter
         @filters.each do |filter|
 
-          # Make an array based on :group
-          # #############################
-          if filter.group != "all"
-            org_group = Organization.find(filter.organizations).send(filter.group)
-            # Add inverse competitors
-            # -----------------------
-            if filter.group == "competitors"
-              # Organization.joins(:competitions).where("competitor_id = 1")
-              org_group = org_group | Organization.find(filter.organizations).inverse_competitors
-            end
+          # Search based on type of org relationship
+          # ########################################
+          if filter.group == "competitors"
+            competitor_ids = Competition.where("organization_id = #{filter.organizations} OR competitor_id = #{filter.organizations}").pluck(:organization_id, :competitor_id).flatten.uniq - [filter.organizations.to_i] # Create an array of org IDs, minus the queried org
+            filter_results = Organization.where("organizations.id = any (array[?])", competitor_ids)
+          elsif filter.group != "all"
+            filter_results = Organization.find(filter.organizations).send(filter.group)
           else
-            org_group = Organization.all
+            filter_results = Organization.all
           end
 
           # Delete blanks and trim white spaces - calling application_controller
@@ -68,26 +65,18 @@ class SearchesController < ApplicationController
           if filter.equality == "includes"
             search_terms_array = sanitize_array(filter.search_term)
           elsif filter.property == "revenue"
-            filter.search_term.strip!
+            filter.search_term = filter.search_term.strip.to_f
           end
 
-          org_equality = nil
-
+          # Search based on org's characteristic
+          # ####################################
           if filter.property == "priority"
             # Must specify that you're searching proprities.name because "name" is also a column in Organization table"
-            org_equality = Organization.joins(:priority).where("priorities.name ILIKE any (array[?])",search_terms_array)
+            filter_results = filter_results.joins(:priority).where("priorities.name ILIKE any (array[?])",search_terms_array)
           elsif filter.property == "revenue"
-            org_equality = Organization.where("revenue #{filter.equality} #{filter.search_term}")
+            filter_results = filter_results.where("revenue #{filter.equality} #{filter.search_term}")
           elsif filter.equality == "includes"
-            org_equality = Organization.where("#{filter.property} ILIKE any (array[?])",search_terms_array)
-          end
-
-          # Comebine the two arrays
-          # #######################
-          if org_equality == nil
-            filter_results = org_group # Since there is no org_equality, there is only one other array to accept
-          else
-            filter_results = org_group & org_equality
+            filter_results = filter_results.where("#{filter.property} ILIKE any (array[?])",search_terms_array)
           end
 
           # Update the final results
@@ -110,9 +99,6 @@ class SearchesController < ApplicationController
       end # End if-save block
     end # End respond_to block
   end # End "create" action
-
-  # def show
-  # end
 
   def index
   end
