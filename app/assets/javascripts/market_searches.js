@@ -262,7 +262,7 @@ var resultsLoaded = function(){
     });
   }); // End click handler
 
-    // Function for right button
+  // Function for right button
   $('#load-button-right').click(function(){
     Chart.defaults.global.showTooltips = false;
     chartDrawingRight.destroy();
