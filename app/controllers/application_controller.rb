@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   helper_method :my_clients
 
   def my_competitors
-    if current_user && current_user.organization && (current_user.organization.competitors ||                                               current_user.organization.inverse_competitors)
+    if current_user && current_user.organization && (current_user.organization.competitors || current_user.organization.inverse_competitors)
       @my_competitors = current_user.organization.competitors.pluck(:id) | current_user.organization.inverse_competitors.pluck(:id)
     else
       @my_competitors = nil

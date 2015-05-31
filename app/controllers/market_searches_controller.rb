@@ -40,9 +40,7 @@ class MarketSearchesController < ApplicationController
         @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
         format.html { render :new, notice: "Search complete"}
         format.js {render}
-        if @final_results
-          write_json
-        end
+        write_json if @final_results
       else # If could not save
         format.html { render :new, alert: "We could not complete your search" }
         format.js {render}
