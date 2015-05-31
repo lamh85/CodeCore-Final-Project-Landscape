@@ -1,0 +1,21 @@
+<% property_array = [
+  ["Product","product"],
+  ["Product Category","category"],  
+  ["Province","province"],
+  ["Country","country"],
+  ["Description","description"]
+  ] %>
+
+<div class="nested-fields">
+  <div class="col-md-4 trim-col-padding">
+    <%= f.input :property, collection: property_array, label: "Search by", include_blank: false %>
+  </div>
+  
+  <div class="col-md-4 trim-col-padding">
+    <%= f.input :search_term, label: "Contains Text (separate terms by commas):" %>
+  </div>
+  <div class="col-md-4 trim-col-padding del-filter-bound">
+    <%#= link_to_remove_association "<span class='glyphicon glyphicon-trash'></span> Remove this filter".html_safe, f, {class: "btn btn-danger"} %>
+  </div>
+  <div class="clear"></div>
+</div>

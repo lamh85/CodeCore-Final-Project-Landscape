@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   resources :priorities
   resources :categories
+  resources :markets
 
   resources :organizations do
     resources :products, only: [:create, :index, :update, :destroy]

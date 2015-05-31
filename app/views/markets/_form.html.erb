@@ -1,13 +1,13 @@
 <%= simple_form_for "market_search", url: markets_path, html: { class: 'form-group' }, remote: true do |f| %>
 
   <!-- Nested fields -->
-  <%= f.simple_fields_for "market_filters" do |market_filter| %>
-    <%= render "market_filter_fields", f: market_filter %>
+  <%= f.simple_fields_for "filters" do |filter| %>
+    <%= render "filter_fields", f: filter %>
   <% end %>
 
   <!-- Button to add fields -->
   <div class="links">
-    <%= link_to_add_association "<span class='glyphicon glyphicon-filter'></span> Add another filter".html_safe, f, :market_filters, {id: "add-filter", class: "btn btn-primary"} %>
+    <%#= link_to_add_association "<span class='glyphicon glyphicon-filter'></span> Add another filter".html_safe, f, :market_filters, {id: "add-filter", class: "btn btn-primary"} %>
   </div>
   <div class="clear"></div>
 
