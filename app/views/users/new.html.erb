@@ -1,3 +1,23 @@
 <h1>Create an account</h1>
 
-<%= render "form" %>
+<%#= render "form" %>
+
+<p>
+  <% if @user.errors.any? %>
+    <p>We could not create your user account. Please correct these errors:
+    <ul class="error-validation">
+      <% @user.errors.messages.each do |key,value| %>
+        <li><%= value.to_s[2..-3] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</p>
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :first_name %>
+  <%= f.input :last_name %>
+  <%= f.input :email %>  
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+  <%= f.submit "Create account!" %>
+<% end %>

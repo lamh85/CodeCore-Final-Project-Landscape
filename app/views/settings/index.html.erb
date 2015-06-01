@@ -10,7 +10,7 @@
 
 <% end %>
 
-<h2>Change my password</h2>
+<!--h2>Change my password</h2-->
 
 <%#=simple_form_for current_user, :url => user_path(current_user) do |f| %>
 
@@ -27,38 +27,39 @@
 
 <% end %>
 
-<h2>Priority tags</h2>
+<!-- UNDER CONSTRUCTION
+h2>Priority tags</h2>
 
 <div class="col-md-6">
   <h3>Create a new tag</h3>
-  <%= simple_form_for @priority_new do |f| %>
+  <%#= simple_form_for @priority_new do |f| %>
     <div class="col-md-6">
-      <%= f.input :name, label: false %>
+      <%#= f.input :name, label: false %>
     </div>
     <div class="col-md-6">
-      <%= f.submit "Create this tag", {class: "btn btn-primary"} %>
+      <%#= f.submit "Create this tag", {class: "btn btn-primary"} %>
     </div>
-  <% end %>
+  <%# end %>
 </div>
 
 <div class="col-md-6">
   <h3>Edit existing tags</h3>
-  <% @priorities_rud.each do |priority| %>
-    <%= simple_form_for priority do |f| %>
+  <%# @priorities_rud.each do |priority| %>
+    <%#= simple_form_for priority do |f| %>
       <div class="col-md-6">
-        <%= f.input :name, label: false %>
+        <%#= f.input :name, label: false %>
       </div>
       <div class="col-md-3">
-        <%= f.submit "Update", {class: "btn btn-success"} %>
+        <%#= f.submit "Update", {class: "btn btn-success"} %>
       </div>
-    <% end %>
+    <%# end %>
 
     <div class="col-md-3">
-      <%= button_to "Delete", priority_path(priority), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}  %>
+      <%#= button_to "Delete", priority_path(priority), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}  %>
     </div>
     <div class="clear"></div>
 
-  <% end %>
+  <%# end %>
 </div>
 
 <div class="clear"></div>
@@ -67,31 +68,31 @@
 
 <div class="col-md-6">
   <h3>Create a new category</h3>
-  <%= simple_form_for @category_new do |f| %>
+  <%#= simple_form_for @category_new do |f| %>
     <div class="col-md-6">
-      <%= f.input :name, label: false %>
+      <%#= f.input :name, label: false %>
     </div>
     <div class="col-md-6">
-      <%= f.submit "Create this category", {class: "btn btn-primary"} %>
+      <%#= f.submit "Create this category", {class: "btn btn-primary"} %>
     </div>
-  <% end %>
+  <%# end %>
 </div>
 
 <div class="col-md-6">
 <h3>Edit existing categories</h3>
-  <% @categories_rud.each do |category| %>
-    <%= simple_form_for category do |f| %>
+  <%# @categories_rud.each do |category| %>
+    <%#= simple_form_for category do |f| %>
       <div class="col-md-6">
-        <%= f.input :name, label: false %>
+        <%#= f.input :name, label: false %>
       </div>
       <div class="col-md-3">
-        <%= f.submit "Update", {class: "btn btn-success"} %>
+        <%#= f.submit "Update", {class: "btn btn-success"} %>
       </div>
-    <% end %>
+    <%# end %>
 
     <div class="col-md-3">
-      <%= button_to "Delete", category_path(category), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}  %>
+      <%#= button_to "Delete", category_path(category), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}  %>
     </div>
     <div class="clear"></div>
-  <% end %>
-</div>
+  <%# end %>
+</div-->

@@ -87,7 +87,7 @@
           <div class="wrapper-link">All Orgs</div>
         <% end %>
 
-        <% if current_user %>
+        <% if current_user && current_user.organization %>
           <%= link_to "/searches/competitors" do %>
             <div class="wrapper-link">My Competitors</div>
           <% end %>
@@ -127,7 +127,9 @@
           <span class="glyphicon glyphicon-log-out"></span>
           <%= link_to "Sign out", logout_path %>
         <% else %>
-          <span class="glyphicon glyphicon-log-in"></span>&nbsp;<%= link_to "Admin sign in", login_path %>
+          <span class="glyphicon glyphicon-log-in"></span>&nbsp;<%= link_to "Sign in", login_path %>
+          <span class="glyphicon glyphicon-user"></span>&nbsp;
+            <%= link_to "Register", signup_path %>
         <% end %> <!-- IF CURRENT USER -->
         <span class="glyphicon glyphicon-question-sign"></span>&nbsp;<%= link_to "Help", root_path %>        
       </div> <!-- END CURRENT USER CONTAINER -->
