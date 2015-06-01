@@ -36,7 +36,8 @@
             <th>Relationship(s) to me</th>
           <% end %>
         <% end %>
-        <th>I want to...</th>
+        <!-- THIS IS UNDER CONSTRUCTION: -->
+        <!--th>I want to...</th-->
       </tr>
 
       <% if @competitor_search %>
@@ -86,23 +87,23 @@
               </td>
             <% end %>
           <% end %>
-          <td nowrap class="column-actions">
-            <%= link_to result do %>
+          <!--td nowrap class="column-actions">
+            <%#= link_to result do %>
               <span class="glyphicon glyphicon-zoom-in"></span> View
-            <% end %>
-            <% if current_user %>
+            <%# end %>
+            <%# if current_user %>
               &nbsp;
-              <%= link_to edit_organization_path(result) do %>
+              <%#= link_to edit_organization_path(result) do %>
                 <span class="glyphicon glyphicon-pencil"></span> Edit
-              <% end %>
+              <%# end %>
               &nbsp;
-              <%= link_to organization_path(result), method: :delete, data: {prompt: "Are you sure that you want to delete this organization?"} do %>
+              <%#= link_to organization_path(result), method: :delete, data: {prompt: "Are you sure that you want to delete this organization?"} do %>
                 <span class="glyphicon glyphicon-trash"></span> Delete
-              <% end %>
-            <% else %>
+              <%# end %>
+            <%# else %>
               - Log in to edit or delete              
-            <% end %><!-- if current_user -->
-          </td>
+            <%# end %>
+          </td-->
         </tr>
 
         <% if @competitor_search %>
@@ -124,11 +125,11 @@
         <td></td>
         <td class="cell-number"><%= number_to_currency(revenue_total) %></td>
         <td></td>
-        <% if current_user %>
-          <% if current_user.organization_id %>
-            <td></td>
-          <% end %>
-        <% end %>
+        <%# if current_user %>
+          <%# if current_user.organization_id %>
+            <!--td></td-->
+          <%# end %>
+        <%# end %>
         <td></td>        
       </tr>
 
