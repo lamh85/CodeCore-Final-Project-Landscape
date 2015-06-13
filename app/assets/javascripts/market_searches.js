@@ -70,17 +70,11 @@ var resultsLoaded = function(){
   chartDrawingRight = new Chart(ctx1).Pie(fooData);
 
   // When user submits choice
-  // //////////////////////////////////////////////////////////////////////////
+  // ////////////////////////
 
   var buttonHandler = function(dropDownValue, buttonID, canvasContID, canvasID, chartDrawing, legendContID){
 
     console.log("is chartDrawingLeft defined? " + (chartDrawingLeft == undefined));
-
-    // Re-initialize variables
-    // if (chartDrawing != undefined) {
-      // chartDrawing.clear();
-    //   chartDrawing.destroy();
-    // }
 
     var pieCompanies = [];
     var pieProducts = [];
@@ -201,8 +195,6 @@ var resultsLoaded = function(){
         // Sort pie chart by value
         pieSelected.sort(sortObject);
 
-        // Show the pie chart via .slideDown
-
         ctx = $(canvasID).get(0).getContext("2d");
 
         tableFromLoop = "";
@@ -221,7 +213,6 @@ var resultsLoaded = function(){
 
         $(legendContID).html(tableFromLoop);
         $('.legend-container').slideDown();
-
 
         if (buttonID == '#load-button-left') {
           chartDrawingLeft.destroy();
