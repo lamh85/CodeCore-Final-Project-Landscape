@@ -212,14 +212,17 @@ p {
   }
 }
 
-@media all and (min-width: 540px) {
+@media all and (min-width: 650px) {
   #side-nav-tab {
     display: none;
   }
 }
 
-@media all and (max-width: 540px) {
-  #navOne, #navTwo {
+@media all and (max-width: 650px) {
+  #navOne {
+    visibility: hidden;
+  }
+  #navTwo {
     display: none;
   }
   #side-nav-tab {
