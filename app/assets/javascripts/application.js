@@ -100,4 +100,28 @@ $(document).ready(function() {
   $('.wrapper-compare button').addClass('btn btn-primary');
   $('.wrapper-market-search button, .wrapper-search button').addClass('btn btn-success');
 
+  // Copy NAV links into SIDE NAV
+  // ////////////////////////////
+  for (i = 0; i < $('.wrapper-link:not(#quick-find)').length; i++) {
+    href = $('.wrapper-link:not(#quick-find)').eq(i).parent().attr('href');
+    text = $('.wrapper-link:not(#quick-find)').eq(i).parent().text();
+    $('#side-nav-bar').append('<a href="' +href+ '"><div>' +text+ '</div></a>');
+    // <div class="wrapper-link"></div> .child().child().addClass('wrapper-link')
+  }
+  for (i = 0; i < $('#side-nav-bar a div').length; i++) {
+    $('#side-nav-bar a div').eq(i).addClass('wrapper-link');
+  }
+
+  // Bind click event to side nav bar
+  width = $('#side-nav-bar').css('width');
+  $('#side-nav-modal').css({left: "-" +width});
+  leftValue = "0px";
+  slideSide = function(){
+      $('#side-nav-modal').animate({left: leftValue }, 200, function(){
+        // Toggle leftValue
+        (leftValue !== "0px") ? leftValue = "0px" : leftValue = "-" + width;
+      }); // End animation function
+    }
+  $('#side-nav-tab').click(slideSide);
+
 }) // Close the ready method
