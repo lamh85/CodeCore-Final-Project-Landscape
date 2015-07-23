@@ -132,7 +132,7 @@ p {
 #navOne, #navTwo {
   width: 100%;
   font-family: 'Oswald', sans-serif;
-  font-size: 1.5em;
+  font-size: 15pt;
   color: white;
 }
 
@@ -204,6 +204,18 @@ p {
 }
 
 #nav-all-rows { 
+}
+
+@media all and (max-width: 750px) {
+  #navOne div .left a {
+    display: none;
+  }
+}
+
+@media all and (max-width: 540px) {
+  #navOne, #navTwo {
+    font-size: 12pt;
+  }
 }
 
 /* NAV BAR LINK WRAPPERS */
