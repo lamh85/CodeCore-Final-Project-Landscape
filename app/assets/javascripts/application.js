@@ -106,13 +106,18 @@ $(document).ready(function() {
     href = $('.wrapper-link:not(#quick-find)').eq(i).parent().attr('href');
     text = $('.wrapper-link:not(#quick-find)').eq(i).parent().text();
     $('#side-nav-bar').append('<a href="' +href+ '"><div>' +text+ '</div></a>');
-    // <div class="wrapper-link"></div> .child().child().addClass('wrapper-link')
   }
   for (i = 0; i < $('#side-nav-bar a div').length; i++) {
     $('#side-nav-bar a div').eq(i).addClass('wrapper-link');
   }
+  // for (i = 0; i < $('#current-user a').length; i ++) {
+  //   href = $('#current-user a').eq(i).attr('href');
+  //   text = $('#current-user a').eq(i).text();
+  //   $('#side-nav-bar').append('<a href="' +href+ '"><div>' +text+ '</div></a>');
+  // }
 
   // Bind click event to side nav bar
+  // ////////////////////////////////
   width = $('#side-nav-bar').css('width');
   $('#side-nav-modal').css({left: "-" +width});
   leftValue = "0px";

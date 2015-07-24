@@ -1,0 +1,75 @@
+/* SIDE NAV BAR */
+/****************/
+
+#side-nav-modal {
+  color: white;
+  text-align: center;
+  background: none;
+  padding: 0px;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  left: 0px;
+  top: 0px;
+}
+
+#side-nav-bar {
+  float: left;
+  height: 100%;
+  background: #124c20;
+  overflow: scroll;
+}
+
+#side-nav-bar .wrapper-link {
+  color: white;
+  padding: 2em;
+  background: #124c20;
+  font-family: 'Oswald', sans-serif;
+  font-size: 4em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#side-nav-bar .wrapper-link:hover {
+  background: #2E723E;
+  text-decoration: none;
+}
+
+#side-nav-tab {
+  background: #124c20;
+  float: right;
+  font-size: 4em;
+  padding: 20px;
+  cursor: pointer;
+}
+
+/* MEDIA QUERIES */
+/*****************/
+
+@media all and (max-width: 750px) {
+  #navOne div .left a {
+    display: none;
+  }
+}
+
+@media all and (min-width: 650px) {
+  #side-nav-modal {
+    display: none;
+  }
+}
+
+@media all and (max-width: 650px), all and (orientation:portrait) {
+  #navOne {
+    visibility: hidden;
+  }
+  #navTwo {
+    display: none;
+  }
+  #side-nav-modal {
+    display: block;
+  }
+  #current-user a, #current-user span {
+      /*font-size: 3em;*/
+  }
+
+}
