@@ -134,8 +134,10 @@
     <div class="container"> <!-- USER ACCOUNT LINKS -->
       <div id="current-user">
         <% if current_user %>
-          <span class="glyphicon glyphicon-user"></span>
-          Hello, <%= current_user.name_display %>. <%= greeting_question %>
+          <div id="greeting">
+            <span class="glyphicon glyphicon-user"></span>
+            Hello, <%= current_user.name_display %>. <%= greeting_question %>
+          </div>
           <span class="glyphicon glyphicon-cog"></span>
           <%= link_to "Settings", settings_path %>
           <span class="glyphicon glyphicon-log-out"></span>
@@ -155,7 +157,6 @@
   <!-- END TOP BARS INCLUDING USER-ACCOUNT LINKS-->
 
   <div class="container">
-
     <!-- YIELD -->
     <%= yield %>
   </div>

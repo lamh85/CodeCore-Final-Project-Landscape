@@ -76,6 +76,9 @@
   #navTwo, #navOne .right {
     display: none;
   }
+  #greeting {
+    display: block;
+  }
   #side-nav-modal {
     display: block;
   }
@@ -87,7 +90,7 @@
   }
   #current-user {
     font-size: 1.5em;
-    float: none;
+    /*float: none;*/
   }
   .table-wrapper {
     width: 100%;
