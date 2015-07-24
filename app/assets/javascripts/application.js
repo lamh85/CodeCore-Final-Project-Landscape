@@ -119,12 +119,12 @@ $(document).ready(function() {
   // Bind click event to side nav bar
   // ////////////////////////////////
   width = $('#side-nav-bar').css('width');
-  $('#side-nav-modal').css({left: "-" +width});
-  leftValue = "0px";
+  $('#side-nav-modal').css({right: "-" +width});
+  rightValue = "0px";
   slideSide = function(){
-      $('#side-nav-modal').animate({left: leftValue }, 200, function(){
-        // Toggle leftValue
-        (leftValue !== "0px") ? leftValue = "0px" : leftValue = "-" + width;
+      $('#side-nav-modal').animate({right: rightValue }, 200, function(){
+        // Toggle rightValue
+        (rightValue !== "0px") ? rightValue = "0px" : rightValue = "-" + width;
       }); // End animation function
     }
   $('#side-nav-tab').click(slideSide);

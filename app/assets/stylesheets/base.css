@@ -180,7 +180,7 @@ p {
   margin: 17px 0;
 }
 
-#logo, #logo a {
+#logo, #logo a, .app-name {
   font-family: 'Syncopate', 'Roboto', sans-serif;
   font-size: 20pt;
 }

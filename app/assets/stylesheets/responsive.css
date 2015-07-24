@@ -9,12 +9,12 @@
   height: 100%;
   position: fixed;
   z-index: 1;
-  left: 0px;
+  right: 0px;
   top: 0px;
 }
 
 #side-nav-bar {
-  float: left;
+  float: right;
   height: 100%;
   background: #124c20;
   overflow: scroll;
@@ -39,7 +39,7 @@
   background: #124c20;
   float: right;
   font-size: 2em;
-  padding: 20px;
+  padding: 0.5em;
   cursor: pointer;
 }
 
@@ -59,26 +59,25 @@
 }
 
 @media all and (max-width: 650px), all and (orientation:portrait) {
-  #navOne {
-    display: block;
+  #navOne, #navOne div .left a {
+    display: inline-block;
   }
-
-  #navTwo {
+  #navTwo, #navOne .right {
     display: none;
   }
-/*  #navTwo {
-    display: none;
-  }*/
   #side-nav-modal {
     display: block;
-  }
-  #current-user a, #current-user span {
-      /*font-size: 3em;*/
   }
   #logo-welcome {
     font-size: 2em;
   }
   #welcome-to {
     font-size: 1em;
+  }
+}
+
+@media all and (max-width: 410px) {
+  .app-name {
+    display: none;
   }
 }
