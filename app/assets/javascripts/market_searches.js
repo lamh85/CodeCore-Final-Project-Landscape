@@ -199,7 +199,7 @@ var resultsLoaded = function(){
 
         tableFromLoop = "";
 
-        tableFromLoop = "<table><tr> <th>" +dropDownValue+ "</th><th>Sales ($)</th><th>Market Share</th></tr>";
+        tableFromLoop = "<div class='table-wrapper'><table><tr> <th>" +dropDownValue+ "</th><th>Sales ($)</th><th>Market Share</th></tr>";
         for (i = 0; i < pieSelected.length; i++) {
           tableFromLoop += "<tr style='background: " +pieSelected[i].color+ ";'>";
           tableFromLoop += "<td>" + pieSelected[i].label + "</td>";
@@ -209,7 +209,7 @@ var resultsLoaded = function(){
           tableFromLoop += "</tr>";
         }
         tableFromLoop += "<tr class='row-total'><td>TOTAL</td><td class='cell-number'>" +insertCommas(totalSales)+ "</td><td class='cell-number'>100%</td></tr>";
-        tableFromLoop += "</table>";
+        tableFromLoop += "</table></div>";
 
         $(legendContID).html(tableFromLoop);
         $('.legend-container').slideDown();

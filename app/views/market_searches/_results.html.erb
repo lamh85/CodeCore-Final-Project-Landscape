@@ -66,6 +66,10 @@
 
     <h2 class="full-results">Full Results</h2>
 
+    <p class="mobile-message">
+      NOTE - If you are using a mobile device, then you can scroll this table left and right.
+    </p>
+    <div class="table-wrapper">
     <table id="results-table">
       <tr>
         <th>Company</th>
@@ -106,6 +110,7 @@
       </tr>
 
     </table>
+    </div>
 
   <script>
     var totalSales = parseInt(<%= sales_total.to_json %>);
