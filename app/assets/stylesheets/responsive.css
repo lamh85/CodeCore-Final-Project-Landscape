@@ -22,10 +22,10 @@
 
 #side-nav-bar .wrapper-link {
   color: white;
-  padding: 2em;
+  padding: 1em;
   background: #124c20;
   font-family: 'Oswald', sans-serif;
-  font-size: 4em;
+  font-size: 2em;
   text-decoration: none;
   cursor: pointer;
 }
@@ -38,7 +38,7 @@
 #side-nav-tab {
   background: #124c20;
   float: right;
-  font-size: 4em;
+  font-size: 2em;
   padding: 20px;
   cursor: pointer;
 }
@@ -60,16 +60,25 @@
 
 @media all and (max-width: 650px), all and (orientation:portrait) {
   #navOne {
-    visibility: hidden;
+    display: block;
   }
+
   #navTwo {
     display: none;
   }
+/*  #navTwo {
+    display: none;
+  }*/
   #side-nav-modal {
     display: block;
   }
   #current-user a, #current-user span {
       /*font-size: 3em;*/
   }
-
+  #logo-welcome {
+    font-size: 2em;
+  }
+  #welcome-to {
+    font-size: 1em;
+  }
 }
