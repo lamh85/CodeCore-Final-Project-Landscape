@@ -44,12 +44,22 @@
   cursor: pointer;
 }
 
+/* OTHER */
+/*********/
+
+.mobile-message {
+  display: none;
+}
+
 /* MEDIA QUERIES */
 /*****************/
 
 @media all and (max-width: 750px) {
   #navOne div .left a {
     display: none;
+  }
+  .mobile-message {
+    display: block;
   }
 }
 
@@ -78,6 +88,10 @@
   #current-user {
     font-size: 1.5em;
     float: none;
+  }
+  .table-wrapper {
+    width: 100%;
+    overflow: scroll;
   }
 }
 
