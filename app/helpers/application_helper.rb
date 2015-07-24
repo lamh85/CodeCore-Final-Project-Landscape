@@ -29,8 +29,14 @@ module ApplicationHelper
 
   # OTHER
   # #####
-  def double(number)
-    number * 2
+
+  def mobile_message
+    return "DEAR mobile users: You can scroll this table horizontally!"
+  end
+
+  def greeting
+    greeting_question = ["How are you today?","What is your focus today?","Have you had your caffeine today?"]
+    return "Hello #{current_user.name_display}. #{greeting_question.sample}"
   end
 
 end

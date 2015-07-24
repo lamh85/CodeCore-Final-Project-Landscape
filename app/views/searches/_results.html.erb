@@ -22,8 +22,9 @@
 <% if @final_results %>
 
     <p class="mobile-message">
-      NOTE - If you are using a mobile device, then you can scroll this table left and right.
+      <%= mobile_message %>
     </p>
+    <br>
 
     <p>
       Found <%= @final_results.length %> results:

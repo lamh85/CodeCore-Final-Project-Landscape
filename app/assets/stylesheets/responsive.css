@@ -60,6 +60,8 @@
   }
   .mobile-message {
     display: block;
+    font-style: italic;
+    font-size: 1.125em;
   }
 }
 
@@ -70,27 +72,58 @@
 }
 
 @media all and (max-width: 650px), all and (orientation:portrait) {
+
+  /* NAV BARS */
+  /************/
+
   #navOne, #navOne div .left a {
     display: inline-block;
   }
+
   #navTwo, #navOne .right {
     display: none;
   }
+
+  #current-user {
+    font-size: 1.5em;
+    float: none;
+  }
+
+  #current-user .glyphicon {
+    padding-right: 0.125em;
+  }
+
   #greeting {
     display: block;
+    font-size: 0.75em;
+    text-align: center;
   }
+
+  /* Remove left-margin for glyphicons */
+  #greeting .glyphicon, #nav-last .glyphicon:first-child {
+    margin-left: 0em;
+  }
+
+  #nav-last {
+    font-size: 0.75em;
+    text-align: center;
+  }
+
+  #nav-last .glyphicon:nth-child(2), #nav-last .glyphicon:nth-child(3) {
+    margin-left: 2em;
+  }
+
   #side-nav-modal {
     display: block;
   }
+
+  /* BODY */
+  /********/
   #logo-welcome {
     font-size: 2em;
   }
   #welcome-to {
     font-size: 1em;
-  }
-  #current-user {
-    font-size: 1.5em;
-    /*float: none;*/
   }
   .table-wrapper {
     width: 100%;
