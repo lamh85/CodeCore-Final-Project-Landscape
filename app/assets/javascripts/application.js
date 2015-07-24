@@ -41,7 +41,7 @@ $(document).ready(function() {
 
   // "LOADING" ANIMATION
   // ///////////////////
-  $('#navOne a, #navTwo a, #current-user a, input[type="submit"], .wrapper-search button, .wrapper-market-search button, .wrapper-compare button').click(function(event){ 
+  $('#navOne a, #navTwo a, #current-user a, input[type="submit"], .wrapper-search button, .wrapper-market-search button, .wrapper-compare button').click(function(event){
 
     // Prevents the handler from binding to CMD+click, SHIFT+click, etc.
     if (!event.shiftKey && !event.ctrlKey && !event.metaKey) {
