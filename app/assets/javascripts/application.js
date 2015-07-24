@@ -110,19 +110,13 @@ $(document).ready(function() {
   for (i = 0; i < $('#side-nav-bar a div').length; i++) {
     $('#side-nav-bar a div').eq(i).addClass('wrapper-link');
   }
-  // for (i = 0; i < $('#current-user a').length; i ++) {
-  //   href = $('#current-user a').eq(i).attr('href');
-  //   text = $('#current-user a').eq(i).text();
-  //   $('#side-nav-bar').append('<a href="' +href+ '"><div>' +text+ '</div></a>');
-  // }
 
   // Bind click event to side nav bar
   // ////////////////////////////////
   width = $('#side-nav-bar').css('width');
-  $('#side-nav-modal').css({right: "-" +width});
   rightValue = "0px";
   slideSide = function(){
-      $('#side-nav-modal').animate({right: rightValue }, 200, function(){
+      $('#side-nav-modal').animate({right: rightValue }, 100, function(){
         // Toggle rightValue
         (rightValue !== "0px") ? rightValue = "0px" : rightValue = "-" + width;
       }); // End animation function
