@@ -167,6 +167,10 @@ p {
   font-weight: bold;
 }
 
+#current-user div {
+  display: inline-block;
+}
+
 #current-user .glyphicon {
   margin-left: 1em;
 }

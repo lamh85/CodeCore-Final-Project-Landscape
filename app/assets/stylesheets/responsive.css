@@ -40,8 +40,17 @@
   background: #124c20;
   float: right;
   font-size: 2em;
-  padding: 0.5em;
   cursor: pointer;
+  padding: 0.455em;
+  border-bottom: 0.25em solid #437E49;
+  border-radius: 0.25em 0 0 0.25em;  
+}
+
+#side-nav-tab .glyphicon {
+}
+
+#side-nav-icon-caption {
+  font-size: 1em;
 }
 
 /* OTHER */
@@ -87,6 +96,10 @@
   #current-user {
     font-size: 1.5em;
     float: none;
+  }
+
+  #current-user div {
+    display: block;
   }
 
   #current-user .glyphicon {
