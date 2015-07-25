@@ -37,7 +37,7 @@
           </select>
         </div>
 
-        <div class="col-md-8 trim-col-padding">
+        <div>
           <div id="<%= load_button[x] %>" class="tag load-button btn btn-success">
             <i class="fa fa-pie-chart"></i> Load Chart
           </div>
@@ -46,8 +46,11 @@
             <span class="glyphicon glyphicon-minus-sign"></span> Hide Charts and Tables
           </div>
 
+          <div class="clear">
+
         </div>
 
+        <span id="mobile-message-pie">If you do not see the full chart, then scroll horizontally.</span>
         <div id="<%= canvas_container[x] %>" class="canvas-container">
           <canvas id="<%= canvas[x] %>" class="canvas market-search" width="400" height="400"></canvas>
 

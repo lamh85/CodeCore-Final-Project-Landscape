@@ -56,7 +56,7 @@
 /* OTHER */
 /*********/
 
-.mobile-message {
+.mobile-message, #mobile-message-pie {
   display: none;
 }
 
@@ -67,7 +67,7 @@
   #navOne div .left a {
     display: none;
   }
-  .mobile-message {
+  .mobile-message, #mobile-message-pie {
     display: block;
     font-style: italic;
     font-size: 1.125em;
@@ -135,12 +135,18 @@
   #logo-welcome {
     font-size: 2em;
   }
+
   #welcome-to {
     font-size: 1em;
   }
-  .table-wrapper {
+
+  .table-wrapper, .canvas-container {
     width: 100%;
     overflow: scroll;
+  }
+
+  #col-right-pie {
+    display: none;
   }
 }
 
