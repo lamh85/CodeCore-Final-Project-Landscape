@@ -10,8 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// GEMS
-// ////
+// GEMS:
 //= require jquery
 //= require jquery.turbolinks
 //= require bootstrap-sprockets
@@ -19,12 +18,13 @@
 //= require turbolinks
 //= require cocoon
 
-// MANUALL-COPIED FILES
+// MANUALL-COPIED FILES: --- FILES THAT FOCUS ON EVENT BINDING SHOULD GO LAST
 //= require chart
 //= require comparisons
 //= require market_searches
 //= require searches
 //= require base
 //= require responsive
+//= require loading
 
 // require_tree .

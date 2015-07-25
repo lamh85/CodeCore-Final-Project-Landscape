@@ -28,7 +28,6 @@ $(document).ready(function() {
       }; // End animation function
 
   $('#side-nav-tab, #side-nav-bar .wrapper-link').click(slideSide);
-  $('#side-nav-bar .wrapper-link').click(activateLoading);
 
   $(document).click(function(event) {
       if (event.target.id != "side-nav-bar" && event.target.id != "side-nav-tab" && sideBarShown == true) {
