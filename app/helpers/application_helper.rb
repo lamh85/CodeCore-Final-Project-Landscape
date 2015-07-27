@@ -31,7 +31,7 @@ module ApplicationHelper
   # #####
 
   def mobile_message
-    return "DEAR mobile users: You could scroll this table horizontally!"
+    return "DEAR mobile users: If this table is cut off, try scrolling horizontally."
   end
 
   def greeting
