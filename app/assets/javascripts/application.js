@@ -24,7 +24,7 @@
 //= require market_searches
 //= require searches
 //= require base
-//= require responsive
 //= require loading
+//= require responsive
 
 // require_tree .
