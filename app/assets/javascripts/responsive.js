@@ -17,18 +17,17 @@ $(document).ready(function() {
   var sideBarShown = false;
 
   var slideSide = function(){
-      if (sideBarShown == false) {
-        console.log(sideBarWidth);
-        $('#side-nav-modal').animate({right: "0px" }, 100, function(){
-          
-          sideBarShown = true;
-        });
-      } else {
-        $('#side-nav-modal').animate({right: "-" +sideBarWidth }, 100, function(){sideBarShown = false});
-      }
-        // Toggle sideBarShown
-        // (sideBarShown !== "0px") ? sideBarShown = "0px" : sideBarShown = "-" + width;
-      }; // End animation function
+    if (sideBarShown == false) {
+      console.log(sideBarWidth);
+      $('#side-nav-modal').animate({right: "0px" }, 100, function(){
+        var html = $('#side-nav-bar').html();
+        $('#side-nav-bar').html(html);
+        sideBarShown = true;
+      });
+    } else {
+      $('#side-nav-modal').animate({right: "-" +sideBarWidth }, 100, function(){sideBarShown = false});
+    }
+  }; // End animation function
 
   $('#side-nav-tab, #side-nav-bar .wrapper-link').click(slideSide);
 
