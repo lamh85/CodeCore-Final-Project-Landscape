@@ -19,7 +19,10 @@ $(document).ready(function() {
   var slideSide = function(){
       if (sideBarShown == false) {
         console.log(sideBarWidth);
-        $('#side-nav-modal').animate({right: "0px" }, 100, function(){sideBarShown = true});
+        $('#side-nav-modal').animate({right: "0px" }, 100, function(){
+          
+          sideBarShown = true;
+        });
       } else {
         $('#side-nav-modal').animate({right: "-" +sideBarWidth }, 100, function(){sideBarShown = false});
       }

@@ -4,6 +4,9 @@ var insertCommas = function(x) {
 
 $(document).ready(function() {
 
+  // FUNCTION FOR RE-RENDERING HTML ELEMENT
+  // //////////////////////////////////////
+
   // FILTER CHECKBOXES
   // /////////////////
   $("#clearFilterCheckBox").click(function(event){
