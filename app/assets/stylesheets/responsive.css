@@ -31,7 +31,7 @@
   cursor: pointer;
 }
 
-#side-nav-bar .wrapper-link:hover {
+#side-nav-bar a:hover {
   background: #2E723E;
   text-decoration: none;
 }
