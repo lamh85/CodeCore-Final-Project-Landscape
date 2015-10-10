@@ -69,18 +69,12 @@
           </div>
 
           <% if current_user %>
-            <% if current_user.organization_id %>
-              <%= link_to my_org_path do %>
-                <div class="wrapper-link">My Org</div>
-              <% end %>
-            <% else %>
-              <%= link_to settings_path do %>
-                <div class="wrapper-link">Set My Home Org</div>
-              <% end %>
-            <% end %><!-- If home org is set -->            
-            <%= link_to new_organization_path do %>
-              <div class="wrapper-link">New Org</div>
-            <% end %>
+                <% if current_user.organization_id %>
+                    <%= nav_link(my_org_path, "My Org") %>
+                <% else %>
+                    <%= nav_link(settings_path, "Set My Home Org") %>
+                <% end %><!-- If home org is set -->            
+                <%= nav_link(new_organization_path, "New Org") %>
           <% end %><!-- If current_user -->
           
         </div><!-- END RIGHT COLUMN -->
@@ -96,24 +90,11 @@
 
       <div class="right">
 
-        <%= nav_link("/searches/all_orgs", "All Orgs") %>
-
-        <% if current_user && current_user.organization %>
-          <%= link_to "/searches/competitors" do %>
-            <div class="wrapper-link">My Competitors</div>
-          <% end %>
-
-          <%= link_to "/searches/clients" do %>
-            <div class="wrapper-link">My Clients</div>            
-          <% end %>
-
-          <%= link_to "/searches/suppliers" do %>
-            <div class="wrapper-link">My Suppliers</div>            
-          <% end %>
-        <% end %>
-
         <% logged_in_condition = (current_user && current_user.organization) %>
-        <%  [["/searches/suppliers", "My Suppliers", logged_in_condition],
+        <%  [["/searches/all_orgs", "All Orgs", true],
+            ["/searches/competitors", "My Competitors", logged_in_condition],
+            ["/searches/clients", "My Clients", logged_in_condition],
+            ["/searches/suppliers", "My Suppliers", logged_in_condition],
             [new_comparison_path, "Compare Orgs", true],
             [new_market_search_path, "Market Share", true],
             [new_search_path, "Search Orgs", true]].each do |trio| %>
