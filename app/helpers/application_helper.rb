@@ -30,6 +30,12 @@ module ApplicationHelper
   # OTHER
   # #####
 
+  def nav_link(path, display_text)
+    link_to(path) do
+      "<div class=\"wrapper-link\">#{display_text}</div>".html_safe
+    end
+  end
+
   def mobile_message
     return "DEAR mobile users: If this table is cut off, try scrolling horizontally."
   end

@@ -96,9 +96,7 @@
 
       <div class="right">
 
-        <%= link_to "/searches/all_orgs" do %>
-          <div class="wrapper-link">All Orgs</div>
-        <% end %>
+        <%= nav_link("/searches/all_orgs", "All Orgs") %>
 
         <% if current_user && current_user.organization %>
           <%= link_to "/searches/competitors" do %>
@@ -114,17 +112,14 @@
           <% end %>
         <% end %>
 
-        <%= link_to new_comparison_path do %>
-          <div class="wrapper-link">Compare Orgs</div>          
+        <% logged_in_condition = (current_user && current_user.organization) %>
+        <%  [["/searches/suppliers", "My Suppliers", logged_in_condition],
+            [new_comparison_path, "Compare Orgs", true],
+            [new_market_search_path, "Market Share", true],
+            [new_search_path, "Search Orgs", true]].each do |trio| %>
+            <%= nav_link(trio[0], trio[1]) if trio[2] %>
         <% end %>
 
-        <%= link_to new_market_search_path do %>
-          <div class="wrapper-link">Market Share</div>
-        <% end %>
-
-        <%= link_to new_search_path do %>
-          <div class="wrapper-link">Search Orgs</div>
-        <% end %>
       </div>
         
       </div>
