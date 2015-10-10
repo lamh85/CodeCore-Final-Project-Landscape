@@ -67,15 +67,15 @@
             View an org:&nbsp;
             <%= select_tag "Organizations", options_from_collection_for_select(Organization.sort_by_name, "id", "name"), html: {class: "form-control"}, include_blank: "SELECT AN ORG" %>
           </div>
+            <% if current_user && current_user.organization_id %>
+                <%= nav_link(my_org_path, "My Org") %>
+            <% elsif current_user && !current_user.organization_id %>
+                <%= nav_link(settings_path, "Set My Home Org") %>
+            <% end %>
 
-          <% if current_user %>
-                <% if current_user.organization_id %>
-                    <%= nav_link(my_org_path, "My Org") %>
-                <% else %>
-                    <%= nav_link(settings_path, "Set My Home Org") %>
-                <% end %><!-- If home org is set -->            
+            <% if current_user %>
                 <%= nav_link(new_organization_path, "New Org") %>
-          <% end %><!-- If current_user -->
+            <% end %>
           
         </div><!-- END RIGHT COLUMN -->
       </div><!-- END CONTAINER -->
