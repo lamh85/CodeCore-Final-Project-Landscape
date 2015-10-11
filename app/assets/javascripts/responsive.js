@@ -16,18 +16,11 @@ $(document).ready(function() {
   var sideBarWidth = $('#side-nav-bar').css('width');
   var sideBarShown = false;
 
-  // Wait until right time to bind the loading animation to the click event
-  // var bindToLoading = function(){
-  //   $('#side-nav-bar .wrapper-link').click(activateLoading);
-  // }
-
   var slideSide = function(){
     if (sideBarShown == false) {
-      console.log(sideBarWidth);
       $('#side-nav-modal').animate({right: "0px" }, 100, function(){
         var html = $('#side-nav-bar').html();
         $('#side-nav-bar').html(html);
-        bindToLoading();
         sideBarShown = true;
       });
     } else {
@@ -39,7 +32,6 @@ $(document).ready(function() {
 
   $(document).click(function(event) {
       if (event.target.id != "side-nav-bar" && event.target.id != "side-nav-tab" && sideBarShown == true) {
-        console.log("hello");
         slideSide();
       }
   });
