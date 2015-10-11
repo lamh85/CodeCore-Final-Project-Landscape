@@ -17,9 +17,9 @@ $(document).ready(function() {
   var sideBarShown = false;
 
   // Wait until right time to bind the loading animation to the click event
-  var bindToLoading = function(){
-    $('#side-nav-bar .wrapper-link').click(activateLoading);
-  }
+  // var bindToLoading = function(){
+  //   $('#side-nav-bar .wrapper-link').click(activateLoading);
+  // }
 
   var slideSide = function(){
     if (sideBarShown == false) {
