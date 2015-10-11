@@ -30,7 +30,7 @@
         <!-- Drop-down menu -->
         <div class="col-md-4 trim-col-padding">
           Divide my chart by...
-          <select class="pie-drop-down">
+          <select class="pie-drop-down <%=left_or_right[x]%>">
             <option value="Company">Company</option>
             <option value="Product">Product</option>
             <option value="Category">Product Category</option>
@@ -41,11 +41,11 @@
 
         <!-- Load and hide buttons -->
         <div>
-          <div class="load-button tag load-button btn btn-success" data-left-right="<%=left_or_right[x]%>">
+          <div class="load-button tag load-button btn btn-success <%=left_or_right[x]%>" data-left-right="<%=left_or_right[x]%>">
             <i class="fa fa-pie-chart"></i> Load Chart
           </div>
 
-          <div class="button-pie hide-pie tag danger load-button btn">
+          <div class="button-pie hide-pie tag danger btn">
             <span class="glyphicon glyphicon-minus-sign"></span> Hide Charts and Tables
           </div>
 

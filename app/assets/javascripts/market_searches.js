@@ -1,7 +1,9 @@
 var chartDrawingLeft;
 var chartDrawingRight;
+var jsonData = [];
 
 var resultsLoaded = function(){
+
   deactivateLoading();
 
   $('.canvas').slideUp();
@@ -18,7 +20,6 @@ var resultsLoaded = function(){
 
   var marketPropArrays = [];
 
-  var jsonData = [];
   var pieExample = [ // One array is a pie chart
     { // Each object represents a wedge in the pie chart
       value: "", // sales
@@ -63,18 +64,15 @@ var resultsLoaded = function(){
       value: "", // sales
     }];
 
-  ctx0 = $('canvas.left').get(0).getContext("2d");
+  ctx0 = $('.canvas.left').get(0).getContext("2d");
   chartDrawingLeft = new Chart(ctx0).Pie(fooData);
-  ctx1 = $('canvas.right').get(1).getContext("2d");
+  ctx1 = $('.canvas.right').get(0).getContext("2d");
   chartDrawingRight = new Chart(ctx1).Pie(fooData);
 
   // When user submits choice
   // ////////////////////////
 
-  var buttonHandler = function(dropDownValue, leftOrRight){
-
-    chartDrawing = {};
-    chartDrawing.selected = (leftOrRight == "left")? "left" : "right";
+  var buttonHandler = function(dropDownValue, leftOrRight) {
 
     // Could not refactor this into a loop because it would not clear the values
     var pieCompanies = [];
@@ -84,25 +82,6 @@ var resultsLoaded = function(){
     var pieCountries = [];
     $(".legend-container."+leftOrRight).html('');
 
-    // Define which pie chart to use
-    switch (dropDownValue) {
-      case "Company":
-        pieSelected = pieCompanies;
-        break;
-      case "Product":
-        pieSelected = pieProducts;
-        break;      
-      case "Category":
-        pieSelected = pieCategories;
-        break;      
-      case "Province":
-        pieSelected = pieProvinces;
-        break;
-      case "Country":
-        pieSelected = pieCountries;
-        break;
-    }
-
     $.ajax({
       url: "/market_searches/show.json",
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -110,72 +89,97 @@ var resultsLoaded = function(){
       method: "get",
       error: function() { console.log("Cannot GET AJAX file") },
       success: function(data){
+        console.log('json data-get successful');
 
         jsonData = data;
 
-        // Populate the arrays
+        marketProperties = [
+          {labels: companies, pieName: pieCompanies, fieldName: "company" },
+          {labels: products, pieName: pieProducts, fieldName: "product"},
+          {labels: categories, pieName: pieCategories, fieldName: "category"},
+          {labels: provinces, pieName: pieProvinces, fieldName: "province"},
+          {labels: countries, pieName: pieCountries, fieldName: "country"}
+        ];
+
+        // Populate the arrays with labels
         for (i=0; i<jsonData.length; i++) {
-          companies.push(jsonData[i].company);
-          products.push(jsonData[i].product);
-          categories.push(jsonData[i].category);
-          provinces.push(jsonData[i].province);
-          countries.push(jsonData[i].country);
+          for (propertyI = 0; propertyI < marketProperties.length; propertyI ++){
+            marketProperties[propertyI].labels.push(
+              jsonData[i][marketProperties[propertyI].fieldName]
+            );
+          }
+          // EG: companies.push(jsonData[i].company)
         } // shovel records into the array
 
-        marketPropArrays = [companies,products,categories,provinces,countries];
+        console.log('The labels length is:' +marketProperties[0].labels.length);
 
-        for (arrayFeeder = 0; arrayFeeder < marketPropArrays.length; arrayFeeder++ ) {
-          marketPropArrays[arrayFeeder].sort();
-          for (sortCounter = 0; sortCounter < marketPropArrays[arrayFeeder].length; sortCounter++) {
+        // Loop through every type of property. Each is an array
+        for (propertyI = 0; propertyI < marketProperties.length; propertyI++ ) {
+          marketProperties[propertyI].labels.sort();
+          for (labelI = 0; labelI < marketProperties[propertyI].labels.length; labelI++) {
             // If current element is same as the next element...
-            while (marketPropArrays[arrayFeeder][sortCounter] == marketPropArrays[arrayFeeder][sortCounter+1]) {
+            while (marketProperties[propertyI].labels[labelI] == marketProperties[propertyI].labels[labelI+1]) {
               // ...the delete the next element
-              marketPropArrays[arrayFeeder].splice((sortCounter+1),1);
+              marketProperties[propertyI].labels.splice((labelI+1),1);
             } // While loop
           } // For loop          
         }
 
+        console.log('The labels length is:' +marketProperties[0].labels.length);
+
         // Create pie charts without values, BUT with labels and colour
-        for (arrayFeeder = 0; arrayFeeder < marketPropArrays.length; arrayFeeder++ ) {
-          var pieMystery = [];
-          if (marketPropArrays[arrayFeeder] == companies) { pieMystery = pieCompanies};
-          if (marketPropArrays[arrayFeeder] == products) { pieMystery = pieProducts};
-          if (marketPropArrays[arrayFeeder] == categories) { pieMystery = pieCategories};
-          if (marketPropArrays[arrayFeeder] == provinces) { pieMystery = pieProvinces};
-          if (marketPropArrays[arrayFeeder] == countries) { pieMystery = pieCountries};
-          for (i = 0; i < marketPropArrays[arrayFeeder].length; i++) {
-            var colorIndex = i.toString();
+        // Loop through every property
+        for (propertyI = 0; propertyI < marketProperties.length; propertyI++ ) {
+          // For each property, loop through every label
+          for (labelI = 0; labelI < marketProperties[propertyI].labels.length; labelI++) {
+            var colorIndex = labelI.toString();
             colorIndex = colorIndex[colorIndex.length-1]; // "length - 1" converts human-readable index to zero-index. EG) The last digit of "345" is the 3rd digit, therefore the zero-index is 2 (3-1 = 2)
-            pieMystery.push({
+            marketProperties[propertyI].pieName.push({
               value: 0,
               color: colorArray[colorIndex],
               highlight: "#071C4B",
-              label: marketPropArrays[arrayFeeder][i]
+              label: marketProperties[propertyI].labels[labelI]
             }); // .push
           } // for loop
         }
 
-        // Each value for pieName is an array of objects. Each object is one pie wedge. Each object's properties are colour, label, value, etc.
-        pieFieldPairs = [{pieName: pieCompanies, fieldName: "company"},
-        {pieName: pieProducts, fieldName: "product"},
-        {pieName: pieCategories, fieldName: "category"},
-        {pieName: pieProvinces, fieldName: "province"},
-        {pieName: pieCountries, fieldName: "country"}];
+        console.log('The pie length is:' +marketProperties[0].pieName.length);
 
-        // Loop through every pie-chart array
-        for (pieI = 0; pieI < pieFieldPairs.length; pieI++){
+        // Loop through every property
+        for (propertyI = 0; propertyI < marketProperties.length; propertyI++){
           // Populate each wedge with sales total
           // Loop through every wedge (the "length" of the pie)
-          for (wedgeI = 0; wedgeI < pieFieldPairs[pieI].pieName.length; wedgeI++) {
+          for (wedgeI = 0; wedgeI < marketProperties[propertyI].pieName.length; wedgeI++) {
             // Loop through the JSON data
             for (jsonI = 0; jsonI < jsonData.length; jsonI++){
               // if the label matches
-              if (pieFieldPairs[pieI].pieName[wedgeI].label == jsonData[jsonI][pieFieldPairs[pieI].fieldName]) {
-                pieFieldPairs[pieI].pieName[wedgeI].value += jsonData[jsonI].sales;
+              if (marketProperties[propertyI].pieName[wedgeI].label == jsonData[jsonI][marketProperties[propertyI].fieldName]) {
+                marketProperties[propertyI].pieName[wedgeI].value += jsonData[jsonI].sales;
               } // if match
             } // loop through jsonData
           } // loop through pieObject        
         }
+
+        // Define which pie chart to use
+        switch (dropDownValue) {
+          case "Company":
+            pieSelected = marketProperties[0].pieName;
+            break;
+          case "Product":
+            pieSelected = marketProperties[1].pieName;
+            break;      
+          case "Category":
+            pieSelected = marketProperties[2].pieName;
+            break;      
+          case "Province":
+            pieSelected = marketProperties[3].pieName;
+            break;
+          case "Country":
+            pieSelected = marketProperties[4].pieName;
+            break;
+        }
+
+        console.log('The pie length of pieSelected is:' +pieSelected.length);        
 
         // Sort pie chart by value
         pieSelected.sort(sortObject);
@@ -202,14 +206,20 @@ var resultsLoaded = function(){
         $('.canvas.'+leftOrRight).remove();
         $('.canvas-container.'+leftOrRight).html('<canvas class="canvas market-search '+leftOrRight+'" width="400" height="400"></canvas>');
         ctx = $('.canvas.'+leftOrRight).get(0).getContext("2d");
-        chartDrawing.selected.destroy();
-        setTimeout(function(){
-          if (leftOrRight == "left") {
-            chartDrawingLeft = new Chart(ctx).Pie(pieSelected)
-          } else{
-            chartDrawingRight = new Chart(ctx).Pie(pieSelected)
-          } // if
-        }, 500);
+
+        destroyAndRender = function(chartDrawing) {
+          chartDrawing.destroy();
+          setTimeout(function(){
+            chartDrawing = new Chart(ctx).Pie(pieSelected)
+          }, 500);
+        }
+
+        if (leftOrRight == "left") {
+          destroyAndRender(chartDrawingLeft);
+        } else {
+          destroyAndRender(chartDrawingRight);
+        }
+
         deactivateLoading();
 
       }// end the success function
@@ -220,8 +230,9 @@ var resultsLoaded = function(){
   $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
 
   // Function for left button
-  $('#load-button').click(function(){
+  $('.load-button.left, .load-button.right').click(function(){
     leftOrRight = $(this).data('left-right');
+    dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
     if (leftOrRight == 'left') {
       chartDrawingLeft.destroy();
     } else {
