@@ -1,11 +1,16 @@
 var degrees;
 var intervalVariable;
+var deactivateLoading;
 
 $(document).ready(function() {
 
-  // Prevent presistant setInterval when a new page loads
-  degrees = undefined;
-  intervalVariable = undefined;
+  deactivateLoading = function() {
+    // Prevent presistant setInterval when a new page loads
+    degrees = undefined;
+    intervalVariable = undefined;
+    $('#loading-shell').hide();
+  }
+  deactivateLoading();
 
   // "LOADING" ANIMATION
   // -------------------

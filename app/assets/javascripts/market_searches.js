@@ -3,6 +3,8 @@ var chartDrawingLeft;
 var chartDrawingRight;
 
 var resultsLoaded = function(){
+  deactivateLoading();
+
   $('.canvas').slideUp();
 
   var marketProperty;
@@ -28,11 +30,13 @@ var resultsLoaded = function(){
 
   var dropDownValue = "";
   var pieSelected = [];
+
   var pieCompanies = [];
   var pieProducts = [];
   var pieCategories = [];
   var pieProvinces = [];
   var pieCountries = [];
+  var pieTypes = [pieCompanies, pieProducts, pieCategories, pieProvinces, pieCountries]
 
   var colorArray = ["#D39191","#BF6161","#AA3939","#951717","#810000","#D3BD91","#BF9F61","#AA8439","#956B17","#815500"]; // length = 10, max index = 9
 
@@ -84,11 +88,23 @@ var resultsLoaded = function(){
     $(legendContID).html('');
 
     // Define which pie chart to use
-    if (dropDownValue == "Company") { pieSelected = pieCompanies };
-    if (dropDownValue == "Product") { pieSelected = pieProducts };
-    if (dropDownValue == "Category") { pieSelected = pieCategories };
-    if (dropDownValue == "Province") { pieSelected = pieProvinces };
-    if (dropDownValue == "Country") { pieSelected = pieCountries };
+    switch (dropDownValue) {
+      case "Company":
+        pieSelected = pieCompanies;
+        break;
+      case "Product":
+        pieSelected = pieProducts;
+        break;      
+      case "Category":
+        pieSelected = pieCategories;
+        break;      
+      case "Province":
+        pieSelected = pieProvinces;
+        break;
+      case "Country":
+        pieSelected = pieCountries;
+        break;
+    }
 
     console.log("click handler fired!");
     console.log("pieSelected = " + dropDownValue);
