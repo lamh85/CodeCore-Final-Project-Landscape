@@ -1,9 +1,21 @@
 $(document).ready(function() {
 
+  // save the real `send`
+  var realSend = XMLHttpRequest.prototype.send;
+
+  // replace `send` with a wrapper
+  XMLHttpRequest.prototype.send = function() {
+      console.log('before send!');
+
+      // run the real `send`
+      realSend.apply(this, arguments);
+  }
+
   // "LOADING" ANIMATION
   // ///////////////////
   // $('#loading-shell.rotating').show();
   var degrees = 0;
+  // console.log('the degrees is: ' +degrees);
   setInterval(function(){
     $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
     if (degrees == 359) {
@@ -11,6 +23,7 @@ $(document).ready(function() {
     } else {
       degrees ++
     }
+    // console.log('degrees is: ' +degrees)
   }, 1); // setInterval
 
   activateLoading = function() {
