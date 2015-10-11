@@ -43,7 +43,6 @@ var resultsLoaded = function(){
   var ctx;
   var loadPieChart
   var legend;
-  // var totalSales = 0;
 
   var insertCommas = function(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -223,6 +222,7 @@ var resultsLoaded = function(){
           chartDrawingRight.destroy();
           setTimeout(function(){ chartDrawingRight = new Chart(ctx).Pie(pieSelected) }, 500);
         }
+        deactivateLoading();
 
       }// end the success function
     });// AJAX function 
@@ -235,7 +235,6 @@ var resultsLoaded = function(){
 
   // Function for left button
   $('#load-button-left').click(function(){
-    Chart.defaults.global.showTooltips = false;
     chartDrawingLeft.destroy();
     console.log(chartDrawingLeft);
     $('.canvas').slideDown('fast',function(){      
@@ -250,7 +249,6 @@ var resultsLoaded = function(){
 
   // Function for right button
   $('#load-button-right').click(function(){
-    Chart.defaults.global.showTooltips = false;
     chartDrawingRight.destroy();
     $('.canvas').slideDown('fast',function(){      
       dropDownValue = $('#pie-drop-down-right').val();

@@ -21,14 +21,15 @@
     <% canvas_container = ["canvas-container-left","canvas-container-right"] %>
     <% canvas = ["canvas-left","canvas-right"] %>
     <% legend_container = ["legend-container-left","legend-container-right"] %>
+    <% html_data_values = ["left", "right"] %>
 
     <% 2.times do |x| %>
 
-      <div class="col-md-6 trim-col-padding" id="<%= col_pie[x] %>">
+      <div class="col-md-6 trim-col-padding" id="col-pie" data-left-right="<%=html_data_values[x]%>">
 
         <div class="col-md-4 trim-col-padding">
           Divide my chart by...
-          <select class="pie-drop-down" id="<%= pie_drop_down[x] %>">
+          <select class="pie-drop-down" id="pie-drop-down" data-left-right="<%=html_data_values[x]%>">
             <option value="Company">Company</option>
             <option value="Product">Product</option>
             <option value="Category">Product Category</option>
@@ -38,7 +39,7 @@
         </div>
 
         <div>
-          <div id="<%= load_button[x] %>" class="tag load-button btn btn-success">
+          <div id="load-button" class="tag load-button btn btn-success" data-left-right="<%=html_data_values[x]%>">
             <i class="fa fa-pie-chart"></i> Load Chart
           </div>
 
@@ -51,12 +52,12 @@
         </div>
 
         <span id="mobile-message-pie">If you do not see the full chart, then scroll horizontally.</span>
-        <div id="<%= canvas_container[x] %>" class="canvas-container">
-          <canvas id="<%= canvas[x] %>" class="canvas market-search" width="400" height="400"></canvas>
+        <div id="canvas-container" class="canvas-container" data-left-right="<%=html_data_values[x]%>">
+          <canvas id="canvas" class="canvas market-search" width="400" height="400" data-left-right="<%=html_data_values[x]%>"></canvas>
 
         </div>
 
-        <div id="<%= legend_container[x] %>" class="legend-container"></div>
+        <div id="legend-container" class="legend-container" data-left-right="<%=html_data_values[x]%>"></div>
 
         </div>
       </div>
