@@ -36,7 +36,7 @@ var resultsLoaded = function(){
   var pieCategories = [];
   var pieProvinces = [];
   var pieCountries = [];
-  var pieTypes = [pieCompanies, pieProducts, pieCategories, pieProvinces, pieCountries]
+  var pieTypes = [pieCompanies, pieProducts, pieCategories, pieProvinces, pieCountries];
 
   var colorArray = ["#D39191","#BF6161","#AA3939","#951717","#810000","#D3BD91","#BF9F61","#AA8439","#956B17","#815500"]; // length = 10, max index = 9
 
@@ -80,6 +80,7 @@ var resultsLoaded = function(){
 
     console.log("is chartDrawingLeft defined? " + (chartDrawingLeft == undefined));
 
+    // Could not refactor this into a loop because it would not clear the values
     var pieCompanies = [];
     var pieProducts = [];
     var pieCategories = [];
@@ -164,49 +165,27 @@ var resultsLoaded = function(){
           } // for loop
         }
 
-        // Populate each wedge with sales total
-        // Loop through every wedge
-        for (i = 0; i < pieCompanies.length; i++) {
-          // Loop through the JSON data
-          for (x = 0; x < jsonData.length; x++){
-            // if the label matches
-            if (pieCompanies[i].label == jsonData[x].company) {
-              pieCompanies[i].value = pieCompanies[i].value + jsonData[x].sales;
-            } // if match
-          } // loop through jsonData
-        } // loop through pieObject
+        // Each value for pieName is an array of objects. Each object is one pie wedge. Each object's properties are colour, label, value, etc.
+        pieFieldPairs = [{pieName: pieCompanies, fieldName: "company"},
+        {pieName: pieProducts, fieldName: "product"},
+        {pieName: pieCategories, fieldName: "category"},
+        {pieName: pieProvinces, fieldName: "province"},
+        {pieName: pieCountries, fieldName: "country"}];
 
-        for (i = 0; i < pieProducts.length; i++) {
-          for (x = 0; x < jsonData.length; x++){
-            if (pieProducts[i].label == jsonData[x].product) {
-              pieProducts[i].value = pieProducts[i].value + jsonData[x].sales;
-            } // if match
-          } // loop through jsonData
-        } // loop through pieObject
-
-        for (i = 0; i < pieCategories.length; i++) {
-          for (x = 0; x < jsonData.length; x++){
-            if (pieCategories[i].label == jsonData[x].category) {
-              pieCategories[i].value = pieCategories[i].value + jsonData[x].sales;
-            } // if match
-          } // loop through jsonData
-        } // loop through pieObject
-
-        for (i = 0; i < pieProvinces.length; i++) {
-          for (x = 0; x < jsonData.length; x++){
-            if (pieProvinces[i].label == jsonData[x].province) {
-              pieProvinces[i].value = pieProvinces[i].value + jsonData[x].sales;
-            } // if match
-          } // loop through jsonData
-        } // loop through pieObject
-
-        for (i = 0; i < pieCountries.length; i++) {
-          for (x = 0; x < jsonData.length; x++){
-            if (pieCountries[i].label == jsonData[x].country) {
-              pieCountries[i].value = pieCountries[i].value + jsonData[x].sales;
-            } // if match
-          } // loop through jsonData
-        } // loop through pieObject
+        // Loop through every pie-chart array
+        for (pieI = 0; pieI < pieFieldPairs.length; pieI++){
+          // Populate each wedge with sales total
+          // Loop through every wedge (the "length" of the pie)
+          for (wedgeI = 0; wedgeI < pieFieldPairs[pieI].pieName.length; wedgeI++) {
+            // Loop through the JSON data
+            for (jsonI = 0; jsonI < jsonData.length; jsonI++){
+              // if the label matches
+              if (pieFieldPairs[pieI].pieName[wedgeI].label == jsonData[jsonI][pieFieldPairs[pieI].fieldName]) {
+                pieFieldPairs[pieI].pieName[wedgeI].value += jsonData[jsonI].sales;
+              } // if match
+            } // loop through jsonData
+          } // loop through pieObject        
+        }
 
         // Sort pie chart by value
         pieSelected.sort(sortObject);
