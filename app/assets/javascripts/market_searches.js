@@ -161,22 +161,10 @@ var resultsLoaded = function(){
         }
 
         // Define which pie chart to use
-        switch (dropDownValue) {
-          case "Company":
-            pieSelected = marketProperties[0].pieName;
-            break;
-          case "Product":
-            pieSelected = marketProperties[1].pieName;
-            break;      
-          case "Category":
-            pieSelected = marketProperties[2].pieName;
-            break;      
-          case "Province":
-            pieSelected = marketProperties[3].pieName;
-            break;
-          case "Country":
-            pieSelected = marketProperties[4].pieName;
-            break;
+        for (propertyI = 0; propertyI < marketProperties.length; propertyI++) {
+          if (marketProperties[propertyI].fieldName == dropDownValue) {
+            pieSelected = marketProperties[propertyI].pieName;
+          }
         }
 
         console.log('The pie length of pieSelected is:' +pieSelected.length);        
