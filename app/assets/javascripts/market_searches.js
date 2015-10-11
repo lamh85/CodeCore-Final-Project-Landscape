@@ -1,4 +1,3 @@
-var chartDrawing = [];
 var chartDrawingLeft;
 var chartDrawingRight;
 
@@ -57,10 +56,7 @@ var resultsLoaded = function(){
   }
 
   var dropDownValue;
-  var buttonID;
-  var canvasContID;
-  var canvasID;
-  var legendContID;
+  var leftOrRight;
 
   var fooData = [ // One array is a pie chart
     { // Each object represents a wedge in the pie chart
@@ -75,9 +71,10 @@ var resultsLoaded = function(){
   // When user submits choice
   // ////////////////////////
 
-  var buttonHandler = function(dropDownValue, buttonID, canvasContID, canvasID, chartDrawing, legendContID){
+  var buttonHandler = function(dropDownValue, leftOrRight){
 
-    console.log("is chartDrawingLeft defined? " + (chartDrawingLeft == undefined));
+    chartDrawing = {};
+    chartDrawing.selected = (leftOrRight == "left")? "left" : "right";
 
     // Could not refactor this into a loop because it would not clear the values
     var pieCompanies = [];
@@ -85,7 +82,7 @@ var resultsLoaded = function(){
     var pieCategories = [];
     var pieProvinces = [];
     var pieCountries = [];
-    $(legendContID).html('');
+    $(".legend-container."+leftOrRight).html('');
 
     // Define which pie chart to use
     switch (dropDownValue) {
@@ -106,9 +103,6 @@ var resultsLoaded = function(){
         break;
     }
 
-    console.log("click handler fired!");
-    console.log("pieSelected = " + dropDownValue);
-
     $.ajax({
       url: "/market_searches/show.json",
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -118,8 +112,6 @@ var resultsLoaded = function(){
       success: function(data){
 
         jsonData = data;
-
-        console.log("total sales = " + totalSales);
 
         // Populate the arrays
         for (i=0; i<jsonData.length; i++) {
@@ -160,7 +152,6 @@ var resultsLoaded = function(){
               highlight: "#071C4B",
               label: marketPropArrays[arrayFeeder][i]
             }); // .push
-            // console.log("color index =" + colorIndex);
           } // for loop
         }
 
@@ -189,7 +180,7 @@ var resultsLoaded = function(){
         // Sort pie chart by value
         pieSelected.sort(sortObject);
 
-        ctx = $(canvasID).get(0).getContext("2d");
+        ctx = $('.canvas.'+leftOrRight).get(0).getContext("2d");
 
         tableFromLoop = "";
 
@@ -205,29 +196,24 @@ var resultsLoaded = function(){
         tableFromLoop += "<tr class='row-total'><td>TOTAL</td><td class='cell-number'>" +insertCommas(totalSales)+ "</td><td class='cell-number'>100%</td></tr>";
         tableFromLoop += "</table></div>";
 
-        $(legendContID).html(tableFromLoop);
-        $('.legend-container').slideDown();
+        $(".legend-container."+leftOrRight).html(tableFromLoop);
+        $(".legend-container."+leftOrRight).slideDown();
 
-        if (buttonID == '#load-button-left') {
-          chartDrawingLeft.destroy();
-          $('#canvas-left').remove();
-          $('#canvas-container-left').html('<canvas id="canvas-left" class="canvas market-search" width="400" height="400"></canvas>');
-          ctx = $('#canvas-left').get(0).getContext("2d");
-          setTimeout(function(){ chartDrawingLeft = new Chart(ctx).Pie(pieSelected) }, 500);
-        }
-        else if (buttonID == '#load-button-right') {
-          $('#canvas-right').remove();
-          $('#canvas-container-right').html('<canvas id="canvas-right" class="canvas market-search" width="400" height="400"></canvas>');
-          ctx = $('#canvas-right').get(0).getContext("2d");
-          chartDrawingRight.destroy();
-          setTimeout(function(){ chartDrawingRight = new Chart(ctx).Pie(pieSelected) }, 500);
-        }
+        $('.canvas.'+leftOrRight).remove();
+        $('.canvas-container.'+leftOrRight).html('<canvas class="canvas market-search '+leftOrRight+'" width="400" height="400"></canvas>');
+        ctx = $('.canvas.'+leftOrRight).get(0).getContext("2d");
+        chartDrawing.selected.destroy();
+        setTimeout(function(){
+          if (leftOrRight == "left") {
+            chartDrawingLeft = new Chart(ctx).Pie(pieSelected)
+          } else{
+            chartDrawingRight = new Chart(ctx).Pie(pieSelected)
+          } // if
+        }, 500);
         deactivateLoading();
 
       }// end the success function
     });// AJAX function 
-
-    Chart.defaults.global.showTooltips = true;
 
   }; // click handler function for loading the pie charts
 
@@ -244,33 +230,6 @@ var resultsLoaded = function(){
     $('.canvas').slideDown('fast', function(){
       buttonHandler(dropDownValue, leftOrRight);
     });
-  }); // End click handler
-
-  // Function for left button
-  $('#load-button-left').click(function(){
-    chartDrawingLeft.destroy();
-    console.log(chartDrawingLeft);
-    $('.canvas').slideDown('fast',function(){      
-      dropDownValue = $('#pie-drop-down-left').val();
-      buttonID = '#load-button-left';
-      canvasContID = '#canvas-container-left';
-      canvasID = '#canvas-left';
-      legendContID = '#legend-container-left';
-      buttonHandler( dropDownValue, buttonID, canvasContID, canvasID, chartDrawingLeft, legendContID );
-    });
-  }); // End click handler
-
-  // Function for right button
-  $('#load-button-right').click(function(){
-    chartDrawingRight.destroy();
-    $('.canvas').slideDown('fast',function(){      
-      dropDownValue = $('#pie-drop-down-right').val();
-      buttonID = '#load-button-right';
-      canvasContID = '#canvas-container-right';
-      canvasID = '#canvas-right';
-      legendContID = '#legend-container-right';
-      buttonHandler( dropDownValue, buttonID, canvasContID, canvasID, chartDrawingRight, legendContID );
-      });
   }); // End click handler
 
   $('.hide-pie').click(function(){

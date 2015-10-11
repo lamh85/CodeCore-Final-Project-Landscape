@@ -25,12 +25,12 @@
 
     <% 2.times do |x| %>
 
-      <div class="col-md-6 trim-col-padding <%=left_or_right[x]%>" id="col-pie" data-left-right="<%=left_or_right[x]%>">
+      <div class="col-md-6 trim-col-padding col-pie <%=left_or_right[x]%>" data-left-right="<%=left_or_right[x]%>">
 
         <!-- Drop-down menu -->
         <div class="col-md-4 trim-col-padding">
           Divide my chart by...
-          <select class="pie-drop-down" id="pie-drop-down">
+          <select class="pie-drop-down">
             <option value="Company">Company</option>
             <option value="Product">Product</option>
             <option value="Category">Product Category</option>
@@ -41,7 +41,7 @@
 
         <!-- Load and hide buttons -->
         <div>
-          <div id="load-button" class="tag load-button btn btn-success" data-left-right="<%=left_or_right[x]%>">
+          <div class="load-button tag load-button btn btn-success" data-left-right="<%=left_or_right[x]%>">
             <i class="fa fa-pie-chart"></i> Load Chart
           </div>
 
@@ -54,12 +54,11 @@
 
         <!-- Canvas -->
         <span id="mobile-message-pie">If you do not see the full chart, then scroll horizontally.</span>
-        <div id="canvas-container" class="canvas-container">
-          <canvas id="canvas" class="canvas market-search <%=left_or_right[x]%>" width="400" height="400"></canvas>
-
+        <div class="canvas-container <%=left_or_right[x]%>">
+          <canvas class="canvas market-search <%=left_or_right[x]%>" width="400" height="400"></canvas>
         </div>
 
-        <div id="legend-container" class="legend-container"></div>
+        <div class="legend-container <%=left_or_right[x]%>"></div>
 
         </div>
       </div>
