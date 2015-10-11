@@ -67,9 +67,9 @@ var resultsLoaded = function(){
       value: "", // sales
     }];
 
-  ctx0 = $('canvas').get(0).getContext("2d");
+  ctx0 = $('canvas.left').get(0).getContext("2d");
   chartDrawingLeft = new Chart(ctx0).Pie(fooData);
-  ctx1 = $('canvas').get(1).getContext("2d");
+  ctx1 = $('canvas.right').get(1).getContext("2d");
   chartDrawingRight = new Chart(ctx1).Pie(fooData);
 
   // When user submits choice
@@ -232,6 +232,19 @@ var resultsLoaded = function(){
   }; // click handler function for loading the pie charts
 
   $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
+
+  // Function for left button
+  $('#load-button').click(function(){
+    leftOrRight = $(this).data('left-right');
+    if (leftOrRight == 'left') {
+      chartDrawingLeft.destroy();
+    } else {
+      chartDrawingRight.destroy();
+    }
+    $('.canvas').slideDown('fast', function(){
+      buttonHandler(dropDownValue, leftOrRight);
+    });
+  }); // End click handler
 
   // Function for left button
   $('#load-button-left').click(function(){
