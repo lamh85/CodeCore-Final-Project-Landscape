@@ -6,42 +6,37 @@ var resultsLoaded = function(){
 
   deactivateLoading();
 
-  $('.canvas').slideUp();
+  // Initialize pie data variables
+  // -----------------------------
 
-  // First step: shovel into these arrays.
-  // EG: Extract the company name of every JS Object, and shovel into companies array
+  // Arrays for storing labels
   var companies = [];
   var products = [];
   var categories = [];
   var provinces = [];
   var countries = [];
 
-  var pieExample = [ // One array is a pie chart
-    { // Each object represents a wedge in the pie chart
-      value: "", // sales
-      color: "", // hex code
-      highlight: "", // hex code
-      label: "" // market attribute: company, product, category, etc.
-    }];
-
-  var dropDownValue = "";
-  var pieSelected = [];
-
+  // Arrays for storing pie-chart wedges
   var pieCompanies = [];
   var pieProducts = [];
   var pieCategories = [];
   var pieProvinces = [];
   var pieCountries = [];
 
-  var colorArray = ["#D39191","#BF6161","#AA3939","#951717","#810000","#D3BD91","#BF9F61","#AA8439","#956B17","#815500"]; // length = 10, max index = 9
-
-  var ctx;
-  var loadPieChart
-  var legend;
+  // Example of a pie-chart array
+  // var pieExample = [
+  //   {
+  //     value: "",
+  //     color: "",
+  //     highlight: "",
+  //     label: ""
+  //   }];
 
   var insertCommas = function(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+
+  var colorArray = ["#D39191","#BF6161","#AA3939","#951717","#810000","#D3BD91","#BF9F61","#AA8439","#956B17","#815500"]; // length = 10, max index = 9
 
   var sortObject = function(a,b) {
   if (a.value > b.value)
@@ -50,6 +45,17 @@ var resultsLoaded = function(){
     return 1;
     return 0;
   }
+
+  // Initialize graphics
+  // -------------------
+
+  $('.canvas').slideUp();
+
+  var pieSelected = [];
+
+  var ctx;
+  var loadPieChart
+  var legend;
 
   var fooData = [ // One array is a pie chart
     { // Each object represents a wedge in the pie chart
@@ -62,8 +68,6 @@ var resultsLoaded = function(){
   chartDrawingRight = new Chart(ctx1).Pie(fooData);
 
   // When user submits choice
-  // ////////////////////////
-
   var buttonHandler = function(dropDownValue, leftOrRight) {
 
     // Could not refactor this into a loop because it would not clear the values
