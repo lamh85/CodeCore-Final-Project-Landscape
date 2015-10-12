@@ -8,8 +8,6 @@ var resultsLoaded = function(){
 
   $('.canvas').slideUp();
 
-  var marketProperty;
-
   // First step: shovel into these arrays.
   // EG: Extract the company name of every JS Object, and shovel into companies array
   var companies = [];
@@ -17,8 +15,6 @@ var resultsLoaded = function(){
   var categories = [];
   var provinces = [];
   var countries = [];
-
-  var marketPropArrays = [];
 
   var pieExample = [ // One array is a pie chart
     { // Each object represents a wedge in the pie chart
@@ -36,7 +32,6 @@ var resultsLoaded = function(){
   var pieCategories = [];
   var pieProvinces = [];
   var pieCountries = [];
-  var pieTypes = [pieCompanies, pieProducts, pieCategories, pieProvinces, pieCountries];
 
   var colorArray = ["#D39191","#BF6161","#AA3939","#951717","#810000","#D3BD91","#BF9F61","#AA8439","#956B17","#815500"]; // length = 10, max index = 9
 
@@ -55,9 +50,6 @@ var resultsLoaded = function(){
     return 1;
     return 0;
   }
-
-  var dropDownValue;
-  var leftOrRight;
 
   var fooData = [ // One array is a pie chart
     { // Each object represents a wedge in the pie chart
