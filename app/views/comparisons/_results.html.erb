@@ -4,19 +4,6 @@
 <% canvas = ["canvas-left","canvas-right"] %>
 <% total_header = ["total-header-left","total-header-right"] %>
 
-<!-- My org's suppliers, clients, and competitors -->
-<%# if current_user && current_user.organization %>
-  <%# if current_user.organization.suppliers %>
-    <%# my_suppliers = current_user.organization.suppliers.pluck(:id) %>
-  <%# end %>
-  <%# if current_user.organization.clients %>
-    <%# my_clients = current_user.organization.clients.pluck(:id) %>
-  <%# end %>
-  <%# if current_user.organization.competitors || current_user.organization.competitors %>
-    <%# my_competitors = current_user.organization.competitors.pluck(:id) | current_user.organization.inverse_competitors.pluck(:id) %>
-  <%# end %>
-<%# end %>
-
 <!-- If there is an org1 and an org2 -->
 <% if @org1 && @org2 %>
 
@@ -108,7 +95,6 @@
       <p class="p-header">Description</p>
       <%= org_instance_vars[x].description %>
     </div>
-
 
     <!-- UNDER CONSTRUCTION
     div class="col-md-4">
