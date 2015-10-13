@@ -181,7 +181,6 @@ var resultsLoaded = function(){
   } // ajaxSuccess function
 
   var ajaxGet = function() {
-    console.log('ajaxGet function is runing');    
     $.ajax({
       url: "/market_searches/show.json",
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -195,7 +194,6 @@ var resultsLoaded = function(){
   // When user submits choice
   var buttonHandler = function() {
 
-    console.log('buttonHandler function is runing');
     // Could not refactor this into a loop because it would not clear the values
     pieCompanies = [];
     pieProducts = [];
@@ -210,7 +208,6 @@ var resultsLoaded = function(){
 
   // Bind LOAD button click to function
   $('.load-button.left, .load-button.right').click(function(){
-    console.log('=== click function is runing');    
     leftOrRight = $(this).data('left-right');
     dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
     if (leftOrRight == 'left') {
