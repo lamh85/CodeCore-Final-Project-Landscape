@@ -1,3 +1,5 @@
+// DO NOT MINIFY THIS FILE. THE MINIFIED VERSION HAS A BUG.
+
 /*!
  * Chart.js
  * http://chartjs.org/
@@ -7,7 +9,6 @@
  * Released under the MIT license
  * https://github.com/nnnick/Chart.js/blob/master/LICENSE.md
  */
-
 
 (function(){
 
