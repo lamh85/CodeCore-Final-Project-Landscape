@@ -285,6 +285,10 @@ p {
 
 #loading-shell {
   display: none;  
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 1;  
 }
 
 #loading-shell.rotating {

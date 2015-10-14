@@ -18,12 +18,8 @@ $(document).ready(function() {
     degrees = 0;
     intervalVariable = setInterval(function(){
       $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
-      if (degrees == 359) {
-        degrees = 0
-      } else {
-        degrees ++
-      }
-    }, 100); // setInterval
+      degrees += 20;
+    }, 250); // setInterval
     $('#loading-shell').show();
   }
 
