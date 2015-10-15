@@ -26,6 +26,7 @@ gem 'cancancan', '~> 1.10'
 
 # Cloud storage
 gem 'aws-sdk', '~> 2'
+gem 'carrierwave'
 gem "fog-aws"
 
 # DEFAULT GEMS
