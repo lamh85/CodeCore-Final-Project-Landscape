@@ -24,7 +24,9 @@ gem 'cancancan', '~> 1.10'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Cloud storage
 gem 'aws-sdk', '~> 2'
+gem "fog-aws"
 
 # DEFAULT GEMS
 
