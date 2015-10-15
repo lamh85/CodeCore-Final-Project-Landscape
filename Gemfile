@@ -1,5 +1,32 @@
 source 'https://rubygems.org'
 
+# ADDED FOR THIS APP
+
+gem 'best_in_place', '~> 3.0.1'
+# gem 'puma'
+gem 'simple_form'
+# gem 'country_select'
+gem 'bootstrap-sass', '~> 3.3.4'
+gem "cocoon"
+gem 'jquery-turbolinks'
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
+gem 'rails_12factor', group: :production
+gem 'hirb'
+gem 'awesome_print'
+gem 'interactive_editor'
+gem 'faker'
+gem 'table_print'
+gem 'cancancan', '~> 1.10'
+# Use Unicorn as the app server
+# gem 'unicorn'
+
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
+
+gem 'aws-sdk', '~> 2'
+
+# DEFAULT GEMS
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
@@ -22,40 +49,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
-gem 'best_in_place', '~> 3.0.1'
-
-# gem 'puma'
-
-gem 'simple_form'
-
-# gem 'country_select'
-
-gem 'bootstrap-sass', '~> 3.3.4'
-
-gem "cocoon"
-
-gem 'jquery-turbolinks'
-
-# Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
-
-gem 'rails_12factor', group: :production
-
-gem 'hirb'
-gem 'awesome_print'
-gem 'interactive_editor'
-gem 'faker'
-
-gem 'table_print'
-
-gem 'cancancan', '~> 1.10'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
