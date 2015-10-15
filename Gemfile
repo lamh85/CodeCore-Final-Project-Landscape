@@ -28,6 +28,7 @@ gem 'cancancan', '~> 1.10'
 gem 'aws-sdk', '~> 2'
 gem 'carrierwave'
 gem "fog-aws"
+gem 'fog', '~> 1.34.0'
 
 # DEFAULT GEMS
 
