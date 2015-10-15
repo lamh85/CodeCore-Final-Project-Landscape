@@ -18,17 +18,11 @@ gem 'interactive_editor'
 gem 'faker'
 gem 'table_print'
 gem 'cancancan', '~> 1.10'
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 # Cloud storage
 gem 'aws-sdk', '~> 2'
 gem 'carrierwave'
-gem "fog-aws"
-gem 'fog', '~> 1.34.0'
+gem 'fog'
 
 # DEFAULT GEMS
 
@@ -53,6 +47,12 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+# Use Unicorn as the app server
+# gem 'unicorn'
+
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
