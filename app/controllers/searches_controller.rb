@@ -62,7 +62,7 @@ class SearchesController < ApplicationController
 
           # Delete blanks and trim white spaces - calling application_controller
           # ####################################################################
-          if filter.equality == "includes"
+          if filter.equality == "ILIKE"
             search_terms_array = sanitize_array(filter.search_term)
           elsif filter.property == "revenue"
             filter.search_term = filter.search_term.strip.to_f
@@ -75,7 +75,7 @@ class SearchesController < ApplicationController
             filter_results = filter_results.joins(:priority).where("priorities.name ILIKE any (array[?])",search_terms_array)
           elsif filter.property == "revenue"
             filter_results = filter_results.where("revenue #{filter.equality} #{filter.search_term}")
-          elsif filter.equality == "includes"
+          elsif filter.equality == "ILIKE"
             filter_results = filter_results.where("#{filter.property} ILIKE any (array[?])",search_terms_array)
           end
 
