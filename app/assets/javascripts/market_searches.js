@@ -9,7 +9,7 @@ var resultsLoaded = function(){
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );    
+  $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
 
   // Initialize pie data variables
   // -----------------------------
@@ -192,8 +192,14 @@ var resultsLoaded = function(){
   } // ajaxGet function
 
   // When user submits choice
-  var buttonHandler = function() {
+  var clearData = function() {
 
+    if (leftOrRight == 'left') {
+      chartDrawingLeft.destroy();
+    } else {
+      chartDrawingRight.destroy();
+    }
+    
     // Could not refactor this into a loop because it would not clear the values
     pieCompanies = [];
     pieProducts = [];
@@ -210,13 +216,8 @@ var resultsLoaded = function(){
   $('.load-button.left, .load-button.right').click(function(){
     leftOrRight = $(this).data('left-right');
     dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
-    if (leftOrRight == 'left') {
-      chartDrawingLeft.destroy();
-    } else {
-      chartDrawingRight.destroy();
-    }
     $('.canvas.left').slideDown('fast', function(){ // slideDown only one element to execute the callback function only once
-      buttonHandler();
+      clearData();
     });
   }); // End click handler
 
