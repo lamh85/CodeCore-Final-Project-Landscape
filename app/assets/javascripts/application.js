@@ -18,7 +18,8 @@
 //= require turbolinks
 //= require cocoon
 
-// MANUALL-COPIED FILES: --- FILES THAT FOCUS ON EVENT BINDING SHOULD GO LAST
+// MANUALLY-COPIED FILES: --- FILES THAT FOCUS ON EVENT BINDING SHOULD GO LAST
+//= require tools
 //= require chart
 //= require comparisons
 //= require market_searches
