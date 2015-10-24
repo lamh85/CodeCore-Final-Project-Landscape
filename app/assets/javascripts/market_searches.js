@@ -5,10 +5,6 @@ var jsonData = [];
 var resultsLoaded = function(){
   deactivateLoading();
 
-  var insertCommas = function(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-
   $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
 
   // Initialize pie data variables
@@ -144,7 +140,7 @@ var resultsLoaded = function(){
 
     tableFromLoop = "";
 
-    tableFromLoop = "<div class='table-wrapper'><table><tr> <th>" +dropDownValue+ "</th><th>Sales ($)</th><th>Market Share</th></tr>";
+    tableFromLoop = "<div class='table-wrapper'><table><tr> <th>" +capitalize(dropDownValue)+ "</th><th>Sales ($)</th><th>Market Share</th></tr>";
     for (i = 0; i < propertySelected.pieName.length; i++) {
       tableFromLoop += "<tr style='background: " +propertySelected.pieName[i].color+ ";'>";
       tableFromLoop += "<td>" + propertySelected.pieName[i].label + "</td>";
