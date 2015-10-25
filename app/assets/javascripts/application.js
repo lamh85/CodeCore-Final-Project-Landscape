@@ -20,12 +20,12 @@
 
 // MANUALLY-COPIED FILES: --- FILES THAT FOCUS ON EVENT BINDING SHOULD GO LAST
 //= require tools
+//= require loading
 //= require chart
 //= require comparisons
 //= require market_searches
 //= require searches
 //= require base
-//= require loading
 //= require responsive
 
 // require_tree .

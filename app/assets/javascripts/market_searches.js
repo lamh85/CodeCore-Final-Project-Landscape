@@ -1,5 +1,3 @@
-var chartDrawingLeft;
-var chartDrawingRight;
 var jsonData = [];
 
 var resultsLoaded = function(){
@@ -10,49 +8,10 @@ var resultsLoaded = function(){
   // Initialize pie data variables
   // -----------------------------
 
-  // Arrays for storing labels
-  // var companies = [];
-  // var products = [];
-  // var categories = [];
-  // var provinces = [];
-  // var countries = [];
-
-  // Arrays for storing pie-chart wedges
-  // var pieCompanies = [];
-  // var pieProducts = [];
-  // var pieCategories = [];
-  // var pieProvinces = [];
-  // var pieCountries = [];
-
   var wedgesArray = [];
   var labelsArray = [];
 
-  // var marketProperties = [
-  //   {labels: companies, pieName: pieCompanies},
-  //   {labels: products, pieName: pieProducts},
-  //   {labels: categories, pieName: pieCategories},
-  //   {labels: provinces, pieName: pieProvinces},
-  //   {labels: countries, pieName: pieCountries},
-  // ];
-
-  // Example of a pie-chart array
-  // var pieExample = [
-  //   {
-  //     value: "",
-  //     color: "",
-  //     highlight: "",
-  //     label: ""
-  //   }];
-
   var colorArray = ["#D39191","#BF6161","#AA3939","#951717","#810000","#D3BD91","#BF9F61","#AA8439","#956B17","#815500"]; // length = 10, max index = 9
-
-  var sortObject = function(a,b) {
-  if (a.value > b.value)
-     return -1;
-  if (a.value < b.value)
-    return 1;
-    return 0;
-  }
 
   // Initialize graphics
   // -------------------
@@ -69,25 +28,26 @@ var resultsLoaded = function(){
   var fooData = [ // One array is a pie chart
     { // Each object represents a wedge in the pie chart
       value: "", // sales
+//    color: "",
+//    highlight: "",
+//    label: ""
     }];
 
+  drawingObjects = {
+    left: "",
+    right: "",
+  }
+
   ctx0 = $('.canvas.left').get(0).getContext("2d");
-  chartDrawingLeft = new Chart(ctx0).Pie(fooData);
+  drawingObjects.left = new Chart(ctx0).Pie(fooData);
   ctx1 = $('.canvas.right').get(0).getContext("2d");
-  chartDrawingRight = new Chart(ctx1).Pie(fooData);
+  drawingObjects.right = new Chart(ctx1).Pie(fooData);
 
   // Functions
   // ---------
 
   var ajaxSuccess = function(data) {
     jsonData = data;
-
-    // Define which pie chart to use
-    // for (propertyI = 0; propertyI < marketProperties.length; propertyI++) {
-    //   if (marketProperties[propertyI].fieldName == dropDownValue) {
-    //     propertySelected = marketProperties[propertyI];
-    //   }
-    // }
 
     // Get all the labels
     for (i=0; i < jsonData.length; i++) {
@@ -167,9 +127,9 @@ var resultsLoaded = function(){
     }
 
     if (leftOrRight == "left") {
-      destroyAndRender(chartDrawingLeft);
+      destroyAndRender(drawingObjects.left);
     } else {
-      destroyAndRender(chartDrawingRight);
+      destroyAndRender(drawingObjects.right);
     }
 
     deactivateLoading();
@@ -190,17 +150,11 @@ var resultsLoaded = function(){
   var clearData = function() {
 
     if (leftOrRight == 'left') {
-      chartDrawingLeft.destroy();
+      drawingObjects.left.destroy();
     } else {
-      chartDrawingRight.destroy();
+      drawingObjects.right.destroy();
     }
-    
-    // Could not refactor this into a loop because it would not clear the values
-    // pieCompanies = [];
-    // pieProducts = [];
-    // pieCategories = [];
-    // pieProvinces = [];
-    // pieCountries = [];
+
     wedgesArray = [];
     labelsArray = [];
     $(".legend-container."+leftOrRight).html('');
