@@ -1,5 +1,3 @@
-var jsonData = [];
-
 var resultsLoaded = function(){
   deactivateLoading();
 
@@ -10,7 +8,6 @@ var resultsLoaded = function(){
 
   var wedgesArray = [];
   var labelsArray = [];
-
   var colorArray = ["#D39191","#BF6161","#AA3939","#951717","#810000","#D3BD91","#BF9F61","#AA8439","#956B17","#815500"]; // length = 10, max index = 9
 
   // Initialize graphics
@@ -44,7 +41,7 @@ var resultsLoaded = function(){
   drawingObjects.right = new Chart(ctx1).Pie(fooData);
 
   // Functions
-  // ---------
+  // -------------------------------
 
   var ajaxSuccess = function(data) {
     jsonData = data;
@@ -119,18 +116,10 @@ var resultsLoaded = function(){
     $('.canvas-container.'+leftOrRight).html('<canvas class="canvas market-search '+leftOrRight+'" width="400" height="400"></canvas>');
     ctx = $('.canvas.'+leftOrRight).get(0).getContext("2d");
 
-    destroyAndRender = function(chartDrawing) {
-      chartDrawing.destroy();
-      setTimeout(function(){
-        chartDrawing = new Chart(ctx).Pie(wedgesArray)
-      }, 500);
-    }
-
-    if (leftOrRight == "left") {
-      destroyAndRender(drawingObjects.left);
-    } else {
-      destroyAndRender(drawingObjects.right);
-    }
+    drawingObjects[leftOrRight].destroy();
+    setTimeout(function(){
+      drawingObjects[leftOrRight] = new Chart(ctx).Pie(wedgesArray)
+    }, 500);
 
     deactivateLoading();
   } // ajaxSuccess function
@@ -149,12 +138,7 @@ var resultsLoaded = function(){
   // When user submits choice
   var clearData = function() {
 
-    if (leftOrRight == 'left') {
-      drawingObjects.left.destroy();
-    } else {
-      drawingObjects.right.destroy();
-    }
-
+    drawingObjects[leftOrRight].destroy();
     wedgesArray = [];
     labelsArray = [];
     $(".legend-container."+leftOrRight).html('');
