@@ -93,7 +93,7 @@ var resultsLoaded = function(){
     // Get all the labels
     for (i=0; i < jsonData.length; i++) {
         propertySelected.labels.push(
-          jsonData[i][propertySelected.fieldName]
+          jsonData[i][dropDownValue]
         );
       // EG: companies.push(jsonData[i].company)
     } // shovel records into the array
@@ -127,7 +127,7 @@ var resultsLoaded = function(){
       // Loop through the JSON data
       for (jsonI = 0; jsonI < jsonData.length; jsonI++){
         // if the label matches
-        if (propertySelected.pieName[wedgeI].label == jsonData[jsonI][propertySelected.fieldName]) {
+        if (propertySelected.pieName[wedgeI].label == jsonData[jsonI][dropDownValue]) {
           // Increase the sales total
           propertySelected.pieName[wedgeI].value += jsonData[jsonI].sales;
         } // if match
