@@ -11,28 +11,29 @@ var resultsLoaded = function(){
   // -----------------------------
 
   // Arrays for storing labels
-  var companies = [];
-  var products = [];
-  var categories = [];
-  var provinces = [];
-  var countries = [];
+  // var companies = [];
+  // var products = [];
+  // var categories = [];
+  // var provinces = [];
+  // var countries = [];
 
   // Arrays for storing pie-chart wedges
-  var pieCompanies = [];
-  var pieProducts = [];
-  var pieCategories = [];
-  var pieProvinces = [];
-  var pieCountries = [];
+  // var pieCompanies = [];
+  // var pieProducts = [];
+  // var pieCategories = [];
+  // var pieProvinces = [];
+  // var pieCountries = [];
 
-  var arraysToClear = [];
+  var wedgesArray = [];
+  var labelsArray = [];
 
-  var marketProperties = [
-    {labels: companies, pieName: pieCompanies, fieldName: "company" },
-    {labels: products, pieName: pieProducts, fieldName: "product"},
-    {labels: categories, pieName: pieCategories, fieldName: "category"},
-    {labels: provinces, pieName: pieProvinces, fieldName: "province"},
-    {labels: countries, pieName: pieCountries, fieldName: "country"}
-  ];
+  // var marketProperties = [
+  //   {labels: companies, pieName: pieCompanies},
+  //   {labels: products, pieName: pieProducts},
+  //   {labels: categories, pieName: pieCategories},
+  //   {labels: provinces, pieName: pieProvinces},
+  //   {labels: countries, pieName: pieCountries},
+  // ];
 
   // Example of a pie-chart array
   // var pieExample = [
@@ -61,8 +62,6 @@ var resultsLoaded = function(){
 
   $('.canvas').slideUp();
 
-  var pieSelected = [];
-
   var ctx;
   var loadPieChart
   var legend;
@@ -84,69 +83,69 @@ var resultsLoaded = function(){
     jsonData = data;
 
     // Define which pie chart to use
-    for (propertyI = 0; propertyI < marketProperties.length; propertyI++) {
-      if (marketProperties[propertyI].fieldName == dropDownValue) {
-        propertySelected = marketProperties[propertyI];
-      }
-    }
+    // for (propertyI = 0; propertyI < marketProperties.length; propertyI++) {
+    //   if (marketProperties[propertyI].fieldName == dropDownValue) {
+    //     propertySelected = marketProperties[propertyI];
+    //   }
+    // }
 
     // Get all the labels
     for (i=0; i < jsonData.length; i++) {
-        propertySelected.labels.push(
+        labelsArray.push(
           jsonData[i][dropDownValue]
         );
       // EG: companies.push(jsonData[i].company)
     } // shovel records into the array
 
     // Loop through every type of property. Each is an array
-    propertySelected.labels.sort();
-    for (labelI = 0; labelI < propertySelected.labels.length; labelI++) {
+    labelsArray.sort();
+    for (labelI = 0; labelI < labelsArray.length; labelI++) {
       // If current element is same as the next element...
-      while (propertySelected.labels[labelI] == propertySelected.labels[labelI+1]) {
+      while (labelsArray[labelI] == labelsArray[labelI+1]) {
         // ...the delete the next element
-        propertySelected.labels.splice((labelI+1),1);
+        labelsArray.splice((labelI+1),1);
       } // While loop
     } // For loop          
 
     // Create pie charts without values, BUT with labels and colour
     // For each property, loop through every label
-    for (labelI = 0; labelI < propertySelected.labels.length; labelI++) {
+    for (labelI = 0; labelI < labelsArray.length; labelI++) {
       var colorIndex = labelI.toString();
       colorIndex = colorIndex[colorIndex.length-1]; // "length - 1" converts human-readable index to zero-index. EG) The last digit of "345" is the 3rd digit, therefore the zero-index is 2 (3-1 = 2)
-      propertySelected.pieName.push({
+      wedgesArray.push({
         value: 0,
         color: colorArray[colorIndex],
         highlight: "#071C4B",
-        label: propertySelected.labels[labelI]
+        label: labelsArray[labelI]
       }); // .push
     } // for loop    
 
     // Populate each wedge with sales total
     // Loop through every wedge (the "length" of the pie)
-    for (wedgeI = 0; wedgeI < propertySelected.pieName.length; wedgeI++) {
+    for (wedgeI = 0; wedgeI < wedgesArray.length; wedgeI++) {
       // Loop through the JSON data
       for (jsonI = 0; jsonI < jsonData.length; jsonI++){
         // if the label matches
-        if (propertySelected.pieName[wedgeI].label == jsonData[jsonI][dropDownValue]) {
+        if (wedgesArray[wedgeI].label == jsonData[jsonI][dropDownValue]) {
           // Increase the sales total
-          propertySelected.pieName[wedgeI].value += jsonData[jsonI].sales;
+          wedgesArray[wedgeI].value += jsonData[jsonI].sales;
         } // if match
       } // loop through jsonData
     } // loop through pieObject
 
     // Sort pie chart by value
-    propertySelected.pieName.sort(sortObject);
+    wedgesArray.sort(sortObject);
 
     ctx = $('.canvas.'+leftOrRight).get(0).getContext("2d");
 
     tableFromLoop = "";
 
     tableFromLoop = "<div class='table-wrapper'><table><tr> <th>" +capitalize(dropDownValue)+ "</th><th>Sales ($)</th><th>Market Share</th></tr>";
-    for (i = 0; i < propertySelected.pieName.length; i++) {
-      tableFromLoop += "<tr style='background: " +propertySelected.pieName[i].color+ ";'>";
-      tableFromLoop += "<td>" + propertySelected.pieName[i].label + "</td>";
-      tableFromLoop += "<td class='cell-number'>" + insertCommas(propertySelected.pieName[i].value) + "</td>";
-      var marketShare = Math.round( (propertySelected.pieName[i].value/totalSales) * 100 );
+    for (i = 0; i < wedgesArray.length; i++) {
+      tableFromLoop += "<tr style='background: " +wedgesArray[i].color+ ";'>";
+      tableFromLoop += "<td>" + wedgesArray[i].label + "</td>";
+      tableFromLoop += "<td class='cell-number'>" + insertCommas(wedgesArray[i].value) + "</td>";
+      var marketShare = Math.round( (wedgesArray[i].value/totalSales) * 100 );
       tableFromLoop += "<td class='cell-number'>" + (marketShare) + "%</td>";
       tableFromLoop += "</tr>";
     }
@@ -163,7 +162,7 @@ var resultsLoaded = function(){
     destroyAndRender = function(chartDrawing) {
       chartDrawing.destroy();
       setTimeout(function(){
-        chartDrawing = new Chart(ctx).Pie(propertySelected.pieName)
+        chartDrawing = new Chart(ctx).Pie(wedgesArray)
       }, 500);
     }
 
@@ -195,17 +194,15 @@ var resultsLoaded = function(){
     } else {
       chartDrawingRight.destroy();
     }
-
-    for (i = 0; i < marketProperties.length; i ++) {
-      // INCOMPLETE
-    }
     
     // Could not refactor this into a loop because it would not clear the values
-    pieCompanies = [];
-    pieProducts = [];
-    pieCategories = [];
-    pieProvinces = [];
-    pieCountries = [];
+    // pieCompanies = [];
+    // pieProducts = [];
+    // pieCategories = [];
+    // pieProvinces = [];
+    // pieCountries = [];
+    wedgesArray = [];
+    labelsArray = [];
     $(".legend-container."+leftOrRight).html('');
 
     ajaxGet();
