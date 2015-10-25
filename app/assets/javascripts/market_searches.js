@@ -24,6 +24,16 @@ var resultsLoaded = function(){
   var pieProvinces = [];
   var pieCountries = [];
 
+  var arraysToClear = [];
+
+  var marketProperties = [
+    {labels: companies, pieName: pieCompanies, fieldName: "company" },
+    {labels: products, pieName: pieProducts, fieldName: "product"},
+    {labels: categories, pieName: pieCategories, fieldName: "category"},
+    {labels: provinces, pieName: pieProvinces, fieldName: "province"},
+    {labels: countries, pieName: pieCountries, fieldName: "country"}
+  ];
+
   // Example of a pie-chart array
   // var pieExample = [
   //   {
@@ -72,14 +82,6 @@ var resultsLoaded = function(){
 
   var ajaxSuccess = function(data) {
     jsonData = data;
-
-    marketProperties = [
-      {labels: companies, pieName: pieCompanies, fieldName: "company" },
-      {labels: products, pieName: pieProducts, fieldName: "product"},
-      {labels: categories, pieName: pieCategories, fieldName: "category"},
-      {labels: provinces, pieName: pieProvinces, fieldName: "province"},
-      {labels: countries, pieName: pieCountries, fieldName: "country"}
-    ];
 
     // Define which pie chart to use
     for (propertyI = 0; propertyI < marketProperties.length; propertyI++) {
@@ -132,7 +134,6 @@ var resultsLoaded = function(){
       } // loop through jsonData
     } // loop through pieObject
 
-
     // Sort pie chart by value
     propertySelected.pieName.sort(sortObject);
 
@@ -154,7 +155,6 @@ var resultsLoaded = function(){
 
     $(".legend-container."+leftOrRight).html(tableFromLoop);
     $(".legend-container."+leftOrRight).slideDown();
-
 
     $('.canvas.'+leftOrRight).remove();
     $('.canvas-container.'+leftOrRight).html('<canvas class="canvas market-search '+leftOrRight+'" width="400" height="400"></canvas>');
@@ -194,6 +194,10 @@ var resultsLoaded = function(){
       chartDrawingLeft.destroy();
     } else {
       chartDrawingRight.destroy();
+    }
+
+    for (i = 0; i < marketProperties.length; i ++) {
+      // INCOMPLETE
     }
     
     // Could not refactor this into a loop because it would not clear the values
