@@ -149,6 +149,7 @@ var resultsLoaded = function(){
 
   // Bind LOAD button click to function
   $('.load-button.left, .load-button.right').click(function(){
+    console.log('testing');
     leftOrRight = $(this).data('left-right');
     dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
     $('.canvas.left').slideDown('fast', function(){ // slideDown only one element to execute the callback function only once
