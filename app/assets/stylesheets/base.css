@@ -364,6 +364,10 @@ font-weight: bold;
   color: white;
 }
 
+canvas {
+  display: none;
+}
+
 .canvas-container {
   text-align: center;
 }

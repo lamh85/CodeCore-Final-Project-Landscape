@@ -1,14 +1,22 @@
 var resultsLoaded = function(){
+
+  console.log('checkpoint -3');
+
   deactivateLoading();
+
+  console.log('checkpoint -2');
 
   $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
 
   // Initialize pie data variables
   // -----------------------------
+  console.log('checkpoint -1');
 
   var wedgesArray = [];
   var labelsArray = [];
   var colorArray = ["#D39191","#BF6161","#AA3939","#951717","#810000","#D3BD91","#BF9F61","#AA8439","#956B17","#815500"]; // length = 10, max index = 9
+
+  console.log('checkpoint 0');
 
   // Initialize graphics
   // -------------------
@@ -16,7 +24,11 @@ var resultsLoaded = function(){
   var dropDownValue;
   var leftOrRight;
 
-  $('.canvas').slideUp();
+  $(docuemnt).ready(function(){
+    $('.canvas').slideUp();
+  });
+
+  console.log('checkpoint 1');
 
   var ctx;
   var loadPieChart
@@ -33,12 +45,14 @@ var resultsLoaded = function(){
   drawingObjects = {
     left: "",
     right: "",
-  }
+  };
 
   ctx0 = $('.canvas.left').get(0).getContext("2d");
   drawingObjects.left = new Chart(ctx0).Pie(fooData);
   ctx1 = $('.canvas.right').get(0).getContext("2d");
   drawingObjects.right = new Chart(ctx1).Pie(fooData);
+
+  console.log('checkpoint 2');
 
   // Functions
   // -------------------------------
@@ -147,20 +161,22 @@ var resultsLoaded = function(){
 
   }; // click handler function for loading the pie charts
 
-  // Bind LOAD button click to function
-  $('.load-button.left, .load-button.right').click(function(){
-    console.log('testing');
-    leftOrRight = $(this).data('left-right');
-    dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
-    $('.canvas.left').slideDown('fast', function(){ // slideDown only one element to execute the callback function only once
-      clearData();
-    });
-  }); // End click handler
+  // $(document).ready(function(){
+    // Bind LOAD button click to function
+    $('.load-button.left, .load-button.right').click(function(){
+      console.log('testing');
+      leftOrRight = $(this).data('left-right');
+      dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
+      $('.canvas.left').slideDown('fast', function(){ // slideDown only one element to execute the callback function only once
+        clearData();
+      });
+    }); // End click handler
 
-  // Bind HIDE button click to function
-  $('.hide-pie').click(function(){
-    $('.canvas').slideUp('fast');
-    $('.legend-container').slideUp('fast');
-  });
+    // Bind HIDE button click to function
+    $('.hide-pie').click(function(){
+      $('.canvas').slideUp('fast');
+      $('.legend-container').slideUp('fast');
+    });
+  // });
 
 } // load this whole JS when raw results finish loading
