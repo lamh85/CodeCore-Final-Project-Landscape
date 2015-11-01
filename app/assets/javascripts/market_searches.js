@@ -1,22 +1,15 @@
 var resultsLoaded = function(){
 
-  console.log('checkpoint -3');
-
   deactivateLoading();
-
-  console.log('checkpoint -2');
 
   $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
 
   // Initialize pie data variables
   // -----------------------------
-  console.log('checkpoint -1');
 
   var wedgesArray = [];
   var labelsArray = [];
   var colorArray = ["#D39191","#BF6161","#AA3939","#951717","#810000","#D3BD91","#BF9F61","#AA8439","#956B17","#815500"]; // length = 10, max index = 9
-
-  console.log('checkpoint 0');
 
   // Initialize graphics
   // -------------------
@@ -24,11 +17,7 @@ var resultsLoaded = function(){
   var dropDownValue;
   var leftOrRight;
 
-  $(docuemnt).ready(function(){
-    $('.canvas').slideUp();
-  });
-
-  console.log('checkpoint 1');
+  $('.canvas').slideUp();
 
   var ctx;
   var loadPieChart
@@ -51,8 +40,6 @@ var resultsLoaded = function(){
   drawingObjects.left = new Chart(ctx0).Pie(fooData);
   ctx1 = $('.canvas.right').get(0).getContext("2d");
   drawingObjects.right = new Chart(ctx1).Pie(fooData);
-
-  console.log('checkpoint 2');
 
   // Functions
   // -------------------------------
@@ -144,7 +131,6 @@ var resultsLoaded = function(){
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       dataType: "json",
       method: "get",
-      error: function() { console.log("Cannot GET AJAX file") },
       success: function(data) { ajaxSuccess(data) }
     });// AJAX function 
   } // ajaxGet function
@@ -164,7 +150,6 @@ var resultsLoaded = function(){
   // $(document).ready(function(){
     // Bind LOAD button click to function
     $('.load-button.left, .load-button.right').click(function(){
-      console.log('testing');
       leftOrRight = $(this).data('left-right');
       dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
       $('.canvas.left').slideDown('fast', function(){ // slideDown only one element to execute the callback function only once
