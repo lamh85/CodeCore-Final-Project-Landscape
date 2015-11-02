@@ -1,4 +1,24 @@
+var totalSales;
+
+  var createSum = function(data){
+    console.log('function is running');
+    sum = sum(data);
+    totalSales = insertCommas(sum);
+  }
+
+var ajaxGet = function(callBack) {
+  $.ajax({
+    url: "/market_searches/show.json",
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+    dataType: "json",
+    method: "get",
+    success: function(data) { callBack(data) }
+  });// AJAX function 
+} // ajaxGet function
+
 var resultsLoaded = function(){
+
+  ajaxGet(createSum);
 
   $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
 
@@ -123,16 +143,6 @@ var resultsLoaded = function(){
     deactivateLoading();
   } // ajaxSuccess function
 
-  var ajaxGet = function() {
-    $.ajax({
-      url: "/market_searches/show.json",
-      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-      dataType: "json",
-      method: "get",
-      success: function(data) { ajaxSuccess(data) }
-    });// AJAX function 
-  } // ajaxGet function
-
   // When user submits choice
   var clearData = function() {
 
@@ -141,7 +151,7 @@ var resultsLoaded = function(){
     labelsArray = [];
     $(".legend-container."+leftOrRight).html('');
 
-    ajaxGet();
+    ajaxGet(ajaxSuccess);
 
   }; // click handler function for loading the pie charts
 
