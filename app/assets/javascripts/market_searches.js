@@ -164,4 +164,8 @@ var resultsLoaded = function(){
     });
   // });
 
+  $('.wrapper-market-search button').click(function(){
+    resultsLoaded();
+  });
+  
 } // load this whole JS when raw results finish loading

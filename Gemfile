@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 # ADDED FOR THIS APP
+# ------------------
 
 gem 'best_in_place', '~> 3.0.1'
 # gem 'puma'
@@ -18,6 +19,7 @@ gem 'interactive_editor'
 gem 'faker'
 gem 'table_print'
 gem 'cancancan', '~> 1.10'
+gem 'angularjs-rails'
 
 # Cloud storage
 gem 'aws-sdk', '~> 2'
@@ -25,6 +27,7 @@ gem 'carrierwave'
 gem 'fog'
 
 # DEFAULT GEMS
+# ------------
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
