@@ -59,15 +59,15 @@ class MarketSearchesController < ApplicationController
     result_array = []
     @final_results.each do |result|
       result = {
-        "market_id" => result.id,
+        "market_id"       => result.id,
         "organization_id" => result.organization_id,
-        "company" => result.organization.name,
-        "category_id" => result.category_id,
-        "product" => result.product,
-        "category" => result.category.name,
-        "province" => result.province,
-        "country" => result.country,
-        "sales" => result.sales
+        "company"         => result.organization.name,
+        "category_id"     => result.category_id,
+        "product"         => result.product,
+        "category"        => result.category.name,
+        "province"        => result.province,
+        "country"         => result.country,
+        "sales"           => result.sales
       } 
       result_array << result
     end

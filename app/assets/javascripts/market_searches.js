@@ -1,7 +1,5 @@
 var resultsLoaded = function(){
 
-  deactivateLoading();
-
   $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
 
   // Initialize pie data variables
