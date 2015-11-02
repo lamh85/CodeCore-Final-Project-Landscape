@@ -1,10 +1,13 @@
 var totalSales;
 
-  var createSum = function(data){
-    console.log('function is running');
-    sum = sum(data);
-    totalSales = insertCommas(sum);
+var renderTotal = function(data){
+  marketsValues = [];
+  for (i = 0; i < data.length; i++) {
+    marketsValues.push(data[i].sales)
   }
+  totalSales = makeSum(marketsValues);
+  $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
+}
 
 var ajaxGet = function(callBack) {
   $.ajax({
@@ -18,9 +21,7 @@ var ajaxGet = function(callBack) {
 
 var resultsLoaded = function(){
 
-  ajaxGet(createSum);
-
-  $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
+  ajaxGet(renderTotal);
 
   // Initialize pie data variables
   // -----------------------------
