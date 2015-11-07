@@ -21,15 +21,11 @@ class MarketSearchesController < ApplicationController
 
           # MERGE THE FILTER RESULTS WITH FINAL RESULTS
           # ###########################################
+          search_scope = @final_results == nil ? Market : @final_results
           if filter.property == "category"
-            search_scope = @final_results == nil ? Market : @final_results
             @final_results = search_scope.joins(:category).where("name ILIKE any (array[?])",search_terms_array)
           else # if filter.property == "category"
-            if @final_results == nil
-              @final_results = Market.where("#{filter.property} ILIKE any (array[?])",search_terms_array)
-            else
-              @final_results = @final_results.where("#{filter.property} ILIKE any (array[?])",search_terms_array)
-            end # if @final_results == nil
+            @final_results = search_scope.where("#{filter.property} ILIKE any (array[?])",search_terms_array)
           end # if filter.property == "category"
 
         end # End the looping through each filter
