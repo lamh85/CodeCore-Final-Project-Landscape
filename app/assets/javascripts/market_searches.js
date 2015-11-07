@@ -21,7 +21,7 @@ var ajaxGet = function(callBack) {
 
 var resultsLoaded = function(){
 
-  ajaxGet(renderTotal);
+  renderTotal(jsonData);
 
   // Initialize pie data variables
   // -----------------------------
@@ -63,8 +63,7 @@ var resultsLoaded = function(){
   // Functions
   // -------------------------------
 
-  var ajaxSuccess = function(data) {
-    jsonData = data;
+  var renderCharts = function() {
 
     // Get all the labels
     for (i=0; i < jsonData.length; i++) {
@@ -82,7 +81,7 @@ var resultsLoaded = function(){
         // ...the delete the next element
         labelsArray.splice((labelI+1),1);
       } // While loop
-    } // For loop          
+    } // For loop       
 
     // Create pie charts without values, BUT with labels and colour
     // For each property, loop through every label
@@ -142,7 +141,8 @@ var resultsLoaded = function(){
     }, 500);
 
     deactivateLoading();
-  } // ajaxSuccess function
+
+  } // renderCharts function
 
   // When user submits choice
   var clearData = function() {
@@ -152,13 +152,14 @@ var resultsLoaded = function(){
     labelsArray = [];
     $(".legend-container."+leftOrRight).html('');
 
-    ajaxGet(ajaxSuccess);
+    renderCharts();
 
   }; // click handler function for loading the pie charts
 
   // $(document).ready(function(){
     // Bind LOAD button click to function
     $('.load-button.left, .load-button.right').click(function(){
+
       leftOrRight = $(this).data('left-right');
       dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
       $('.canvas.left').slideDown('fast', function(){ // slideDown only one element to execute the callback function only once
@@ -168,13 +169,10 @@ var resultsLoaded = function(){
 
     // Bind HIDE button click to function
     $('.hide-pie').click(function(){
+
       $('.canvas').slideUp('fast');
       $('.legend-container').slideUp('fast');
     });
   // });
-
-  $('.wrapper-market-search button').click(function(){
-    resultsLoaded();
-  });
   
 } // load this whole JS when raw results finish loading

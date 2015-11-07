@@ -38,11 +38,12 @@ class MarketSearchesController < ApplicationController
 
         end # End the looping through each filter
         @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
-        @json_data = @final_results.to_json.html_safe
+        if @final_results
+          @json_data = write_json.to_json.html_safe
+        end          
         format.html { render :new, notice: "Search complete"}
         format.js {render}
         # write_json if @final_results
-        # format.json { render @final_results }
       else # If could not save
         format.html { render :new, alert: "We could not complete your search" }
         format.js {render}
@@ -62,9 +63,7 @@ class MarketSearchesController < ApplicationController
     @final_results.each do |result|
       result = {
         "market_id"       => result.id,
-        "organization_id" => result.organization_id,
         "company"         => result.organization.name,
-        "category_id"     => result.category_id,
         "product"         => result.product,
         "category"        => result.category.name,
         "province"        => result.province,
@@ -73,9 +72,10 @@ class MarketSearchesController < ApplicationController
       } 
       result_array << result
     end
-    File.open("app/views/market_searches/show.json","w") do |f|
-      f.write(result_array.to_json)
-    end 
+    return result_array
+    # File.open("app/views/market_searches/show.json","w") do |f|
+    #   f.write(result_array.to_json)
+    # end
   end # Write results to a JSON file
 
   def search_params
