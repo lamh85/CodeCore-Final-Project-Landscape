@@ -17,17 +17,13 @@ class MarketSearchesController < ApplicationController
         filters.each do |filter| # for every filter...
 
           # Delete blanks and trim white spaces - calling application_controller
-          # ####################################################################
           search_terms_array = sanitize_array(filter.search_term)
 
           # MERGE THE FILTER RESULTS WITH FINAL RESULTS
           # ###########################################
           if filter.property == "category"
-            if @final_results == nil
-              @final_results = Market.joins(:category).where("name ILIKE any (array[?])",search_terms_array)
-            else
-              @final_results = @final_results.joins(:category).where("name ILIKE any (array[?])",search_terms_array)
-            end # if @final_results == nil
+            search_scope = @final_results == nil ? Market : @final_results
+            @final_results = search_scope.joins(:category).where("name ILIKE any (array[?])",search_terms_array)
           else # if filter.property == "category"
             if @final_results == nil
               @final_results = Market.where("#{filter.property} ILIKE any (array[?])",search_terms_array)
