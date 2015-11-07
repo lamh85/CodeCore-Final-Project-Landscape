@@ -1,5 +1,7 @@
 $('#results-market').html('<%= j render partial: "results" %>');
 
+var jsonData = <%= @json_data %>;
+
 resultsLoaded(); // Trigger market_searches.js
 
 deactivateLoading();

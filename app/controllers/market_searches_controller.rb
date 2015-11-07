@@ -38,9 +38,11 @@ class MarketSearchesController < ApplicationController
 
         end # End the looping through each filter
         @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
+        @json_data = @final_results.to_json.html_safe
         format.html { render :new, notice: "Search complete"}
         format.js {render}
-        write_json if @final_results
+        # write_json if @final_results
+        # format.json { render @final_results }
       else # If could not save
         format.html { render :new, alert: "We could not complete your search" }
         format.js {render}
