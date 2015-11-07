@@ -26,7 +26,7 @@ class MarketSearchesController < ApplicationController
             if @final_results == nil
               @final_results = Market.joins(:category).where("name ILIKE any (array[?])",search_terms_array)
             else
-              @final_results = @final_results.joins(:category).where("name ILIKE any (array[?])",search_terms_array)              
+              @final_results = @final_results.joins(:category).where("name ILIKE any (array[?])",search_terms_array)
             end # if @final_results == nil
           else # if filter.property == "category"
             if @final_results == nil
@@ -38,12 +38,9 @@ class MarketSearchesController < ApplicationController
 
         end # End the looping through each filter
         @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
-        if @final_results
-          @json_data = write_json.to_json.html_safe
-        end          
+        @json_data = write_json.to_json.html_safe if @final_results
         format.html { render :new, notice: "Search complete"}
         format.js {render}
-        # write_json if @final_results
       else # If could not save
         format.html { render :new, alert: "We could not complete your search" }
         format.js {render}
@@ -62,20 +59,17 @@ class MarketSearchesController < ApplicationController
     result_array = []
     @final_results.each do |result|
       result = {
-        "market_id"       => result.id,
-        "company"         => result.organization.name,
-        "product"         => result.product,
-        "category"        => result.category.name,
-        "province"        => result.province,
-        "country"         => result.country,
-        "sales"           => result.sales
+        "market_id" => result.id,
+        "company"   => result.organization.name,
+        "product"   => result.product,
+        "category"  => result.category.name,
+        "province"  => result.province,
+        "country"   => result.country,
+        "sales"     => result.sales
       } 
       result_array << result
     end
     return result_array
-    # File.open("app/views/market_searches/show.json","w") do |f|
-    #   f.write(result_array.to_json)
-    # end
   end # Write results to a JSON file
 
   def search_params
