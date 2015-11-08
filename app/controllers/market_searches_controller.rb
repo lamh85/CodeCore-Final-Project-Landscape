@@ -19,9 +19,9 @@ class MarketSearchesController < ApplicationController
           # Delete blanks and trim white spaces - calling application_controller
           search_terms_array = sanitize_array(filter.search_term)
 
-          # MERGE THE FILTER RESULTS WITH FINAL RESULTS
-          # ###########################################
+          # If there were previous search filters, then merge results
           search_scope = @final_results == nil ? Market : @final_results
+
           if filter.property == "category"
             @final_results = search_scope.joins(:category).where("name ILIKE any (array[?])",search_terms_array)
           else # if filter.property == "category"
@@ -30,7 +30,7 @@ class MarketSearchesController < ApplicationController
 
         end # End the looping through each filter
         @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
-        @json_data = write_json.to_json.html_safe if @final_results
+        @json_data = write_json.html_safe if @final_results
         format.html { render :new, notice: "Search complete"}
         format.js {render}
       else # If could not save
@@ -61,7 +61,7 @@ class MarketSearchesController < ApplicationController
       } 
       result_array << result
     end
-    return result_array
+    return result_array.to_json
   end # Write results to a JSON file
 
   def search_params
