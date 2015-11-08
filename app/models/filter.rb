@@ -27,7 +27,7 @@ class Filter < ActiveRecord::Base
 
   def text_search
     if property != "revenue" && property != nil && property != ""
-      if equality != "includes"
+      if equality != "ILIKE"
         errors.add(:property, "You must choose 'contains text' when searcing by this property.")
       end
     end

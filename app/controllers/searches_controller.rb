@@ -73,10 +73,12 @@ class SearchesController < ApplicationController
           if filter.property == "priority"
             # Must specify that you're searching proprities.name because "name" is also a column in Organization table"
             filter_results = filter_results.joins(:priority).where("priorities.name ILIKE any (array[?])",search_terms_array)
-          elsif filter.property == "revenue"
-            filter_results = filter_results.where("#{filter.property} #{filter.equality} ?", filter.search_term.to_i)
-          elsif filter.equality == "ILIKE"
-            filter_results = filter_results.where("#{filter.property} ILIKE any (array[?])",search_terms_array)
+          else
+            escape_string = "?"                   if filter.property == "revenue"
+            escape_string = "any (array[?])"      if filter.equality == "ILIKE"
+            term_query = filter.search_term.to_i  if filter.property == "revenue"
+            term_query = search_terms_array       if filter.equality == "ILIKE"
+            filter_results = filter_results.where("#{filter.property} #{filter.equality} #{escape_string}", term_query)
           end
 
           # Update the final results
