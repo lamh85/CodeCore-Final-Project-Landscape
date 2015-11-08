@@ -9,16 +9,6 @@ var renderTotal = function(data){
   $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
 }
 
-var ajaxGet = function(callBack) {
-  $.ajax({
-    url: "/market_searches/show.json",
-    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-    dataType: "json",
-    method: "get",
-    success: function(data) { callBack(data) }
-  });// AJAX function 
-} // ajaxGet function
-
 var resultsLoaded = function(){
 
   renderTotal(jsonData);
