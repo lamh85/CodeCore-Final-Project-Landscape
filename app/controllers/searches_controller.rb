@@ -60,24 +60,16 @@ class SearchesController < ApplicationController
             filter_results = Organization.all
           end
 
-          # Delete blanks and trim white spaces - calling application_controller
-          # ####################################################################
-          if filter.equality == "ILIKE"
-            search_terms_array = sanitize_array(filter.search_term)
-          elsif filter.property == "revenue"
-            filter.search_term = filter.search_term.strip.to_f
-          end
-
           # Search based on org's characteristic
           # ####################################
           if filter.property == "priority"
-            # Must specify that you're searching proprities.name because "name" is also a column in Organization table"
             filter_results = filter_results.joins(:priority).where("priorities.name ILIKE any (array[?])",search_terms_array)
           else
-            escape_string = "?"                   if filter.property == "revenue"
-            escape_string = "any (array[?])"      if filter.equality == "ILIKE"
-            term_query = filter.search_term.to_i  if filter.property == "revenue"
-            term_query = search_terms_array       if filter.equality == "ILIKE"
+            escape_string = "?"               if filter.property == "revenue"
+            escape_string = "any (array[?])"  if filter.equality == "ILIKE"
+            term_query = filter.search_term.strip.to_f      if filter.property == "revenue"
+            term_query = sanitize_array(filter.search_term) if filter.equality == "ILIKE"
+
             filter_results = filter_results.where("#{filter.property} #{filter.equality} #{escape_string}", term_query)
           end
 
