@@ -16,17 +16,12 @@ class MarketSearchesController < ApplicationController
         filters = MarketSearch.find(@market_search).market_filters
         filters.each do |filter| # for every filter...
 
-          # Delete blanks and trim white spaces - calling application_controller
-          search_terms_array = sanitize_array(filter.search_term)
+            # If there were previous search filters, then merge results
+            sql_select = @final_results == nil ? Market : @final_results
 
-          # If there were previous search filters, then merge results
-          search_scope = @final_results == nil ? Market : @final_results
-
-          if filter.property == "category"
-            @final_results = search_scope.joins(:category).where("name ILIKE any (array[?])",search_terms_array)
-          else # if filter.property == "category"
-            @final_results = search_scope.where("#{filter.property} ILIKE any (array[?])",search_terms_array)
-          end # if filter.property == "category"
+            sql_select = sql_select.joins(:category) if filter.property == "category"
+            where_column = filter.property == "category" ? "name" : filter.property
+            @final_results = sql_select.where("#{where_column} ILIKE any (array[?])", sanitize_array(filter.search_term))
 
         end # End the looping through each filter
         @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
