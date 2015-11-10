@@ -146,23 +146,21 @@ var resultsLoaded = function(){
 
   }; // click handler function for loading the pie charts
 
-  // $(document).ready(function(){
-    // Bind LOAD button click to function
-    $('.load-button.left, .load-button.right').click(function(){
+  // Bind LOAD button click to function
+  $('.load-button.left, .load-button.right').click(function(){
 
-      leftOrRight = $(this).data('left-right');
-      dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
-      $('.canvas.left').slideDown('fast', function(){ // slideDown only one element to execute the callback function only once
-        clearData();
-      });
-    }); // End click handler
-
-    // Bind HIDE button click to function
-    $('.hide-pie').click(function(){
-
-      $('.canvas').slideUp('fast');
-      $('.legend-container').slideUp('fast');
+    leftOrRight = $(this).data('left-right');
+    dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
+    $('.canvas.left').slideDown('fast', function(){ // slideDown only one element to execute the callback function only once
+      clearData();
     });
-  // });
+  }); // End click handler
+
+  // Bind HIDE button click to function
+  $('.hide-pie').click(function(){
+
+    $('.canvas').slideUp('fast');
+    $('.legend-container').slideUp('fast');
+  });
   
 } // load this whole JS when raw results finish loading
