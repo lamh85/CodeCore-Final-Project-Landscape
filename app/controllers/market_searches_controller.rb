@@ -62,6 +62,6 @@ class MarketSearchesController < ApplicationController
   def search_params
     params.require(:market_search).permit(:filter_id,
       {market_filters_attributes: [:property, :search_term,:_destroy]}
-      )
+    )
   end
 end
