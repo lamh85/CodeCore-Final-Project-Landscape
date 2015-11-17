@@ -7,6 +7,7 @@ class MarketSearchesController < ApplicationController
   end
 
   def new_v2
+    @extra_scripts = ['market_searches_angular']
     render "new_v2"
   end
 

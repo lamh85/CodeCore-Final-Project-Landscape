@@ -141,5 +141,10 @@
 <script>
   $('#navTwo .wrapper-link:contains("<%= j session[:nav_link_pressed] %>")').css('background','#2E723E').css('border','1px solid rgb(18, 76, 32)').css('border-width','0px 1px');  
 </script>
+<% if @extra_scripts %>
+  <% @extra_scripts.each do |script_name| %>
+    <%= javascript_include_tag script_name, 'data-turbolinks-track' => true %>
+  <% end %>
+<% end %>
 
 </html>
