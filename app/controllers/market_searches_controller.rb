@@ -6,6 +6,10 @@ class MarketSearchesController < ApplicationController
     1.times { @market_search.market_filters.build }
   end
 
+  def new_v2
+    render "new_v2"
+  end
+
   def create
     MarketSearch.destroy_all
     MarketFilter.destroy_all
