@@ -11,6 +11,17 @@ class MarketSearchesController < ApplicationController
     render "new_v2"
   end
 
+  def results_v2
+    byebug
+    render text: params.to_json
+    # (byebug) params
+    # {"0"=>"{\"search_term\":\"fff\",\"property\":\"category\"}", "controller"=>"market_searches", "action"=>"results_v2"}
+    # (byebug) params["0"]
+    # {"search_term":"fff","property":"category"}
+    # (byebug) params["controller"]
+    # market_searches
+  end
+
   def create
     MarketSearch.destroy_all
     MarketFilter.destroy_all

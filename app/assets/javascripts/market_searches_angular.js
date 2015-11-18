@@ -1,6 +1,6 @@
 var marketSearches = angular.module("marketSearches",[]);
 
-mktSearchController = marketSearches.controller("mktSearchController", ['$scope', function($scope){
+mktSearchController = marketSearches.controller("mktSearchController", ['$scope', '$http', function($scope, $http){
 
     console.log('testing');
 
@@ -32,8 +32,22 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
 
     $scope.search = function() {
         console.log($scope.params);
-    }
+        $http({
+            method: 'GET',
+            params: $scope.params,
+            // url: '/market_searches/results_v2'
+            // url: "/"
+            url: "results_v2"
+        });
 
-    console.log($scope.params);
+        // $http({
+        //   method: 'GET',
+        //   url: '/results_v2'
+        // });
+
+        // then(function successCallback(response) {
+
+        // })
+    }
 
 }]);
