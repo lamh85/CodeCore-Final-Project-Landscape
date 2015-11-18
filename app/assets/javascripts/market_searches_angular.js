@@ -4,6 +4,12 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
 
     console.log('testing');
 
+    $scope.options = [
+        { display: "Product Category", value: "category" },
+        { display: "Province", value: "province" },
+        { display: "Country", value: "country" },
+        { display: "Description", value: "description" }
+    ];
     $scope.params = [];
 
     var singleSearchParam = function() {
@@ -21,6 +27,7 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
 
     $scope.removeFilter = function() {
         console.log('removing');
+        $scope.params.splice(($scope.params.length - 1), 1);
     }
 
     $scope.search = function() {

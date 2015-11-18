@@ -13,15 +13,10 @@
 
     <div class="row" ng-repeat="param in params track by $index">
         <div class="col-md-4">
-            <select ng-model="param.property">
-                <% [["Product Category", "category"],
-                ["Province", "province"],
-                ["Country", "country"],
-                ["Description", "description"]].each do |pair| %>
-                    <option value="<%= pair[1] %>">
-                        <%= pair[0] %>
-                    </option>
-                <% end %>
+            <select ng-model="param.property" class="form-control">
+                <option ng-repeat="option in options" value="{{option.value}}">
+                    {{option.display}}
+                </option>
             </select>
         </div>
         <div class="col-md-4">
@@ -36,12 +31,12 @@
 
     <div class="row">
         <div class="col-md-2">
-            <span class="btn btn-danger" ng-click="addFilter()">
+            <span class="btn btn-primary" ng-click="addFilter()">
                 Add filter
             </span>
         </div>
         <div class="col-md-2">
-            <span class="btn btn-danger" ng-click="search()">
+            <span class="btn btn-success" ng-click="search()">
                 Search
             </span>
         </div>
