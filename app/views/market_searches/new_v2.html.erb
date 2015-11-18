@@ -11,13 +11,41 @@
 
 <form>
 
-    <div class="row" ng-repeat"param in params">
+    <div class="row" ng-repeat="param in params track by $index">
         <div class="col-md-4">
+            <select ng-model="param.property">
+                <% [["Product Category", "category"],
+                ["Province", "province"],
+                ["Country", "country"],
+                ["Description", "description"]].each do |pair| %>
+                    <option value="<%= pair[1] %>">
+                        <%= pair[0] %>
+                    </option>
+                <% end %>
+            </select>
         </div>
         <div class="col-md-4">
+            <input class="form-control" ng-model="param.search_term">
         </div>
         <div class="col-md-4">
+            <span class="btn btn-danger" ng-click="removeFilter()">
+                Remove this filter
+            </span>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <span class="btn btn-danger" ng-click="addFilter()">
+                Add filter
+            </span>
+        </div>
+        <div class="col-md-2">
+            <span class="btn btn-danger" ng-click="search()">
+                Search
+            </span>
+        </div>
+
     </div>
 
 </form>
