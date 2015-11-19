@@ -13,8 +13,8 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
     $scope.params = [];
 
     var singleSearchParam = function() {
-        this.search_term = "";
-        this.property = "";
+        this.search_term = "something";
+        this.property = "category";
     }
 
     $scope.addFilter = function() {
@@ -35,19 +35,8 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
         $http({
             method: 'GET',
             params: $scope.params,
-            // url: '/market_searches/results_v2'
-            // url: "/"
-            url: "results_v2"
+            url: "../market_searches/results_v2"
         });
-
-        // $http({
-        //   method: 'GET',
-        //   url: '/results_v2'
-        // });
-
-        // then(function successCallback(response) {
-
-        // })
     }
 
 }]);

@@ -13,7 +13,8 @@ class MarketSearchesController < ApplicationController
 
   def results_v2
     byebug
-    render text: params.to_json
+    array_of_filters = params.map{|key,value| {key => value} if key != "controller" && key != "action" }
+    render text: array_of_filters.to_json
     # (byebug) params
     # {"0"=>"{\"search_term\":\"fff\",\"property\":\"category\"}", "controller"=>"market_searches", "action"=>"results_v2"}
     # (byebug) params["0"]
