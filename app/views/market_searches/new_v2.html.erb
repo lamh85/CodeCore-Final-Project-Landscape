@@ -45,6 +45,31 @@
 
 </form>
 
+<div class="table-wrapper">
+    <table id="results-table">
+        <tr>
+            <th>Company</th>
+            <th>Priority Level</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Province</th>
+            <th>Country</th>
+            <th>Sales</th>
+            <th>Description</th>
+        </tr>    
+        <tr ng-repeat="row in results">
+            <td>row.company</td>
+            <td>row.priority</td>
+            <td>row.product</td>
+            <td>row.category</td>
+            <td>row.province</td>
+            <td>row.country</td>
+            <td>row.sales</td>
+            <td>row.description</td>
+        </tr>
+    </table>
+</div>
+
 <!-- Close ng-app and ng-controller -->
 </div>
 </div>

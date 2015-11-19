@@ -33,6 +33,7 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
             params: $scope.params,
             url: "../market_searches/results_v2"
         }).then(function successCallback(response){
+            deactivateLoading();            
             console.log(response.data);
         });
     }

@@ -13,24 +13,18 @@ class MarketSearchesController < ApplicationController
 
   def results_v2
 =begin
-    params:
-    {
-             "0" => "{\"search_term\":\"something\",\"property\":\"category\"}",
-             "1" => "{\"search_term\":\"something\",\"property\":\"category\"}",
-    "controller" => "market_searches",
-        "action" => "results_v2"
-    }
+    params: = { "0" => "{\"search_term\":\"something\",\"property\":\"category\"}",
+                "1" => "{\"search_term\":\"something\",\"property\":\"category\"}",
+      "controller"  => "market_searches", "action" => "results_v2" }
 =end
     filters = params.map{|key, value| eval(value) if key != "controller" && key != "action"}.compact
     filters.each do |filter| # for every filter...
-
         # If there were previous search filters, then merge results
         sql_select = @final_results == nil ? Market : @final_results
 
         sql_select = sql_select.joins(:category) if filter[:property] == "category"
         where_column = filter[:property] == "category" ? "name" : filter[:property]
         @final_results = sql_select.where("#{where_column} ILIKE any (array[?])", sanitize_array(filter[:search_term]))
-
     end # End the looping through each filter
     @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
     @json_data = write_json.html_safe if @final_results
@@ -77,13 +71,15 @@ class MarketSearchesController < ApplicationController
     result_array = []
     @final_results.each do |result|
       result = {
-        "market_id" => result.id,
-        "company"   => result.organization.name,
-        "product"   => result.product,
-        "category"  => result.category.name,
-        "province"  => result.province,
-        "country"   => result.country,
-        "sales"     => result.sales
+        "market_id"   => result.id,
+        "company"     => result.organization.name,
+        "priority"    => result.organization.priority.name,
+        "product"     => result.product,
+        "category"    => result.category.name,
+        "province"    => result.province,
+        "country"     => result.country,
+        "sales"       => result.sales,
+        "description" => result.description
       } 
       result_array << result
     end
