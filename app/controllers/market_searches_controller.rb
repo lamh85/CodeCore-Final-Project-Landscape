@@ -12,15 +12,32 @@ class MarketSearchesController < ApplicationController
   end
 
   def results_v2
-    byebug
-    array_of_filters = params.map{|key,value| {key => value} if key != "controller" && key != "action" }
-    render text: array_of_filters.to_json
     # (byebug) params
     # {"0"=>"{\"search_term\":\"fff\",\"property\":\"category\"}", "controller"=>"market_searches", "action"=>"results_v2"}
     # (byebug) params["0"]
     # {"search_term":"fff","property":"category"}
     # (byebug) params["controller"]
     # market_searches
+
+    # Parameters: {"0"=>"{\"search_term\":\"something\",\"property\":\"category\"}"}
+    # *** ONE ITERATION ***
+    # The key is {"0"=>"{\"search_term\":\"something\",\"property\":\"category\"}"}
+    # Its class is Hash
+    # The value is 
+    # Its class is NilClass
+
+    params_spliced = params.map{|key,value| {key => value} if key != "controller" && key != "action" }
+    # array_of_filters = []
+    params_spliced.each do |element|        # params_spliced is an Array. Each element is a Hash
+      element.each do |key,value|
+        puts "*** ONE ITERATION ***"        # {"0"=>"{\"search_term\":\"something\",\"property\":\"category\"}"}
+        puts "The key is #{key}"            # 0
+        puts "Its class is #{key.class}"    # String
+        puts "The value is #{value}"        # {"search_term":"something","property":"category"}
+        puts "Its class is #{value.class}"  # String
+      end
+    end
+    # render text: array_of_filters.to_json
   end
 
   def create

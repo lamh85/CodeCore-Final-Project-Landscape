@@ -2,7 +2,6 @@ var marketSearches = angular.module("marketSearches",[]);
 
 mktSearchController = marketSearches.controller("mktSearchController", ['$scope', '$http', function($scope, $http){
 
-    console.log('testing');
 
     $scope.options = [
         { display: "Product Category", value: "category" },
@@ -18,7 +17,6 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
     }
 
     $scope.addFilter = function() {
-        console.log('adding filter');
         $scope.params.push(
             new singleSearchParam()
         );        
@@ -26,16 +24,16 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
     $scope.addFilter();
 
     $scope.removeFilter = function() {
-        console.log('removing');
         $scope.params.splice(($scope.params.length - 1), 1);
     }
 
     $scope.search = function() {
-        console.log($scope.params);
         $http({
             method: 'GET',
             params: $scope.params,
             url: "../market_searches/results_v2"
+        }).then(function successCallback(response){
+            console.log(response.data);
         });
     }
 
