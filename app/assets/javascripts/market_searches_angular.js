@@ -4,6 +4,7 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
 
 
     $scope.options = [
+        { display: "Product", value: "product" },
         { display: "Product Category", value: "category" },
         { display: "Province", value: "province" },
         { display: "Country", value: "country" },
@@ -12,8 +13,8 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
     $scope.params = [];
 
     var singleSearchParam = function() {
-        this.search_term = "something";
-        this.property = "category";
+        this.search_term = "British Columbia";
+        this.property = "province";
     }
 
     $scope.addFilter = function() {
@@ -27,6 +28,10 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
         $scope.params.splice(($scope.params.length - 1), 1);
     }
 
+    $scope.results = [];
+    $scope.insertCommas = function(number) {
+        return insertCommas(number);
+    }
     $scope.search = function() {
         $http({
             method: 'GET',
@@ -35,6 +40,7 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
         }).then(function successCallback(response){
             deactivateLoading();            
             console.log(response.data);
+            $scope.results = response.data;
         });
     }
 

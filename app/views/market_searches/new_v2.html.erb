@@ -58,14 +58,14 @@
             <th>Description</th>
         </tr>    
         <tr ng-repeat="row in results">
-            <td>row.company</td>
-            <td>row.priority</td>
-            <td>row.product</td>
-            <td>row.category</td>
-            <td>row.province</td>
-            <td>row.country</td>
-            <td>row.sales</td>
-            <td>row.description</td>
+            <td>{{row.company}}</td>
+            <td>{{row.priority}}</td>
+            <td>{{row.product}}</td>
+            <td>{{row.category}}</td>
+            <td>{{row.province}}</td>
+            <td>{{row.country}}</td>
+            <td class="cell-number">${{ insertCommas(row.sales) }}</td>
+            <td>{{row.description}}</td>
         </tr>
     </table>
 </div>

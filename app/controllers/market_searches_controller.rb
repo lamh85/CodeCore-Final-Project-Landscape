@@ -70,18 +70,18 @@ class MarketSearchesController < ApplicationController
   def write_json
     result_array = []
     @final_results.each do |result|
-      result = {
-        "market_id"   => result.id,
-        "company"     => result.organization.name,
-        "priority"    => result.organization.priority.name,
-        "product"     => result.product,
-        "category"    => result.category.name,
-        "province"    => result.province,
-        "country"     => result.country,
-        "sales"       => result.sales,
-        "description" => result.description
-      } 
-      result_array << result
+        result_array <<  {
+          "market_id"   => result.id,
+          "company"     => result.organization.name,
+          "priority"    => result.organization.priority.name,
+          "product"     => result.product,
+          "category"    => result.category.name,
+          "province"    => result.province,
+          "country"     => result.country,
+          "sales"       => result.sales,
+          "description" => result.description
+        } 
+      # result_array << result
     end
     return result_array.to_json
   end # Write results to a JSON file
