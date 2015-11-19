@@ -12,32 +12,29 @@ class MarketSearchesController < ApplicationController
   end
 
   def results_v2
-    # (byebug) params
-    # {"0"=>"{\"search_term\":\"fff\",\"property\":\"category\"}", "controller"=>"market_searches", "action"=>"results_v2"}
-    # (byebug) params["0"]
-    # {"search_term":"fff","property":"category"}
-    # (byebug) params["controller"]
-    # market_searches
+=begin
+    params:
+    {
+             "0" => "{\"search_term\":\"something\",\"property\":\"category\"}",
+             "1" => "{\"search_term\":\"something\",\"property\":\"category\"}",
+    "controller" => "market_searches",
+        "action" => "results_v2"
+    }
+=end
+    filters = params.map{|key, value| eval(value) if key != "controller" && key != "action"}.compact
+    filters.each do |filter| # for every filter...
 
-    # Parameters: {"0"=>"{\"search_term\":\"something\",\"property\":\"category\"}"}
-    # *** ONE ITERATION ***
-    # The key is {"0"=>"{\"search_term\":\"something\",\"property\":\"category\"}"}
-    # Its class is Hash
-    # The value is 
-    # Its class is NilClass
+        # If there were previous search filters, then merge results
+        sql_select = @final_results == nil ? Market : @final_results
 
-    params_spliced = params.map{|key,value| {key => value} if key != "controller" && key != "action" }
-    # array_of_filters = []
-    params_spliced.each do |element|        # params_spliced is an Array. Each element is a Hash
-      element.each do |key,value|
-        puts "*** ONE ITERATION ***"        # {"0"=>"{\"search_term\":\"something\",\"property\":\"category\"}"}
-        puts "The key is #{key}"            # 0
-        puts "Its class is #{key.class}"    # String
-        puts "The value is #{value}"        # {"search_term":"something","property":"category"}
-        puts "Its class is #{value.class}"  # String
-      end
-    end
-    # render text: array_of_filters.to_json
+        sql_select = sql_select.joins(:category) if filter[:property] == "category"
+        where_column = filter[:property] == "category" ? "name" : filter[:property]
+        @final_results = sql_select.where("#{where_column} ILIKE any (array[?])", sanitize_array(filter[:search_term]))
+
+    end # End the looping through each filter
+    @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
+    @json_data = write_json.html_safe if @final_results
+    render text: @json_data
   end
 
   def create
