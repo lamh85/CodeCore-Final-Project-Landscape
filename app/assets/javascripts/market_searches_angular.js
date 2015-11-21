@@ -2,19 +2,18 @@ var marketSearches = angular.module("marketSearches",[]);
 
 mktSearchController = marketSearches.controller("mktSearchController", ['$scope', '$http', function($scope, $http){
 
-
     $scope.options = [
-        { display: "Product", value: "product" },
-        { display: "Product Category", value: "category" },
-        { display: "Province", value: "province" },
-        { display: "Country", value: "country" },
-        { display: "Description", value: "description" }
+        { display: "Product",           value: "product" },
+        { display: "Product Category",  value: "category" },
+        { display: "Province",          value: "province" },
+        { display: "Country",           value: "country" },
+        { display: "Description",       value: "description" }
     ];
     $scope.params = [];
 
     var singleSearchParam = function() {
-        this.search_term = "British Columbia";
-        this.property = "province";
+        this.search_term =  "British Columbia";
+        this.property =     "province";
     }
 
     $scope.addFilter = function() {
@@ -39,7 +38,6 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
             url: "../market_searches/results_v2"
         }).then(function successCallback(response){
             deactivateLoading();            
-            console.log(response.data);
             $scope.results = response.data;
         });
     }
