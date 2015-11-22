@@ -15,7 +15,7 @@
 //= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require jquery_ujs
-//= require angular
+// require angular // not working
 //= require turbolinks
 //= require cocoon
 
