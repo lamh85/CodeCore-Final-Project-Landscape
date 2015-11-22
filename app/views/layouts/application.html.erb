@@ -97,6 +97,7 @@
             ["/searches/suppliers", "My Suppliers", logged_in_condition],
             [new_comparison_path, "Compare Orgs", true],
             [new_market_search_path, "Market Share", true],
+            ["/market_searches/new_v2", "Market Share V2 BETA", true],
             [new_search_path, "Search Orgs", true]].each do |trio| %>
             <%= nav_link(trio[0], trio[1]) if trio[2] %>
         <% end %>

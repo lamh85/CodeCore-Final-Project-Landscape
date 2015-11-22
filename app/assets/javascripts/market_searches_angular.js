@@ -2,6 +2,14 @@ var marketSearches = angular.module("marketSearches",[]);
 
 mktSearchController = marketSearches.controller("mktSearchController", ['$scope', '$http', function($scope, $http){
 
+    // Declare variables
+    $scope.params = [];
+    $scope.results = [];
+
+    $scope.insertCommas = function(number) {
+        return insertCommas(number);
+    }
+
     $scope.options = [
         { display: "Product",           value: "product" },
         { display: "Product Category",  value: "category" },
@@ -9,13 +17,12 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
         { display: "Country",           value: "country" },
         { display: "Description",       value: "description" }
     ];
-    $scope.params = [];
 
+    // Populate filters array
     var singleSearchParam = function() {
         this.search_term =  "British Columbia";
         this.property =     "province";
     }
-
     $scope.addFilter = function() {
         $scope.params.push(
             new singleSearchParam()
@@ -27,10 +34,6 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
         $scope.params.splice(($scope.params.length - 1), 1);
     }
 
-    $scope.results = [];
-    $scope.insertCommas = function(number) {
-        return insertCommas(number);
-    }
     $scope.search = function() {
         $http({
             method: 'GET',

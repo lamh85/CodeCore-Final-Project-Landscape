@@ -11,7 +11,7 @@
 
 <form>
 
-    <div class="row" ng-repeat="param in params track by $index">
+    <div class="row margin-20" ng-repeat="param in params track by $index">
         <div class="col-md-4">
             <select ng-model="param.property" class="form-control">
                 <option ng-repeat="option in options" value="{{option.value}}">
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row margin-20">
         <div class="col-md-2">
             <span class="btn btn-primary" ng-click="addFilter()">
                 Add filter
