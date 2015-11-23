@@ -1,13 +1,14 @@
 class MarketSearchesController < ApplicationController
 
   def new
+    @extra_scripts = ['market_searches']
     session[:nav_link_pressed] = "Market Share"    
     @market_search = MarketSearch.new
     1.times { @market_search.market_filters.build }
   end
 
   def new_v2
-    @extra_scripts = ['market_searches_angular']
+    @extra_scripts = ['market_searches','market_searches_angular']
     render "new_v2"
   end
 

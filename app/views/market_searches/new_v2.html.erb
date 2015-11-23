@@ -5,24 +5,27 @@
   Market Share
 </h1>
 
-<p>
+<div class="margin-20">
     Define the type of market that you want to analyze. EG) All computer sales in Alberta, or all products in Quebec, etc.
-</p>
+</div>
 
 <form>
 
     <div class="row margin-20" ng-repeat="param in params track by $index">
-        <div class="col-md-4">
+        <div class="col-md-4 form-group">
+            <label ng-if="$index == 0">Search by...</label>
             <select ng-model="param.property" class="form-control">
                 <option ng-repeat="option in options" value="{{option.value}}">
                     {{option.display}}
                 </option>
             </select>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 form-group">
+            <label ng-if="$index == 0">Search Term</label>
             <input class="form-control" ng-model="param.search_term">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 form-group">
+            <label ng-if="$index == 0">&nbsp;</label>
             <span class="btn btn-danger" ng-click="removeFilter()">
                 Remove this filter
             </span>
@@ -40,13 +43,16 @@
                 Search
             </span>
         </div>
-
     </div>
 
 </form>
 
 <div class="margin-20">
     There are {{results.length}} results.
+</div>
+
+<div class="margin-20" ng-if="results.length > 0">
+    <%= render partial: "pie_charts" %>
 </div>
 
 <div class="table-wrapper" ng-if="results.length > 0">

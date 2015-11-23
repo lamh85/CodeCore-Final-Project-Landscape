@@ -5,6 +5,9 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
     // Declare variables
     $scope.params = [];
     $scope.results = [];
+    window.results = function() {
+        return $scope.results;
+    }
 
     $scope.insertCommas = function(number) {
         return insertCommas(number);
@@ -42,6 +45,8 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
         }).then(function successCallback(response){
             deactivateLoading();            
             $scope.results = response.data;
+            window.jsonData = response.data; // For the JS that loads pie charts
+            resultsLoaded();
         });
     }
 

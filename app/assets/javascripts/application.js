@@ -24,7 +24,7 @@
 //= require loading
 //= require chart
 //= require comparisons
-//= require market_searches
+// require market_searches // Will only load in relevant views
 //= require searches
 //= require base
 //= require responsive
