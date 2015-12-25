@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  console.log('js is running');
 
   var totalSales;
 
@@ -11,7 +12,8 @@ $(document).ready(function(){
     $('.full-results').append(" - Total sales: $" + insertCommas(totalSales) );
   }
 
-  var resultsLoaded = function(){
+  window.resultsLoaded = function(){
+    console.log('resultsLoaded is running');
 
     renderTotal(jsonData);
 
@@ -150,7 +152,7 @@ $(document).ready(function(){
 
     // Bind LOAD button click to function
     $('.load-button.left, .load-button.right').click(function(){
-
+      console.log('clicked');
       leftOrRight = $(this).data('left-right');
       dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
       $('.canvas.left').slideDown('fast', function(){ // slideDown only one element to execute the callback function only once

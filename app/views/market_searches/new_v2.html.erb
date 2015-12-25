@@ -39,7 +39,7 @@
             </span>
         </div>
         <div class="col-md-2">
-            <span class="btn btn-success" ng-click="search()">
+            <span class="btn btn-success market-search submit" ng-click="search()">
                 Search
             </span>
         </div>
@@ -47,13 +47,14 @@
 
 </form>
 
-<div class="margin-20">
-    There are {{results.length}} results.
-</div>
-
-<div class="margin-20" ng-if="results.length > 0">
+<div class="margin-20" ng-show="results.length > 0">
+ <!-- ng-show="results.length > 0" -->
     <%= render partial: "pie_charts" %>
 </div>
+
+<h2 class="margin-20" ng-show="results.length > 0">
+    Found {{results.length}} results - Total sales: {{sum}}
+</h2>
 
 <div class="table-wrapper" ng-if="results.length > 0">
     <table id="results-table">

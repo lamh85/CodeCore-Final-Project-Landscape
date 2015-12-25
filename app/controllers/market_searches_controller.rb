@@ -18,16 +18,16 @@ class MarketSearchesController < ApplicationController
                 "1" => "{\"search_term\":\"something\",\"property\":\"category\"}",
       "controller"  => "market_searches", "action" => "results_v2" }
 =end
-    filters = params.map{|key, value| eval(value) if key != "controller" && key != "action"}.compact
-    filters.each do |filter| # for every filter...
-        # If there were previous search filters, then merge results
+    search_filters = params.map{|key, value| eval(value) if key != "controller" && key != "action"}.compact
+    search_filters.each do |filter| # for every filter...
+        # If there were previous search search_filters, then merge results
         sql_select = @final_results == nil ? Market : @final_results
-
         sql_select = sql_select.joins(:category) if filter[:property] == "category"
         where_column = filter[:property] == "category" ? "name" : filter[:property]
         @final_results = sql_select.where("#{where_column} ILIKE any (array[?])", sanitize_array(filter[:search_term]))
     end # End the looping through each filter
-    @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
+    # @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
+    # byebug
     @json_data = write_json.html_safe if @final_results
     render text: @json_data
   end
@@ -69,9 +69,9 @@ class MarketSearchesController < ApplicationController
 
   # Write results to a JSON file
   def write_json
-    result_array = []
+    results_array = []
     @final_results.each do |result|
-        result_array <<  {
+        results_array <<  {
           "market_id"   => result.id,
           "company"     => result.organization.name,
           "priority"    => result.organization.priority.name,
@@ -82,9 +82,8 @@ class MarketSearchesController < ApplicationController
           "sales"       => result.sales,
           "description" => result.description
         } 
-      # result_array << result
     end
-    return result_array.to_json
+    return {results: results_array, sum: @final_results.sum(:sales)}.to_json
   end # Write results to a JSON file
 
   def search_params
