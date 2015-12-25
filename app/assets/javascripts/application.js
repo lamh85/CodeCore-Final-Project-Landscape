@@ -15,7 +15,7 @@
 //= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require jquery_ujs
-// require angular // not working
+//= require angular
 //= require turbolinks
 //= require cocoon
 
@@ -24,7 +24,8 @@
 //= require loading
 //= require chart
 //= require comparisons
-// require market_searches // Will only load in relevant views
+// require market_searches
+// require market_searches_angular
 //= require searches
 //= require base
 //= require responsive

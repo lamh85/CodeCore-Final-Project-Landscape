@@ -19,7 +19,7 @@ gem 'interactive_editor'
 gem 'faker'
 gem 'table_print'
 gem 'cancancan', '~> 1.10'
-# gem 'angularjs-rails'
+gem 'angularjs-rails', '~> 1.4', '>= 1.4.8'
 
 # Cloud storage
 gem 'aws-sdk', '~> 2'

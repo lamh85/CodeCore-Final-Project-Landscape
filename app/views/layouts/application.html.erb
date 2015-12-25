@@ -7,6 +7,9 @@
   <link href='https://fonts.googleapis.com/css?family=Syncopate:400,700' rel='stylesheet' type='text/css'>
   <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  -->
   <%= csrf_meta_tags %>
 </head>
 
@@ -138,8 +141,6 @@
 
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 <script>
   $('#navTwo .wrapper-link:contains("<%= j session[:nav_link_pressed] %>")').css('background','#2E723E').css('border','1px solid rgb(18, 76, 32)').css('border-width','0px 1px');  
 </script>
