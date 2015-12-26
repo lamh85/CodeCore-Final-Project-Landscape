@@ -24,21 +24,22 @@
             <label ng-if="$index == 0">Search Term</label>
             <input class="form-control" ng-model="param.search_term">
         </div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-2 form-group">
             <label ng-if="$index == 0">&nbsp;</label>
             <span class="btn btn-danger" ng-click="removeFilter()">
-                Remove this filter
+                Remove filter
+            </span>
+        </div>
+        <div class="col-md-2">
+            <label ng-if="$index == 0">&nbsp;</label>
+            <span class="btn btn-primary" ng-click="addFilter()">
+                Add filter
             </span>
         </div>
     </div>
 
     <div class="row margin-20">
-        <div class="col-md-2 col-md-offset-8">
-            <span class="btn btn-primary" ng-click="addFilter()">
-                Add filter
-            </span>
-        </div>
-        <div class="col-md-2">
+        <div class="col-md-12">
             <span class="btn btn-success market-search submit" ng-click="search()">
                 Search
             </span>

@@ -6,13 +6,9 @@ class Market < ActiveRecord::Base
   belongs_to :category
 
   validates :product, presence: { message: "You must enter a product name."}
-
   validates :category_id, presence: { message: "You must select a product category."}
-
   validates :province, presence: { message: "You must enter a province."}
-
   validates :country, presence: { message: "You must enter a country."}
-
   validates :sales, numericality: { message: "You must enter an integer for the sales." }
 
   def self.seed(number)
@@ -32,7 +28,8 @@ class Market < ActiveRecord::Base
       c.province = provinces.sample
       c.sales = rand(10000..1000000)
       c.description = Faker::Lorem.paragraph
-      c.save }      
+      c.save
+    }
   end
 
   def self.canadaize

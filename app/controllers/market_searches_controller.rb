@@ -2,7 +2,7 @@ class MarketSearchesController < ApplicationController
 
   def new
     @extra_scripts = ['market_searches','market_searches_angular']
-    render "new_v2"
+    render "new"
   end
 
   def results
