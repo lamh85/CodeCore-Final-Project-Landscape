@@ -1,18 +1,11 @@
 class MarketSearchesController < ApplicationController
 
   def new
-    @extra_scripts = ['market_searches']
-    session[:nav_link_pressed] = "Market Share"    
-    @market_search = MarketSearch.new
-    1.times { @market_search.market_filters.build }
-  end
-
-  def new_v2
     @extra_scripts = ['market_searches','market_searches_angular']
     render "new_v2"
   end
 
-  def results_v2
+  def results
 =begin
     params: = { "0" => "{\"search_term\":\"something\",\"property\":\"category\"}",
                 "1" => "{\"search_term\":\"something\",\"property\":\"category\"}",
@@ -26,44 +19,9 @@ class MarketSearchesController < ApplicationController
         where_column = filter[:property] == "category" ? "name" : filter[:property]
         @final_results = sql_select.where("#{where_column} ILIKE any (array[?])", sanitize_array(filter[:search_term]))
     end # End the looping through each filter
-    # @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
-    # byebug
     @json_data = write_json.html_safe if @final_results
     render text: @json_data
-  end
-
-  def create
-    MarketSearch.destroy_all
-    MarketFilter.destroy_all
-    @market_search = MarketSearch.new search_params
-    respond_to do |format|
-      if @market_search.save
-        @final_results = nil
-        filters = MarketSearch.find(@market_search).market_filters
-        filters.each do |filter| # for every filter...
-
-            # If there were previous search filters, then merge results
-            sql_select = @final_results == nil ? Market : @final_results
-
-            sql_select = sql_select.joins(:category) if filter.property == "category"
-            where_column = filter.property == "category" ? "name" : filter.property
-            @final_results = sql_select.where("#{where_column} ILIKE any (array[?])", sanitize_array(filter.search_term))
-
-        end # End the looping through each filter
-        @final_results = @final_results.sort_by { |k| k["sales"] }.reverse
-        @json_data = write_json.html_safe if @final_results
-        format.html { render :new, notice: "Search complete"}
-        format.js {render}
-      else # If could not save
-        format.html { render :new, alert: "We could not complete your search" }
-        format.js {render}
-      end # End "if save"
-    end # End respond_to
-
-  end # End create block
-
-  def show
-  end
+  end # def create
 
   private
 

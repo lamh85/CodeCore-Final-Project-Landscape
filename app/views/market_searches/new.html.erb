@@ -1,20 +1,86 @@
+<div ng-app="marketSearches">
+<div ng-controller="mktSearchController">
+
 <h1>
   Market Share
 </h1>
 
-<p>Define the type of market that you want to analyze. EG) All computer sales in Alberta, or all products in Quebec, etc.
-
-<p>&nbsp;
-
-<div id="form-market-search">
-  <%= render "form" %>
+<div class="margin-20">
+    Define the type of market that you want to analyze. EG) All computer sales in Alberta, or all products in Quebec, etc.
 </div>
 
-<!-- Results section -->  
-<div id="results-market">
-  <%= render partial: "results" %>
+<form>
+
+    <div class="row margin-20" ng-repeat="param in params track by $index">
+        <div class="col-md-4 form-group">
+            <label ng-if="$index == 0">Search by...</label>
+            <select ng-model="param.property" class="form-control">
+                <option ng-repeat="option in options" value="{{option.value}}">
+                    {{option.display}}
+                </option>
+            </select>
+        </div>
+        <div class="col-md-4 form-group">
+            <label ng-if="$index == 0">Search Term</label>
+            <input class="form-control" ng-model="param.search_term">
+        </div>
+        <div class="col-md-4 form-group">
+            <label ng-if="$index == 0">&nbsp;</label>
+            <span class="btn btn-danger" ng-click="removeFilter()">
+                Remove this filter
+            </span>
+        </div>
+    </div>
+
+    <div class="row margin-20">
+        <div class="col-md-2 col-md-offset-8">
+            <span class="btn btn-primary" ng-click="addFilter()">
+                Add filter
+            </span>
+        </div>
+        <div class="col-md-2">
+            <span class="btn btn-success market-search submit" ng-click="search()">
+                Search
+            </span>
+        </div>
+    </div>
+
+</form>
+
+<div class="margin-20" ng-show="results.length > 0">
+ <!-- ng-show="results.length > 0" -->
+    <%= render partial: "pie_charts" %>
 </div>
 
-<style>
+<h2 class="margin-20" ng-show="results.length > 0">
+    Found {{results.length}} results - Total sales: {{sum}}
+</h2>
 
-</style>
+<div class="table-wrapper" ng-if="results.length > 0">
+    <table id="results-table">
+        <tr>
+            <th>Company</th>
+            <th>Priority Level</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Province</th>
+            <th>Country</th>
+            <th>Sales</th>
+            <th>Description</th>
+        </tr>    
+        <tr ng-repeat="row in results">
+            <td>{{row.company}}</td>
+            <td>{{row.priority}}</td>
+            <td>{{row.product}}</td>
+            <td>{{row.category}}</td>
+            <td>{{row.province}}</td>
+            <td>{{row.country}}</td>
+            <td class="cell-number">${{ insertCommas(row.sales) }}</td>
+            <td>{{row.description}}</td>
+        </tr>
+    </table>
+</div>
+
+<!-- Close ng-app and ng-controller -->
+</div>
+</div>

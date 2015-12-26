@@ -39,7 +39,7 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
         $http({
             method: 'GET',
             params: $scope.params,
-            url: "../market_searches/results_v2"
+            url: "../market_searches/results"
         }).then(function successCallback(response){
             $scope.results = response.data.results;
             window.jsonData = response.data.results;

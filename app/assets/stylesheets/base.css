@@ -134,6 +134,11 @@ p {
   color: white;
 }
 
+#quick-find select {
+  display: inline;
+  width: auto;
+}
+
 #navOne a:hover, #navTwo a:hover {
   text-decoration: none;
 }
