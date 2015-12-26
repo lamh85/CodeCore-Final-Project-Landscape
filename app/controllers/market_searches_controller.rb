@@ -6,12 +6,10 @@ class MarketSearchesController < ApplicationController
   end
 
   def results
-=begin
-    params: = { "0" => "{\"search_term\":\"something\",\"property\":\"category\"}",
-                "1" => "{\"search_term\":\"something\",\"property\":\"category\"}",
-      "controller"  => "market_searches", "action" => "results_v2" }
-=end
-    search_filters = params.map{|key, value| eval(value) if key != "controller" && key != "action"}.compact
+    # params: = { "0" => "{\"search_term\":\"something\",\"property\":\"category\"}",
+    #             "1" => "{\"search_term\":\"something\",\"property\":\"category\"}",
+    #             "controller"  => "market_searches", "action" => "results_v2" }
+    search_filters = params.map{|key, value| eval(value) if key.to_i.to_s == key}.compact
     search_filters.each do |filter| # for every filter...
         # If there were previous search search_filters, then merge results
         sql_select = @final_results == nil ? Market : @final_results
