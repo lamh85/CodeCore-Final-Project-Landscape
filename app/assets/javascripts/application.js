@@ -16,7 +16,7 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require angular
-//= require turbolinks
+// require turbolinks
 //= require cocoon
 
 // MANUALLY-COPIED FILES: --- FILES THAT FOCUS ON EVENT BINDING SHOULD GO LAST

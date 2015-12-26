@@ -282,7 +282,9 @@
 
   <script>
     // Hide the loading modal
-    $('#loading-shell').removeClass('rotating');
+    $(document).ready(function(){
+      deactivateLoading();
+    })
   </script>
 
 <!-- If @org1 && @org2 -->
