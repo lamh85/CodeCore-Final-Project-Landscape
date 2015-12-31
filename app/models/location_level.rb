@@ -8,7 +8,7 @@ class LocationLevel < ActiveRecord::Base
     def parent_level
         level_value = self.level - 1
         while level_value >= 1
-            results = LocationLevel.where('level = #{level_value} AND thread = #{self.thread}')
+            results = LocationLevel.where('level = ?', level_value).where('thread = ?', self.thread)
             if results.length > 0
                 return results
             else
