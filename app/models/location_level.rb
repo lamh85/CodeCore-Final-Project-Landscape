@@ -4,4 +4,5 @@ class LocationLevel < ActiveRecord::Base
 
     # Relationships
     has_many :locations
+    belongs_to :parent
 end
