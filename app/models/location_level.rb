@@ -5,6 +5,7 @@ class LocationLevel < ActiveRecord::Base
     # Relationships
     has_many :locations
 
+    # Misc
     def parent_level
         level_value = self.level - 1
         while level_value >= 1
