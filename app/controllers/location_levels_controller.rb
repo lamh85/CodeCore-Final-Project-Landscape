@@ -2,7 +2,7 @@ class LocationLevelsController < ApplicationController
     def create
     end
 
-    def show
+    def index
         levels = LocationLevel.all
         render text: levels.to_json
     end

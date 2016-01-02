@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   resources :market_searches
 
   # OTHER
-  resources :location_levels, only: [:create, :show, :update, :destroy]
+  resources :location_levels, only: [:create, :index, :update, :destroy]
 
   #index
   #create
