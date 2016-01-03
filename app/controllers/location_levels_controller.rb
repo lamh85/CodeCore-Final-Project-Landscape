@@ -3,6 +3,7 @@ class LocationLevelsController < ApplicationController
     end
 
     def index
+        @extra_scripts = ['location_levels_angular']
         levels = LocationLevel.all
         render text: levels.to_json
     end
