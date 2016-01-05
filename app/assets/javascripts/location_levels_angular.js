@@ -1,3 +1,5 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+var locationLevel = angular.module("locationLevel",[]);
+
+mktSearchController = marketSearches.controller("mktSearchController", ['$scope', '$http', function($scope, $http){
+    console.log('I am from location_level_angular');
+    }]);
