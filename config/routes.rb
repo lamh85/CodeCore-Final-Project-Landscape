@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   # OTHER
   resources :location_levels, only: [:create, :index, :update, :destroy]
+  get "location_levels/get_all" => "location_levels#get_all"
 
   #index
   #create

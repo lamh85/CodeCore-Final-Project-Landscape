@@ -1,5 +1,6 @@
-var locationLevel = angular.module("locationLevel",[]);
+var locationLevelApp = angular.module("locationLevelApp",[]);
 
-mktSearchController = marketSearches.controller("mktSearchController", ['$scope', '$http', function($scope, $http){
+locationLevelController = locationLevelApp.controller("locationLevelController", ['$scope', '$http', function($scope, $http){
+    
     console.log('I am from location_level_angular');
-    }]);
+}]);
