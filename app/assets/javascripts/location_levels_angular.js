@@ -22,6 +22,8 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     $http.get('../location_levels/get_all').then(function(response){
         levelsRaw = response.data;
         console.log('GET successful');
+        $scope.levelsSegmented = levelsRaw.sort(sortByThread);
+        window.debugVar = $scope.levelsSegmented;
     })
 
     // Create an array for each thread
