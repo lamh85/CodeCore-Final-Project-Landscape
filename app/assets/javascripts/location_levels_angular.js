@@ -13,9 +13,24 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     }
 
     var levelsRaw = [];
-    $scope.levelsSegmented = [];
+    $scope.levelsSegmented = {};
 
-    var divideLevels = function() {
+    var divideLevels = function(){
+        var lastThreadNumber = 0;
+        while (levelsRaw.length > 0) {
+            // If this is a new thread number, then create new property in object
+            if (levelsRaw[0].thread != lastThreadNumber) {
+                $scope.levelsSegmented["thread" + levelsRaw[0].thread] = [levelsRaw[0]];
+            } else {
+                $scope.levelsSegmented["thread" + lastThreadNumber].push([levelsRaw[0]]);
+            }
+            lastThreadNumber = levelsRaw[0].thread;
+            levelsRaw.splice(0, 1);
+            // $scope.levelsSegmented.push()
+        }
+    }
+
+    var sortLevels = function() {
         levelsRaw = levelsRaw.sort(sortByThread);
         window.debugVar = levelsRaw;
     }
@@ -23,8 +38,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     $http.get('../location_levels/get_all').then(function(response){
         levelsRaw = response.data;
         console.log('GET successful');
-        // $scope.levelsSegmented = levelsRaw.sort(sortByThread);
-        divideLevels();
+        sortLevels();
     })
 
     // Create an array for each thread
