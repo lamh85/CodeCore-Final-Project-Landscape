@@ -95,6 +95,10 @@ p {
   float: left;
 }
 
+[ng-app="locationLevelApp"] .tag {
+  float: none;
+}
+
 .tag.danger {
   background: #BC4141;
 }

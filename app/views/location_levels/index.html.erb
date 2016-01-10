@@ -3,5 +3,17 @@
 
     <h1>Location Levels</h1>
 
+    <div ng-repeat="(property, value) in levelsSegmented">
+        <strong>{{property}}:</strong>
+        <div class="clearfix"></div>
+        <span ng-repeat="element in value"><!-- "value" is a JS array -->
+            <span class="tag">
+                {{element.name}} 
+            </span>
+            <i class="fa fa-chevron-right" ng-if="$index + 1 < value.length"></i>
+        </span>
+        <div class="clearfix"></div>
+    </div>
+
 </div>
 </div>

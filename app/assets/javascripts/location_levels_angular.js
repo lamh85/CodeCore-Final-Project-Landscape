@@ -2,6 +2,9 @@ var locationLevelApp = angular.module("locationLevelApp",[]);
 
 locationLevelController = locationLevelApp.controller("locationLevelController", ['$scope', '$http', function($scope, $http){
 
+    // Tools
+    // -----
+
     var sortByThread = function(a,b) {
         if (a.thread == b.thread) {
             return 0;
@@ -11,6 +14,11 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
             return -1;
         }
     }
+
+    // $scope.isLastElement()
+
+    // Other
+    // -----
 
     var levelsRaw = [];
     $scope.levelsSegmented = {};
