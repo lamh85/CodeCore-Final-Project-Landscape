@@ -27,105 +27,108 @@
     <br>
 
     <p>
-      Found <%= @final_results.length %> results:
+      Found <%= @final_results.length %> results<%= ":" if @final_results.length > 0 %>
     </p>
     <br>
-    <div class="table-wrapper">
-    <table>
-      <tr>
-        <th>Company Name</th>
-        <th>City</th>
-        <th>Province</th>
-        <th>Country</th>
-        <th>Revenue</th>
-        <th>Priority Level</th>
-        <% if current_user %>
-          <% if current_user.organization_id %>
-            <th>Relationship(s) to me</th>
-          <% end %>
-        <% end %>
-        <!-- THIS IS UNDER CONSTRUCTION: -->
-        <!--th>I want to...</th-->
-      </tr>
 
-      <% if @competitor_search %>
-        <script>
-          var competitorRevenueObject = [];
-          competitorRevenueObject.push({
-              company: '<%= j current_user.organization.name %>',
-              revenue: parseInt('<%= current_user.organization.revenue.to_json %>'),
-              home: true
-            });
-        </script>
-      <% end %>
-
-      <% revenue_total = 0 %>
-
-      <% @final_results.each do |result| %>
-
-        <tr>
-          <td><%= link_to result.name, result %></td>
-
-          <td><%= result.city %></td>
-          <td><%= result.province %></td>
-          <td><%= result.country %></td>
-          <td class="cell-number">
-            <%= number_to_currency(result.revenue) %>
-            <% revenue_total = revenue_total + result.revenue %>
-          </td>
-          <td><%= result.priority.name %></td>
-          <% if current_user %>
-            <% if current_user.organization_id %>
-              <td>
-                <ul>
-                <% if my_competitors && (my_competitors.include? result.id) %>
-                  <li>Competitor</li>
-                <% end %>
-                <% if my_clients && (my_clients.include? result.id) %>
-                  <li>Client</li>
-                <% end %>
-                <% if my_suppliers && (my_suppliers.include? result.id) %>
-                  <li>Supplier</li>
-                <% end %>
-                <% if (!my_competitors && !my_clients && !my_suppliers) ||
-                  ( !(my_competitors.include? result.id) && !(my_clients.include? result.id) && !(my_suppliers.include? result.id) ) %>
-                  <li>None</li>
-                <% end %>
-                </ul>
-              </td>
+    <% if @final_results.length > 0 %>
+      <div class="table-wrapper">
+        <table>
+          <tr>
+            <th>Company Name</th>
+            <th>City</th>
+            <th>Province</th>
+            <th>Country</th>
+            <th>Revenue</th>
+            <th>Priority Level</th>
+            <% if current_user %>
+              <% if current_user.organization_id %>
+                <th>Relationship(s) to me</th>
+              <% end %>
             <% end %>
+            <!-- THIS IS UNDER CONSTRUCTION: -->
+            <!--th>I want to...</th-->
+          </tr>
+
+          <% if @competitor_search %>
+            <script>
+              var competitorRevenueObject = [];
+              competitorRevenueObject.push({
+                  company: '<%= j current_user.organization.name %>',
+                  revenue: parseInt('<%= current_user.organization.revenue.to_json %>'),
+                  home: true
+                });
+            </script>
           <% end %>
-        </tr>
 
-        <% if @competitor_search %>
-          <script>
-            competitorRevenueObject.push({
-                company: '<%= j result.name %>',
-                revenue: parseInt('<%= result.revenue.to_json %>'),
-                home: false
-              });
-          </script>
-        <% end %>
+          <% revenue_total = 0 %>
 
-      <% end %><!-- End looping through each row -->
+          <% @final_results.each do |result| %>
 
-      <tr class="row-total">
-        <td>Total Revenue</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="cell-number"><%= number_to_currency(revenue_total) %></td>
-        <td></td>
-        <%# if current_user %>
-          <%# if current_user.organization_id %>
-            <!--td></td-->
-          <%# end %>
-        <%# end %>
-        <td></td>        
-      </tr>
+            <tr>
+              <td><%= link_to result.name, result %></td>
 
-    </table>
-    </div>
+              <td><%= result.city %></td>
+              <td><%= result.province %></td>
+              <td><%= result.country %></td>
+              <td class="cell-number">
+                <%= number_to_currency(result.revenue) %>
+                <% revenue_total = revenue_total + result.revenue %>
+              </td>
+              <td><%= result.priority.name %></td>
+              <% if current_user %>
+                <% if current_user.organization_id %>
+                  <td>
+                    <ul>
+                    <% if my_competitors && (my_competitors.include? result.id) %>
+                      <li>Competitor</li>
+                    <% end %>
+                    <% if my_clients && (my_clients.include? result.id) %>
+                      <li>Client</li>
+                    <% end %>
+                    <% if my_suppliers && (my_suppliers.include? result.id) %>
+                      <li>Supplier</li>
+                    <% end %>
+                    <% if (!my_competitors && !my_clients && !my_suppliers) ||
+                      ( !(my_competitors.include? result.id) && !(my_clients.include? result.id) && !(my_suppliers.include? result.id) ) %>
+                      <li>None</li>
+                    <% end %>
+                    </ul>
+                  </td>
+                <% end %>
+              <% end %>
+            </tr>
+
+            <% if @competitor_search %>
+              <script>
+                competitorRevenueObject.push({
+                    company: '<%= j result.name %>',
+                    revenue: parseInt('<%= result.revenue.to_json %>'),
+                    home: false
+                  });
+              </script>
+            <% end %>
+
+          <% end %><!-- End looping through each row -->
+
+          <tr class="row-total">
+            <td>Total Revenue</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="cell-number"><%= number_to_currency(revenue_total) %></td>
+            <td></td>
+            <%# if current_user %>
+              <%# if current_user.organization_id %>
+                <!--td></td-->
+              <%# end %>
+            <%# end %>
+            <!-- <td></td>         -->
+          </tr>
+
+        </table>
+      </div>
+    <% end %>
 
 <% else %>
   

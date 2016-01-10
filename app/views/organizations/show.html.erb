@@ -79,16 +79,17 @@
 
 <br>
 <div class="table-wrapper">
-<table>
-  <tr>
-    <th>Product</th>
-    <th>Category</th>
-    <th>Province</th>
-    <th>Country</th>
-    <th>Sales</th>
-    <th>Description</th>
-  </tr>
-  <% if @organization.markets %>
+<% if @organization.markets && @organization.markets.length > 0 %>
+  <table>
+    <tr>
+      <th>Product</th>
+      <th>Category</th>
+      <th>Province</th>
+      <th>Country</th>
+      <th>Sales</th>
+      <th>Description</th>
+    </tr>
+    
     <% @organization.markets.each do |market| %>
       <tr>
         <td><%= market.product %></td>
@@ -99,8 +100,11 @@
         <td><%= market.description %></td>
       </tr>
     <% end %>
-  <% end %> <!-- If there are any sales data -->
-</table>
+  
+  </table>
+<% else %>
+  There is no sales data.
+<% end %> <!-- If there are any sales data -->
 </div>
 
 <!-- ASSOCIATIONS -->
