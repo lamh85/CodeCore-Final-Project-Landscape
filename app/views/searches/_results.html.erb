@@ -27,7 +27,8 @@
     <br>
 
     <p>
-      Found <%= @final_results.length %> results<%= ":" if @final_results.length > 0 %>
+        <%= "Found #{@final_results.length} results:" if @final_results.length > 0 %>
+        <%= "Found no results." if @final_results.length == 0 %>
     </p>
     <br>
 
