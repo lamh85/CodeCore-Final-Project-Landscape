@@ -100,8 +100,22 @@ p {
   float: left;
 }
 
+.tag input {
+  background-color: inherit;
+  border: none;
+  color: white;
+  border-bottom: 1px solid white;
+}
+
+.tag .input-group-addon {
+  background-color: transparent;
+  color: white;
+  border: none;
+}
+
 [ng-app="locationLevelApp"] .tag {
   float: none;
+  width: 25%;
 }
 
 .tag.danger {
