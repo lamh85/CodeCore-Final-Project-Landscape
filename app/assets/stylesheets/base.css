@@ -22,7 +22,11 @@ body {
 }
 
 .margin-20 {
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
+}
+
+.inline-block {
+  display: inline-block !important;
 }
 
 /* WELCOME PAGE */
@@ -75,6 +79,7 @@ h1 {
   font-family: 'Oswald', 'Roboto', sans-serif;
   font-size: 23pt;
   text-transform: uppercase;
+  margin: 20px 0;
 }
 
 p {
