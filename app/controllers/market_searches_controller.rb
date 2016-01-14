@@ -2,6 +2,7 @@ class MarketSearchesController < ApplicationController
 
   def new
     @extra_scripts = ['market_searches','market_searches_angular']
+    session[:nav_link_pressed] = "Market Share"
     render "new"
   end
 
