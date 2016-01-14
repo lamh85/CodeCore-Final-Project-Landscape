@@ -10,13 +10,13 @@ class MarketSearchesController < ApplicationController
     # params: = { "0" => "{\"search_term\":\"something\",\"property\":\"category\"}",
     #             "1" => "{\"search_term\":\"something\",\"property\":\"category\"}",
     #             "controller"  => "market_searches", "action" => "results_v2" }
-    search_filters = params.map{|key, value| eval(value) if key.to_i.to_s == key}.compact
+    search_filters = params.map{ |key, value| JSON.parse(value) if key.to_i.to_s == key}.compact # Map if key can be converted to integer
     search_filters.each do |filter| # for every filter...
         # If there were previous search search_filters, then merge results
         sql_select = @final_results == nil ? Market : @final_results
-        sql_select = sql_select.joins(:category) if filter[:property] == "category"
-        where_column = filter[:property] == "category" ? "name" : filter[:property]
-        @final_results = sql_select.where("#{where_column} ILIKE any (array[?])", sanitize_array(filter[:search_term]))
+        sql_select = sql_select.joins(:category) if filter["property"] == "category"
+        where_column = filter["property"] == "category" ? "name" : filter["property"]
+        @final_results = sql_select.where("#{where_column} ILIKE any (array[?])", sanitize_array(filter["search_term"]))
     end # End the looping through each filter
     @json_data = write_json.html_safe if @final_results
     render text: @json_data
