@@ -1,3 +1,5 @@
+=begin
+
 # encoding: utf-8
 
 class AvatarUploader < CarrierWave::Uploader::Base
@@ -49,3 +51,5 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # end
 
 end
+
+=end
