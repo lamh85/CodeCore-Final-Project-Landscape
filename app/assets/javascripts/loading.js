@@ -20,9 +20,9 @@ $(document).ready(function() {
     window.degrees = 0;
     intervalVariable = setInterval(function(){
       $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
-      window.degrees += 20;
+      window.degrees += 1;
       console.log(window.degrees);
-    }, 100); // setInterval
+    }, 3); // setInterval
     $('#loading-shell').show();
   }
 
