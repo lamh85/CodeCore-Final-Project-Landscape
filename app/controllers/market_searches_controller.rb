@@ -7,16 +7,17 @@ class MarketSearchesController < ApplicationController
   end
 
   def results
+    # The controller receives this params hash. Each hash's value is a JSON transmitted by the Angular form.
     # params: = { "0" => "{\"search_term\":\"something\",\"property\":\"category\"}",
     #             "1" => "{\"search_term\":\"something\",\"property\":\"category\"}",
     #             "controller"  => "market_searches", "action" => "results_v2" }
     search_filters = params.map{ |key, value| JSON.parse(value) if key.to_i.to_s == key}.compact # Map if key can be converted to integer
     search_filters.each do |filter| # for every filter...
         # If there were previous search search_filters, then merge results
-        sql_select = @final_results == nil ? Market : @final_results
-        sql_select = sql_select.joins(:category) if filter["property"] == "category"
-        where_column = filter["property"] == "category" ? "name" : filter["property"]
-        @final_results = sql_select.where("#{where_column} ILIKE any (array[?])", sanitize_array(filter["search_term"]))
+        sql_select_clause = @final_results == nil ? Market : @final_results
+        sql_select_clause = sql_select_clause.joins(:category) if filter["property"] == "category"
+        sql_where_clause = filter["property"] == "category" ? "name" : filter["property"]
+        @final_results = sql_select_clause.where("#{sql_where_clause} ILIKE any (array[?])", sanitize_array(filter["search_term"]))
     end # End the looping through each filter
     @json_data = write_json.html_safe if @final_results
     render text: @json_data
