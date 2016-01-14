@@ -5,10 +5,7 @@ var deactivateLoading;
 $(document).ready(function() {
 
   window.deactivateLoading = function() {
-    // Prevent presistant setInterval when a new page loads
-    // degrees = undefined;
     clearInterval(intervalVariable)
-    // intervalVariable = undefined;
     $('#loading-shell').hide();
     console.log('animation stopped');
   }
@@ -17,11 +14,11 @@ $(document).ready(function() {
   // "LOADING" ANIMATION
   // -------------------
   activateLoading = function() {
-    window.degrees = 0;
+    var degrees = 0;
     intervalVariable = setInterval(function(){
       $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
-      window.degrees += 1;
-      console.log(window.degrees);
+      degrees += 1;
+      console.log("Degrees:" +degrees);
     }, 3); // setInterval
     $('#loading-shell').show();
   }
