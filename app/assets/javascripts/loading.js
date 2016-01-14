@@ -15,11 +15,11 @@ $(document).ready(function() {
   // "LOADING" ANIMATION
   // -------------------
   activateLoading = function() {
-    degrees = 0;
+    window.degrees = 0;
     intervalVariable = setInterval(function(){
       $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
-      degrees += 20;
-    }, 250); // setInterval
+      window.degrees += 1;
+    }, 150); // setInterval
     $('#loading-shell').show();
   }
 
