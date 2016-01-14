@@ -4,11 +4,13 @@ var deactivateLoading;
 
 $(document).ready(function() {
 
-  deactivateLoading = function() {
+  window.deactivateLoading = function() {
     // Prevent presistant setInterval when a new page loads
-    degrees = undefined;
-    intervalVariable = undefined;
+    // degrees = undefined;
+    clearInterval(intervalVariable)
+    // intervalVariable = undefined;
     $('#loading-shell').hide();
+    console.log('animation stopped');
   }
   deactivateLoading();
 
@@ -19,6 +21,7 @@ $(document).ready(function() {
     intervalVariable = setInterval(function(){
       $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
       window.degrees += 20;
+      console.log(window.degrees);
     }, 100); // setInterval
     $('#loading-shell').show();
   }

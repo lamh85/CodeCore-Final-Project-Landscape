@@ -132,7 +132,7 @@ $(document).ready(function(){
         drawingObjects[leftOrRight] = new Chart(ctx).Pie(wedgesArray)
       }, 500);
 
-      deactivateLoading();
+      window.deactivateLoading();
 
     } // renderCharts function
 

@@ -44,7 +44,7 @@ mktSearchController = marketSearches.controller("mktSearchController", ['$scope'
             $scope.results = response.data.results;
             window.jsonData = response.data.results;
             $scope.sum = "$" + insertCommas(response.data.sum);
-            deactivateLoading();
+            window.deactivateLoading();
             resultsLoaded();
         });
     }
