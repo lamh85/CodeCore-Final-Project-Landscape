@@ -1,4 +1,4 @@
-var degrees;
+// var degrees;
 var intervalVariable;
 var deactivateLoading;
 
@@ -18,8 +18,8 @@ $(document).ready(function() {
     window.degrees = 0;
     intervalVariable = setInterval(function(){
       $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
-      window.degrees += 1;
-    }, 150); // setInterval
+      window.degrees += 20;
+    }, 100); // setInterval
     $('#loading-shell').show();
   }
 
