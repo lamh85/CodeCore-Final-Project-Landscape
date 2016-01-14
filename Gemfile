@@ -22,9 +22,9 @@ gem 'cancancan', '~> 1.10'
 gem 'angularjs-rails', '~> 1.4', '>= 1.4.8'
 
 # Cloud storage
-gem 'aws-sdk', '~> 2'
-gem 'carrierwave'
-gem 'fog'
+# gem 'aws-sdk', '~> 2'
+# gem 'carrierwave'
+# gem 'fog'
 
 # DEFAULT GEMS
 # ------------
