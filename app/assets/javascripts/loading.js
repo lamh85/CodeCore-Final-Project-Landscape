@@ -4,6 +4,11 @@ var deactivateLoading;
 
 $(document).ready(function() {
 
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    console.log('state changed');
+  }
+
   window.deactivateLoading = function() {
     clearInterval(intervalVariable)
     $('#loading-shell').hide();
