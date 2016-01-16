@@ -2,12 +2,19 @@
 var intervalVariable;
 var deactivateLoading;
 
-$(document).ready(function() {
 
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    console.log('state changed');
+  // save the real `send`
+  var realSend = XMLHttpRequest.prototype.send;
+
+  // replace `send` with a wrapper
+  XMLHttpRequest.prototype.send = function() {
+      console.log('running');
+
+      // run the real `send`
+      realSend.apply(this, arguments);
   }
+
+$(document).ready(function() {
 
   window.deactivateLoading = function() {
     clearInterval(intervalVariable)
@@ -26,17 +33,6 @@ $(document).ready(function() {
       console.log("Degrees:" +degrees);
     }, 3); // setInterval
     $('#loading-shell').show();
-  }
-
-  // save the real `send`
-  var realSend = XMLHttpRequest.prototype.send;
-
-  // replace `send` with a wrapper
-  XMLHttpRequest.prototype.send = function() {
-      activateLoading();
-
-      // run the real `send`
-      realSend.apply(this, arguments);
   }
 
   // On load, stop loading animation
