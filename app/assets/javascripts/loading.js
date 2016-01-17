@@ -35,6 +35,8 @@ $(document).ready(function() {
     $('#loading-shell').show();
   }
 
+  $('a').click(activateLoading);
+
   // On load, stop loading animation
   if (typeof(intervalVariable) != "undefined") {
     clearInterval(intervalVariable);
