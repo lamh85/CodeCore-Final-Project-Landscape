@@ -17,7 +17,7 @@ var totalSales1 = 0;
 var comparisonResultsLoaded = function(){
 
   // Hide the loading modal
-  $('#loading-shell').removeClass('rotating');
+  window.deactivateLoading();
 
   totalSales0 = 0;
   totalSales1 = 0;

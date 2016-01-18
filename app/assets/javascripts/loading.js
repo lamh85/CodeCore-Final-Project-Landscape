@@ -2,7 +2,6 @@
 var intervalVariable;
 var deactivateLoading;
 
-
   // save the real `send`
   var realSend = XMLHttpRequest.prototype.send;
 
@@ -25,7 +24,7 @@ $(document).ready(function() {
 
   // "LOADING" ANIMATION
   // -------------------
-  activateLoading = function() {
+  window.activateLoading = function() {
     var degrees = 0;
     intervalVariable = setInterval(function(){
       $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');

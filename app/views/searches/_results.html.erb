@@ -139,9 +139,8 @@
 
 <script>
   <% if @competitor_search %>
-    console.log("foo");
     loadCompetitorsBarChart();
   <% else %>
-    $('#loading-shell').removeClass('rotating');
+    window.deactivateLoading();
   <% end %>
 </script>
