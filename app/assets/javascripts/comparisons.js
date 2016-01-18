@@ -22,7 +22,6 @@ var comparisonResultsLoaded = function(){
   totalSales0 = 0;
   totalSales1 = 0;
 
-  console.log("***STARTING FUNCTION***");
 
   // var numOfSuppliers0 = <%= @org1.suppliers.count.to_json %>;
   // var numOfSuppliers1 = <%= @org2.suppliers.count.to_json %>;  
@@ -86,7 +85,6 @@ var comparisonResultsLoaded = function(){
 
   // IF THE LEFT ORG HAS SALES DATA
   if (salesArray0.length > 0) {
-    console.log("checkpoint0");
     ctx0 = $('#canvas-left').get(0).getContext("2d");
 
     // Loop through the arrays to populate the pie charts
@@ -110,7 +108,6 @@ var comparisonResultsLoaded = function(){
 
   // IF THE RIGHT ORG HAS SALES DATA
   if (salesArray1.length > 0) {
-    console.log("checkpoint1");
     ctx1 = $('#canvas-right').get(0).getContext("2d");
 
     // Loop through the arrays to populate the pie charts
@@ -132,6 +129,5 @@ var comparisonResultsLoaded = function(){
     }, 1000);     
   }
 
-  console.log("***ENDING FUNCTION***");  
   
 };

@@ -25,6 +25,7 @@ $(document).ready(function() {
   // "LOADING" ANIMATION
   // -------------------
   window.activateLoading = function() {
+    console.log('animation running');
     var degrees = 0;
     intervalVariable = setInterval(function(){
       $('#loading .glyphicon-refresh').css('transform','rotate('+degrees+'deg)');
