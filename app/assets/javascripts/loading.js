@@ -7,7 +7,7 @@ var deactivateLoading;
 
   // replace `send` with a wrapper
   XMLHttpRequest.prototype.send = function() {
-      console.log('running');
+      console.log('The \"send\" function is running');
 
       // run the real `send`
       realSend.apply(this, arguments);
