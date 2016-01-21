@@ -9,7 +9,6 @@ $(document).ready(function() {
     $('#loading-shell').hide();
     console.log('animation stopped');
   }
-  deactivateLoading();
 
   // "LOADING" ANIMATION
   // -------------------
@@ -31,14 +30,18 @@ $(document).ready(function() {
   $('a').click(activateLoading);
 
   // save the real `send`
-  var realSend = XMLHttpRequest.prototype.send;
+  var originalAjaxSend = XMLHttpRequest.prototype.send;
+  // var originalAjaxOnload = XMLHttpRequest.prototype.onload;
 
   // replace `send` with a wrapper
   XMLHttpRequest.prototype.send = function() {
       window.activateLoading();
-
       // run the real `send`
-      realSend.apply(this, arguments);
+      originalAjaxSend.apply(this, arguments);
+
+      this.onreadystatechange = function() {
+          window.deactivateLoading();
+      }
   }
 
 }) // Close the ready method
