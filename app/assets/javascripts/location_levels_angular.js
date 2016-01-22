@@ -15,8 +15,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         }
     }
 
-    // $scope.isLastElement()
-
     // Other
     // -----
 
