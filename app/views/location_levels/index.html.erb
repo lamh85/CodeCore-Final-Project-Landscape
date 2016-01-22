@@ -8,13 +8,14 @@
         <div class="clearfix"></div>
         <span ng-repeat="element in value"><!-- "value" is a JS array -->
             <span class="tag">
-                <div class="input-group">
-                    <input class="form-control" ng-model="element.name">
-                    <span class="input-group-addon">
-                        <i class="fa fa-pencil"></i>
-                    </span>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" ng-model="element.name">
+                        <span class="input-group-addon">
+                            <i class="fa fa-pencil"></i>
+                        </span>
+                    </div>
                 </div>
-                <!-- {{element.name}}  -->
             </span>
             <i class="fa fa-chevron-right" ng-if="$index + 1 < value.length"></i>
         </span>
