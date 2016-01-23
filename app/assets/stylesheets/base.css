@@ -273,6 +273,10 @@ p {
   overflow: scroll;
 }
 
+.tag .form-group {
+  margin-bottom: 0;
+}
+
 .del-filter-bound .btn-danger {
   margin-top: 25px;
   text-align: center;
