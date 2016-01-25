@@ -4,9 +4,11 @@
     <h1>Location Levels</h1>
 
     <div ng-repeat="(property, value) in levelsSegmented">
-        <strong>{{property}}:</strong>
-        <div class="clearfix"></div>
-        <div ng-repeat="element in value" class="level"><!-- "value" is a JS array -->
+        <div class="clearfix">
+            <strong>{{property}}:</strong>
+        </div>
+        <div ng-repeat="element in value" class="level">
+        <!-- "value" is a JS array -->
             <span class="tag">
                 <div class="form-group">
                     <div class="input-group">
@@ -17,7 +19,9 @@
                     </div>
                 </div>
             </span>
-            <i class="fa fa-chevron-right" ng-if="$index + 1 < value.length"></i>
+            <span ng-if="$index + 1 < value.length">
+                <i class="fa fa-chevron-right"></i>
+            </span>
         </div>
         <span class="btn btn-primary inline-block" ng-click="newLevel(property)">Add a new level</span>
         <div class="clearfix margin-20"></div>
