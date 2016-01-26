@@ -273,6 +273,10 @@ p {
   overflow: scroll;
 }
 
+.level {
+  display: inline-block;
+}
+
 .tag .form-group {
   margin-bottom: 0;
 }
