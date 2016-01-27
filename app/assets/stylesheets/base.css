@@ -115,7 +115,6 @@ p {
 
 [ng-app="locationLevelApp"] .tag {
   float: none;
-  width: 25%;
 }
 
 .tag.danger {
