@@ -100,6 +100,10 @@ p {
   float: left;
 }
 
+.level .tag {
+  margin-top: 0px;
+}
+
 .tag input {
   background-color: inherit;
   border: none;
@@ -291,6 +295,10 @@ p {
 
 .form-control {
   border-radius: 0px;
+}
+
+.level .form-control {
+  width: auto;
 }
 
 .col-md-4 .btn-danger, .col-md-2 .btn-danger, .wrapper-compare button {
