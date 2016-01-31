@@ -31,7 +31,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
             }
             $scope.levelsSegmented["thread" + lastThreadNumber].push(levelsRaw[0]);
             levelsRaw.splice(0, 1);
-            window.debugVar = $scope.levelsSegmented;
         }
     }
 
@@ -49,3 +48,11 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     // Create an array for each thread
 
 }]);
+
+locationLevelController.directive('dragDir', function(){
+    return {
+        link: function(){
+            console.log('i am from directive');
+        }
+    }
+})
