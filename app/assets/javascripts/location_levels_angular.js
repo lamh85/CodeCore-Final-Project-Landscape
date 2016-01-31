@@ -45,14 +45,23 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         sortLevels();
     })
 
-    // Create an array for each thread
-
 }]);
 
 locationLevelController.directive('dragDir', function(){
     return {
-        link: function(){
-            console.log('i am from directive');
+        link: function(scope, element){
+            $(element)
+                .attr('draggable', 'true')
+                .on('dragstart', function(){
+                    console.log('drag starting');
+                })
+                .on('dragover', function(e){
+                    if (e.preventDefault) e.preventDefault();
+                    console.log('dragging over me!');
+                })
+                .on('drop', function(){
+                    console.log('dropped!');
+                });
         }
     }
 })
