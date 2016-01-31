@@ -41,7 +41,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 
     $http.get('../location_levels/get_all').then(function(response){
         levelsRaw = response.data;
-        console.log('GET successful');
         sortLevels();
     })
 
@@ -49,7 +48,9 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 
 locationLevelController.directive('dragDir', function(){
     return {
+        scope: false, // This defines the "scope" variable as the controller's "$scope"
         link: function(scope, element){
+            // http://blog.parkji.co.uk/2013/08/11/native-drag-and-drop-in-angularjs.html
             $(element)
                 .attr('draggable', 'true')
                 .on('dragstart', function(){
@@ -60,7 +61,9 @@ locationLevelController.directive('dragDir', function(){
                     console.log('dragging over me!');
                 })
                 .on('drop', function(){
-                    console.log('dropped!');
+                    console.log('dropped! The levels are');
+                    console.log(scope.levelsSegmented);
+                    // console.log(scope);
                 });
         }
     }
