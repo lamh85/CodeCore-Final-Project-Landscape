@@ -2,6 +2,11 @@ var locationLevelApp = angular.module("locationLevelApp",[]);
 
 locationLevelController = locationLevelApp.controller("locationLevelController", ['$scope', '$http', function($scope, $http){
 
+    // Model
+    // -----
+    var levelsRaw = [];
+    $scope.levelsSegmented = {};
+
     // Tools
     // -----
 
@@ -15,11 +20,9 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         }
     }
 
+
     // Other
     // -----
-
-    var levelsRaw = [];
-    $scope.levelsSegmented = {};
 
     var divideLevels = function(){
         var lastThreadNumber = 0;
@@ -39,6 +42,9 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         divideLevels();
     }
 
+    $scope.handleDrop = function() {
+    }
+
     $http.get('../location_levels/get_all').then(function(response){
         levelsRaw = response.data;
         sortLevels();
@@ -48,22 +54,20 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 
 locationLevelController.directive('dragDir', function(){
     return {
-        scope: false, // This defines the "scope" variable as the controller's "$scope"
+        scope: {
+            dirAtt: "&"
+        },
         link: function(scope, element){
             // http://blog.parkji.co.uk/2013/08/11/native-drag-and-drop-in-angularjs.html
             $(element)
                 .attr('draggable', 'true')
                 .on('dragstart', function(){
-                    console.log('drag starting');
                 })
                 .on('dragover', function(e){
                     if (e.preventDefault) e.preventDefault();
-                    console.log('dragging over me!');
                 })
                 .on('drop', function(){
-                    console.log('dropped! The levels are');
-                    console.log(scope.levelsSegmented);
-                    // console.log(scope);
+                    scope.$apply('dirAtt()');
                 });
         }
     }
