@@ -6,6 +6,8 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     // -----
     var levelsRaw = [];
     $scope.levelsSegmented = {};
+    $scope.draggedElement = {};
+    $scope.dropTarget = {};
 
     // Tools
     // -----
