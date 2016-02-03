@@ -45,6 +45,8 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     }
 
     $scope.handleDrop = function() {
+        console.log('function from controller: ');
+        console.log(event.target);
     }
 
     $http.get('../location_levels/get_all').then(function(response){
@@ -68,8 +70,12 @@ locationLevelController.directive('dragDir', function(){
                 .on('dragover', function(e){
                     if (e.preventDefault) e.preventDefault();
                 })
-                .on('drop', function(){
-                    scope.$apply('dirAtt()');
+                .on('drop', function(event){
+                    console.log('function from directive:');
+                    scope.$apply('dirAtt()')
+                    // scope.$apply(function(){
+                        // scope.dirAtt();
+                    // });
                 });
         }
     }
