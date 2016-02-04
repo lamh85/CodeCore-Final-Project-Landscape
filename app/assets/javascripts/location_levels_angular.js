@@ -44,9 +44,10 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         divideLevels();
     }
 
-    $scope.handleDrop = function() {
+    $scope.handleDrop = function(param) {
         console.log('function from controller: ');
         console.log(event.target);
+        console.log(param);
     }
 
     $http.get('../location_levels/get_all').then(function(response){
@@ -59,9 +60,12 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 locationLevelController.directive('dragDir', function(){
     return {
         scope: {
-            dirAtt: "&"
+            dirAtt: "&",
+            myFoo: "="
         },
+        
         link: function(scope, element){
+            scope.myFoo = "hello world";
             // http://blog.parkji.co.uk/2013/08/11/native-drag-and-drop-in-angularjs.html
             $(element)
                 .attr('draggable', 'true')
@@ -71,8 +75,9 @@ locationLevelController.directive('dragDir', function(){
                     if (e.preventDefault) e.preventDefault();
                 })
                 .on('drop', function(event){
+                    console.log(scope.myFoo);
                     console.log('function from directive:');
-                    scope.$apply('dirAtt()')
+                    scope.$apply('dirAtt(scope.myFoo)');
                     // scope.$apply(function(){
                         // scope.dirAtt();
                     // });
