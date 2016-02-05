@@ -8,7 +8,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     $scope.levelsSegmented = {};
     $scope.draggedElement = {};
     $scope.dropTarget = {};
-    $scope.testCtrlVar = "default value";
 
     // Tools
     // -----
@@ -44,8 +43,13 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         divideLevels();
     }
 
-    $scope.handleDrop = function(param) {
-        console.log('function from controller: ');
+    $scope.handleDrag = function() {
+        console.log('Dragged element:');
+        console.log(event.target);
+    }
+
+    $scope.handleDrop = function() {
+        console.log('Drop target:');
         console.log(event.target);
     }
 
@@ -59,30 +63,23 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 locationLevelController.directive('dragDir', function(){
     return {
         scope: {
-            dirAtt: "&",
-            // scriptvar: '=testatt'
+            dirDropAtt: "&",
+            dirDragAtt: "&",
             testatt: "="
         },
         link: function(scope, element){
-            scope.myFoo = "hello world";
             // http://blog.parkji.co.uk/2013/08/11/native-drag-and-drop-in-angularjs.html
             $(element)
                 .attr('draggable', 'true')
                 .on('dragstart', function(){
+                    scope.$apply('dirDragAtt()');
                 })
                 .on('dragover', function(e){
                     if (e.preventDefault) e.preventDefault();
                 })
                 .on('drop', function(event){
-                    console.log(scope.myFoo);
-                    console.log('function from directive:');
-                    scope.$apply('dirAtt()');
-                    // scope.$apply(function(){
-                        // scope.dirAtt();
-                    // });
-                    // scope.scriptvar = " more text! ";
-                    console.log(scope.testatt);
+                    scope.$apply('dirDropAtt()');
                 });
         }
     }
-})
+});

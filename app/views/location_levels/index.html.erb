@@ -3,15 +3,13 @@
 
     <h1>Location Levels</h1>
 
-    {{testCtrlVar}}
-
     <div ng-repeat="(property, value) in levelsSegmented">
         <div class="clearfix">
             <strong>{{property}}:</strong>
         </div>
         <div ng-repeat="element in value" class="level">
         <!-- "value" is a JS array -->
-            <span class="tag" drag-dir dir-att="handleDrop()" testatt=testCtrlVar>
+            <span class="tag" drag-dir dir-drop-att="handleDrop()" dir-drag-att="handleDrag()" testatt=testCtrlVar>
                 <div class="form-group">
                     <div class="input-group inline-block">
                         <input class="form-control inline-block" ng-model="element.name">
