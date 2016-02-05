@@ -8,6 +8,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     $scope.levelsSegmented = {};
     $scope.draggedElement = {};
     $scope.dropTarget = {};
+    $scope.testCtrlVar = "default value";
 
     // Tools
     // -----
@@ -21,7 +22,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
             return -1;
         }
     }
-
 
     // Other
     // -----
@@ -47,7 +47,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     $scope.handleDrop = function(param) {
         console.log('function from controller: ');
         console.log(event.target);
-        console.log(param);
     }
 
     $http.get('../location_levels/get_all').then(function(response){
@@ -61,9 +60,9 @@ locationLevelController.directive('dragDir', function(){
     return {
         scope: {
             dirAtt: "&",
-            myFoo: "="
+            // scriptvar: '=testatt'
+            testatt: "="
         },
-        
         link: function(scope, element){
             scope.myFoo = "hello world";
             // http://blog.parkji.co.uk/2013/08/11/native-drag-and-drop-in-angularjs.html
@@ -77,10 +76,12 @@ locationLevelController.directive('dragDir', function(){
                 .on('drop', function(event){
                     console.log(scope.myFoo);
                     console.log('function from directive:');
-                    scope.$apply('dirAtt(scope.myFoo)');
+                    scope.$apply('dirAtt()');
                     // scope.$apply(function(){
                         // scope.dirAtt();
                     // });
+                    // scope.scriptvar = " more text! ";
+                    console.log(scope.testatt);
                 });
         }
     }
