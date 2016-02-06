@@ -44,13 +44,11 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     }
 
     $scope.handleDrag = function() {
-        console.log('Dragged element:');
-        console.log(event.target);
+        $scope.draggedElement = event.target;
     }
 
     $scope.handleDrop = function() {
-        console.log('Drop target:');
-        console.log(event.target);
+        $scope.dropTarget = event.target;
     }
 
     $http.get('../location_levels/get_all').then(function(response){

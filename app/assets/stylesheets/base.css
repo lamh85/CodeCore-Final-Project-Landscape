@@ -100,7 +100,7 @@ p {
   float: left;
 }
 
-.level .tag {
+[class*="level"] .tag {
   margin-top: 0px;
 }
 
@@ -276,7 +276,7 @@ p {
   overflow: scroll;
 }
 
-.level {
+[class*="level"] {
   display: inline-block;
 }
 
@@ -297,7 +297,7 @@ p {
   border-radius: 0px;
 }
 
-.level .form-control {
+[class*="level"] .form-control {
   width: auto;
 }
 

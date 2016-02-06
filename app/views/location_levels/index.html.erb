@@ -7,7 +7,7 @@
         <div class="clearfix">
             <strong>{{property}}:</strong>
         </div>
-        <div ng-repeat="element in value" class="level">
+        <div ng-repeat="element in value" class="level{{$index}}">
         <!-- "value" is a JS array -->
             <span class="tag" drag-dir dir-drop-att="handleDrop()" dir-drag-att="handleDrag()" testatt=testCtrlVar>
                 <div class="form-group">
