@@ -3,11 +3,11 @@
 
     <h1>Location Levels</h1>
 
-    <div ng-repeat="(property, value) in levelsSegmented">
+    <div ng-repeat="(property, value) in levelsSegmented" class="thread">
         <div class="clearfix">
             <strong>{{property}}:</strong>
         </div>
-        <div ng-repeat="element in value" class="level" drag-dir dir-drop-att="handleDrop()" dir-drag-att="handleDrag()" testatt=testCtrlVar>
+        <div ng-repeat="element in value" class="level" data-thread={{property}} drag-dir dir-drop-att="handleDrop()" dir-drag-att="handleDrag()" testatt=testCtrlVar>
         <!-- "value" is a JS array -->
             <span class="tag">
                 <div class="form-group">

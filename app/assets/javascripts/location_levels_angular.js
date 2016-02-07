@@ -6,8 +6,8 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     // -----
     var levelsRaw = [];
     $scope.levelsSegmented = {};
-    $scope.draggedElement = {};
-    $scope.dropTarget = {};
+    var draggedElement = {};
+    var dropTarget = {};
 
     // Tools
     // -----
@@ -36,6 +36,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
             $scope.levelsSegmented["thread" + lastThreadNumber].push(levelsRaw[0]);
             levelsRaw.splice(0, 1);
         }
+        window.levelsSegmented = $scope.levelsSegmented;
     }
 
     var sortLevels = function() {
@@ -44,11 +45,11 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     }
 
     $scope.handleDrag = function() {
-        $scope.draggedElement = event.target;
+        draggedElement = event.target;
     }
 
     $scope.handleDrop = function() {
-        $scope.dropTarget = event.target;
+        dropTarget = event.target;
     }
 
     $http.get('../location_levels/get_all').then(function(response){
@@ -71,6 +72,7 @@ locationLevelController.directive('dragDir', function(){
                 .attr('draggable', 'true')
                 .on('dragstart', function(){
                     scope.$apply('dirDragAtt()');
+                    console.log($(element).data('thread'));
                 })
                 .on('dragover', function(e){
                     if (e.preventDefault) e.preventDefault();
