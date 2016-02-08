@@ -49,6 +49,18 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     // Drag and drop functions
     // -----------------------
 
+    $scope.shiftArray = function() {
+        if ($(draggedElement).data('index') < $(dropTarget).data('index')) {
+            /*
+            element dragged element target  element
+            element element target  dragged element
+        } else {
+            element target  element dragged element
+            element dragged target  element element
+            */
+        }
+    }
+
     $scope.handleDrag = function() {
         draggedElement = event.target;
         threadAffected = $(event.target).data('thread');
