@@ -7,7 +7,10 @@
         <div class="clearfix">
             <strong>{{property}}:</strong>
         </div>
-        <div ng-repeat="element in value" class="level" data-thread={{property}} drag-dir dir-drop-att="handleDrop()" dir-drag-att="handleDrag()" testatt=testCtrlVar>
+        <div
+            class="level" data-thread={{property}} data-index={{$index}}
+            ng-repeat="element in value" drag-dir dir-drag-att="handleDrag()" dir-drop-att="handleDrop()"
+        >
         <!-- "value" is a JS array -->
             <span class="tag">
                 <div class="form-group">

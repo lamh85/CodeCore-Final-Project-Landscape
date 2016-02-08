@@ -8,9 +8,10 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     $scope.levelsSegmented = {};
     var draggedElement = {};
     var dropTarget = {};
+    var threadAffected = {};
 
-    // Tools
-    // -----
+    // Initialize data
+    // ---------------
 
     var sortByThread = function(a,b) {
         if (a.thread == b.thread) {
@@ -21,9 +22,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
             return -1;
         }
     }
-
-    // Other
-    // -----
 
     var divideLevels = function(){
         var lastThreadNumber = 0;
@@ -36,7 +34,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
             $scope.levelsSegmented["thread" + lastThreadNumber].push(levelsRaw[0]);
             levelsRaw.splice(0, 1);
         }
-        window.levelsSegmented = $scope.levelsSegmented;
     }
 
     var sortLevels = function() {
@@ -44,27 +41,35 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         divideLevels();
     }
 
-    $scope.handleDrag = function() {
-        draggedElement = event.target;
-    }
-
-    $scope.handleDrop = function() {
-        dropTarget = event.target;
-    }
-
     $http.get('../location_levels/get_all').then(function(response){
         levelsRaw = response.data;
         sortLevels();
     })
+
+    // Drag and drop functions
+    // -----------------------
+
+    $scope.handleDrag = function() {
+        draggedElement = event.target;
+        threadAffected = $(event.target).data('thread');
+    }
+
+    $scope.handleDrop = function() {
+        dropTarget = event.target;
+        if (threadAffected == $(dropTarget).closest('.level').data('thread')) {
+            console.log('correct thread!');
+        } else {
+            console.log('wrong thread!');
+        }
+    }
 
 }]);
 
 locationLevelController.directive('dragDir', function(){
     return {
         scope: {
-            dirDropAtt: "&",
             dirDragAtt: "&",
-            testatt: "="
+            dirDropAtt: "&"
         },
         link: function(scope, element){
             // http://blog.parkji.co.uk/2013/08/11/native-drag-and-drop-in-angularjs.html
@@ -72,7 +77,6 @@ locationLevelController.directive('dragDir', function(){
                 .attr('draggable', 'true')
                 .on('dragstart', function(){
                     scope.$apply('dirDragAtt()');
-                    console.log($(element).data('thread'));
                 })
                 .on('dragover', function(e){
                     if (e.preventDefault) e.preventDefault();
