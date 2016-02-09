@@ -57,20 +57,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     }
 
     var shiftArray = function() {
-        /*
-        *** old *** new ***
-        *** new old *** ***
-            remove "new"
-            insert "new"
-
-        *** new *** old ***
-        *** *** old ***
-        *** *** old new ***
-            remove "new"
-            insert "new"
-
-        */
-
         $scope.levelsSegmented[threadAffected].splice(draggedIndex, 1);
         $scope.levelsSegmented[threadAffected].splice(dropIndex, 0, draggedElementData);
     }
@@ -80,7 +66,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         draggedIndex = getIndex(draggedElement);
         threadAffected = $(event.target).closest('.level').data('thread');
         draggedElementData = $scope.levelsSegmented[threadAffected][draggedIndex];
-        console.log('dragging: ' +draggedIndex);
     }
 
     $scope.handleDragover = function() {
@@ -90,22 +75,8 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 
     $scope.handleDrop = function() {
         if (threadAffected == $(dropElement).closest('.level').data('thread')) {
-            console.log('dropped: ' +dropIndex);
-            /*
-            console.log({
-                draggedIndex: draggedIndex,
-                draggedElement: draggedElement,
-                dropIndex: dropIndex,
-                dropElement: dropElement
-            });
-            var draggedElementData = $scope.levelsSegmented[threadAffected][draggedIndex];
-            */
-
             $scope.levelsSegmented[threadAffected].splice(draggedIndex, 1);
             $scope.levelsSegmented[threadAffected].splice(dropIndex, 0, draggedElementData);
-            // shiftArray();
-        } else {
-            console.log('wrong thread!');
         }
     }
 
@@ -119,7 +90,6 @@ locationLevelController.directive('dragDir', function(){
             dirDropAtt: "&"
         },
         link: function(scope, element){
-            // http://blog.parkji.co.uk/2013/08/11/native-drag-and-drop-in-angularjs.html
             $(element)
                 .attr('draggable', 'true')
                 .on('dragstart', function(){
