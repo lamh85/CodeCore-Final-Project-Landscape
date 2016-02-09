@@ -83,9 +83,12 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         console.log('dragging: ' +draggedIndex);
     }
 
-    $scope.handleDrop = function() {
+    $scope.handleDragover = function() {
         dropElement = event.target;
         dropIndex = getIndex(dropElement);
+    }
+
+    $scope.handleDrop = function() {
         if (threadAffected == $(dropElement).closest('.level').data('thread')) {
             console.log('dropped: ' +dropIndex);
             /*
@@ -96,10 +99,10 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
                 dropElement: dropElement
             });
             var draggedElementData = $scope.levelsSegmented[threadAffected][draggedIndex];
+            */
 
             $scope.levelsSegmented[threadAffected].splice(draggedIndex, 1);
             $scope.levelsSegmented[threadAffected].splice(dropIndex, 0, draggedElementData);
-            */
             // shiftArray();
         } else {
             console.log('wrong thread!');
@@ -112,6 +115,7 @@ locationLevelController.directive('dragDir', function(){
     return {
         scope: {
             dirDragAtt: "&",
+            dirDragoverAtt: "&",
             dirDropAtt: "&"
         },
         link: function(scope, element){
@@ -123,6 +127,7 @@ locationLevelController.directive('dragDir', function(){
                 })
                 .on('dragover', function(e){
                     if (e.preventDefault) e.preventDefault();
+                    scope.$apply('dirDragoverAtt()');
                 })
                 .on('drop', function(event){
                     scope.$apply('dirDropAtt()');

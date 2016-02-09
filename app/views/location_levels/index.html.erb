@@ -9,7 +9,7 @@
         </div>
         <div
             class="level" data-thread={{property}} data-index={{$index}}
-            ng-repeat="element in value" drag-dir dir-drag-att="handleDrag()" dir-drop-att="handleDrop()"
+            ng-repeat="element in value track by $index" drag-dir dir-drag-att="handleDrag()" dir-dragover-att="handleDragover()" dir-drop-att="handleDrop()"
         >
         <!-- "value" is a JS array -->
             <span class="tag">
