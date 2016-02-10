@@ -9,10 +9,13 @@
         </div>
         <div
             class="level" data-thread={{property}} data-index={{$index}}
-            ng-repeat="element in value track by $index" drag-dir dir-drag-att="handleDrag()" dir-dragover-att="handleDragover()" dir-drop-att="handleDrop()"
+            ng-repeat="element in value track by $index"
         >
         <!-- "value" is a JS array -->
-            <span class="tag">
+            <span
+                class="tag"
+                drag-dir dir-drag-att="handleDrag()" dir-dragover-att="handleDragover()" dir-drop-att="handleDrop()"
+            >
                 <div class="form-group">
                     <div class="input-group inline-block">
                         <input class="form-control inline-block" ng-model="element.name">
