@@ -430,3 +430,10 @@ font-weight: bold;
 .canvas-container .competitor-bar {
   width: 100%;
 }
+
+/* DRAG AND DROP */
+/*---------------*/
+
+.dragged-over {
+  border: 3px dotted black;
+}
