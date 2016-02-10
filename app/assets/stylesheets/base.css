@@ -436,4 +436,13 @@ font-weight: bold;
 
 .dragged-over {
   border: 3px dotted black;
+  margin: -3px;
+  background: white;
+}
+
+.dragged-over input {
+  font-weight: bold;
+  color: black;
+  background: white;
+  box-shadow: none;
 }

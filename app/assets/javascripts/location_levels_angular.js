@@ -95,12 +95,17 @@ locationLevelController.directive('dragDir', function(){
                 .on('dragstart', function(){
                     scope.$apply('dirDragAtt()');
                 })
-                .on('dragover', function(e){
-                    if (e.preventDefault) e.preventDefault();
+                .on('dragover', function(event){
+                    if (event.preventDefault) event.preventDefault();
                     scope.$apply('dirDragoverAtt()');
+                    $(event.target).closest('.tag').addClass('dragged-over');
+                })
+                .on('dragleave', function(event){
+                    $(event.target).closest('.tag').removeClass('dragged-over');
                 })
                 .on('drop', function(event){
                     scope.$apply('dirDropAtt()');
+                    $('*').removeClass('dragged-over');
                 });
         }
     }
