@@ -13,6 +13,12 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     var dropIndex = {};
     var threadAffected = {};
 
+    var levelModel = function(params){
+        this.level = params.level;
+        this.name = "UN-NAMED LEVEL";
+        this.thread = parseInt(params.thread);
+    }
+
     // Initialize data
     // ---------------
 
@@ -37,6 +43,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
             $scope.levelsSegmented["thread" + lastThreadNumber].push(levelsRaw[0]);
             levelsRaw.splice(0, 1);
         }
+        window.levels = $scope.levelsSegmented;
     }
 
     var sortLevels = function() {
@@ -84,10 +91,12 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     // --------
 
     /*
-    $scope.addLevel = function(threadName) {
-        $scope.levelsSegmented[threadName].push();
-    }
     */
+    $scope.addLevel = function(params) {
+        $scope.levelsSegmented[params.thread].push(
+            new levelModel(params)
+        );
+    }
 
 }]);
 

@@ -19,9 +19,6 @@
                 <div class="form-group">
                     <div class="input-group inline-block">
                         <input class="form-control inline-block" ng-model="element.name">
-                        <!-- <span class="input-group-addon inline-block"> -->
-                            <!-- <i class="fa fa-pencil"></i> -->
-                        <!-- </span> -->
                         <span class="input-group-addon inline-block">
                             <i class="fa fa-times"></i>
                         </span>
@@ -32,7 +29,7 @@
                 <i class="fa fa-chevron-right"></i>
             </span>
         </div>
-        <span class="btn btn-primary inline-block" ng-click="newLevel(property)">Add a new level</span>
+        <span class="btn btn-primary inline-block" ng-click="addLevel({thread:property, level:value.length})">Add a new level</span>
         <div class="clearfix margin-20"></div>
     </div>
 
