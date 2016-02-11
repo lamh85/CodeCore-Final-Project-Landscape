@@ -80,6 +80,15 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         }
     }
 
+    // ng-click
+    // --------
+
+    /*
+    $scope.addLevel = function(threadName) {
+        $scope.levelsSegmented[threadName].push();
+    }
+    */
+
 }]);
 
 locationLevelController.directive('dragDir', function(){

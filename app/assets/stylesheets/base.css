@@ -21,12 +21,19 @@ body {
     width: 100%;
 }
 
+/* STYLE SHORTCUT CLASSES */
+/**************************/
+
 .margin-20 {
     margin-bottom: 20px !important;
 }
 
 .inline-block {
     display: inline-block !important;
+}
+
+.text-center {
+    text-align: center;
 }
 
 /* WELCOME PAGE */
@@ -314,7 +321,15 @@ p {
     border-bottom: 3px solid black;
 }
     
+.level .fa-times {
+    font-size: 1.5em;
+    color: white;
+    background: red;
+    padding: 3px;
+}
+
 /* "LOADING" MODAL */
+/*-----------------*/
 
 #boundaries {
     position: relative
