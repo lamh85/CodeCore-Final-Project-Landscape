@@ -1,5 +1,6 @@
 class LocationLevelsController < ApplicationController
-    def create
+    def save
+        render text: params
     end
 
     def get_all
@@ -10,9 +11,6 @@ class LocationLevelsController < ApplicationController
     def index
         @extra_scripts = ['location_levels_angular']
         render 'index'
-    end
-
-    def update
     end
 
     def destroy

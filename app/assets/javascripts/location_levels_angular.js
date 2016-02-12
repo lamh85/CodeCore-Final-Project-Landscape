@@ -43,7 +43,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
             $scope.levelsSegmented["thread" + lastThreadNumber].push(levelsRaw[0]);
             levelsRaw.splice(0, 1);
         }
-        window.levels = $scope.levelsSegmented;
     }
 
     var sortLevels = function() {
@@ -96,6 +95,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         $scope.levelsSegmented[params.thread].push(
             new levelModel(params)
         );
+        window.levels = $scope.levelsSegmented;
     }
 
 }]);
