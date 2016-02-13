@@ -1,6 +1,15 @@
 class LocationLevelsController < ApplicationController
     def save
-        render text: params
+        # byebug
+        # render text: params
+=begin
+(byebug) params
+    {"level"=>3, "name"=>"UN-NAMED LEVEL", "thread"=>nil, "controller"=>"location_levels", "action"=>"save", "location_level"=>{"name"=>"UN-NAMED LEVEL", "level"=>3, "thread"=>nil}}
+(byebug) params[:location_level]
+    {"name"=>"UN-NAMED LEVEL", "level"=>3, "thread"=>nil}
+(byebug) params[:location_level]["name"]
+    UN-NAMED LEVEL
+=end
     end
 
     def get_all

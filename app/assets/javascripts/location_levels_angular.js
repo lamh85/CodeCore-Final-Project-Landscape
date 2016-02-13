@@ -1,5 +1,9 @@
 var locationLevelApp = angular.module("locationLevelApp",[]);
 
+locationLevelApp.config([ "$httpProvider", function($httpProvider) {
+    $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+}]);
+
 locationLevelController = locationLevelApp.controller("locationLevelController", ['$scope', '$http', function($scope, $http){
 
     // Model
@@ -53,7 +57,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     $http.get('../location_levels/get_all').then(function(response){
         levelsRaw = response.data;
         sortLevels();
-    })
+    });
 
     // Drag and drop functions
     // -----------------------
@@ -92,9 +96,12 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     /*
     */
     $scope.addLevel = function(params) {
-        $scope.levelsSegmented[params.thread].push(
-            new levelModel(params)
-        );
+        var newLevel = new levelModel(params);
+        $scope.levelsSegmented[params.thread].push(newLevel);
+
+        $http.post('../location_levels/save', newLevel).then(function(){
+        });
+
         window.levels = $scope.levelsSegmented;
     }
 
