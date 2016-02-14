@@ -18,7 +18,7 @@ class LocationLevelsController < ApplicationController
 
     def destroy
         LocationLevel.find(params[:id]).delete
-        return "hello world"
+        render text: "1"
     end
 
     private
