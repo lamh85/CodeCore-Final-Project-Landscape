@@ -17,10 +17,10 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     var dropIndex = {};
     var threadAffected = {};
 
-    var levelModel = function(params){
-        this.level = params.level;
+    var levelModel = function(argObject){
+        this.level = argObject.level;
         this.name = "UN-NAMED LEVEL";
-        this.thread = params.thread.replace(/[^0-9]/gi, "");
+        this.thread = argObject.thread;
     }
 
     // Initialize data
@@ -90,24 +90,18 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         }
     }
 
-    // ng-click
-    // --------
+    // Other event listeners
+    // ---------------------
 
-    /*
-    */
     $scope.addLevel = function(params) {
-        console.log('params of new level:');
-        console.log(params);
+        var newLevel = new levelModel({
+            level: params.level,
+            thread: params.propertyName.replace(/[^0-9]/gi, "")
+        });
 
-        var newLevel = new levelModel(params);
-
-        console.log(newLevel);
-        $scope.levelsSegmented[params.thread].push(newLevel);
-
-        // $http.post('../location_levels/save', newLevel).then(function(){
-        // });
-
-        window.levels = $scope.levelsSegmented;
+        $http.post('../location_levels/save', newLevel).then(function(response){
+            $scope.levelsSegmented[params.propertyName].push(response.data);
+        });
     }
 
 }]);
