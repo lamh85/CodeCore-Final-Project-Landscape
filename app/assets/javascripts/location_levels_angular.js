@@ -20,7 +20,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     var levelModel = function(params){
         this.level = params.level;
         this.name = "UN-NAMED LEVEL";
-        this.thread = parseInt(params.thread);
+        this.thread = params.thread.replace(/[^0-9]/gi, "");
     }
 
     // Initialize data
@@ -96,11 +96,16 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     /*
     */
     $scope.addLevel = function(params) {
+        console.log('params of new level:');
+        console.log(params);
+
         var newLevel = new levelModel(params);
+
+        console.log(newLevel);
         $scope.levelsSegmented[params.thread].push(newLevel);
 
-        $http.post('../location_levels/save', newLevel).then(function(){
-        });
+        // $http.post('../location_levels/save', newLevel).then(function(){
+        // });
 
         window.levels = $scope.levelsSegmented;
     }

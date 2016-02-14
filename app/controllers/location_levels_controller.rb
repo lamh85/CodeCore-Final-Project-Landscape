@@ -1,6 +1,10 @@
 class LocationLevelsController < ApplicationController
     def save
         # byebug
+        @location_level = LocationLevel.new(location_level_params)
+        if @location_level.save
+            render text: @location_level.to_json
+        end
         # render text: params
 =begin
 (byebug) params
@@ -23,5 +27,11 @@ class LocationLevelsController < ApplicationController
     end
 
     def destroy
+    end
+
+    private
+
+    def location_level_params
+        params.require(:location_level).permit(:name, :level, :thread)
     end
 end
