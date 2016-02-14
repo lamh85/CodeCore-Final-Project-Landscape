@@ -104,6 +104,12 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         });
     }
 
+    $scope.deleteLevel = function(params) {
+        $http.delete('../location_levels/' +params).then(function(response){
+            
+        });
+    }
+
 }]);
 
 locationLevelController.directive('dragDir', function(){
