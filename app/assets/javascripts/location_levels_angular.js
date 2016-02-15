@@ -114,7 +114,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         });
     }
 
-}]);
+}]); // End controller
 
 locationLevelController.directive('dragDir', function(){
     return {
@@ -143,4 +143,4 @@ locationLevelController.directive('dragDir', function(){
                 });
         }
     }
-});
+}); // End directive

@@ -328,6 +328,10 @@ p {
     padding: 3px;
 }
 
+[ng-click] {
+    cursor: pointer;
+}
+
 /* "LOADING" MODAL */
 /*-----------------*/
 
