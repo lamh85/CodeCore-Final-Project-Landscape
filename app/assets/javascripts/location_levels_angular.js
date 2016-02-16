@@ -99,7 +99,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
             thread: params.propertyName.replace(/[^0-9]/gi, "")
         });
 
-        $http.post('../location_levels/save', newLevel).then(function(response){
+        $http.post('../location_levels', newLevel).then(function(response){
             $scope.levelsSegmented[params.propertyName].push(response.data);
         });
     }

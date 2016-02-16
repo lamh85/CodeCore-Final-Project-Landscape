@@ -1,5 +1,5 @@
 class LocationLevelsController < ApplicationController
-    def save
+    def create
         @location_level = LocationLevel.new(location_level_params)
         if @location_level.save
             render text: @location_level.to_json
