@@ -93,6 +93,12 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     // Other event listeners
     // ---------------------
 
+    $scope.updateName = function(level) {
+        $http.post('../location_levels/' +level.id, level).then(function(response){
+            console.log(response.data);
+        });
+    }
+
     $scope.addLevel = function(params) {
         var newLevel = new levelModel({
             level: params.level,
