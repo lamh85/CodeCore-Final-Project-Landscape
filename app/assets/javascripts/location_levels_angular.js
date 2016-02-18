@@ -94,6 +94,16 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     // ---------------------
 
     $scope.updateName = function(level) {
+        /*
+            keyup
+            if first time, then start countdown, else reset countdown
+            if countdown is finished, send POST
+
+        setTimeout(function(){
+
+        }, 500)
+
+        */
         $http.post('../location_levels/' +level.id, level).then(function(response){
             console.log(response.data);
         });

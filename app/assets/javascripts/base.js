@@ -56,4 +56,12 @@ $(document).ready(function() {
   $('.wrapper-compare button').addClass('btn btn-primary');
   $('.wrapper-market-search button, .wrapper-search button').addClass('btn btn-success');
 
+  $(document).click(function(){
+    // start interval countdown
+  });
+
+  intervalVar = setInterval(function(){
+
+  });
+
 }) // Close the ready method
