@@ -56,12 +56,24 @@ $(document).ready(function() {
   $('.wrapper-compare button').addClass('btn btn-primary');
   $('.wrapper-market-search button, .wrapper-search button').addClass('btn btn-success');
 
+  var timeLeft = 30;
+  var intervalVar;
+
+  var initializeInterval = function(){
+    intervalVar = setInterval(function(){
+      if (timeLeft == 0) {
+        console.log("Time's up!!!");
+        clearInterval(intervalVar);
+      } else {
+        timeLeft --;
+        console.log("Time remaining: " +timeLeft)
+      }
+    }, 500);
+  }
+
   $(document).click(function(){
-    // start interval countdown
-  });
-
-  intervalVar = setInterval(function(){
-
+    timeLeft = 30;
+    initializeInterval();
   });
 
 }) // Close the ready method
