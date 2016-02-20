@@ -44,4 +44,11 @@ $(document).ready(function() {
       }
   }
 
+  // Stop loading animation of user held Shift/Ctrl/Command/etc. with click
+  $(document).click(function(event){
+      if (event.shiftKey || event.ctrlKey || event.metaKey) {
+          setTimeout(window.deactivateLoading(), 1000)
+      }
+  });
+
 }) // Close the ready method
