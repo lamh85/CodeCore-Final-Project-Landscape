@@ -12,6 +12,7 @@ $(document).ready(function(){
   }
 
   window.resultsLoaded = function(){
+    $('.col-pie .table-wrapper').slideUp();
 
     renderTotal(jsonData);
 
@@ -152,6 +153,7 @@ $(document).ready(function(){
     $('.load-button.left, .load-button.right').click(function(){
       leftOrRight = $(this).data('left-right');
       dropDownValue = $('.pie-drop-down.'+leftOrRight).val();
+
       $('.canvas.left').slideDown('fast', function(){ // slideDown only one element to execute the callback function only once
         clearData();
       });
