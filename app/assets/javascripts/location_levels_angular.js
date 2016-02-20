@@ -8,14 +8,34 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 
     // Model
     // -----
+
+    // DB data
     var levelsRaw = [];
     $scope.levelsSegmented = {};
+
+    // Drag and drop data
     var draggedElement = {};
     var draggedElementData = {};
     var draggedIndex = {};
     var dropElement = {};
     var dropIndex = {};
     var threadAffected = {};
+
+    // Countdown data
+    var intervalVar;
+
+    var initializeInterval = function(){
+        intervalVar = setInterval(function(){
+            console.log("Time's up!!!");
+            clearInterval(intervalVar);
+        }, 500);
+    }
+
+    $(document).click(function(){
+        // reset interval
+        clearInterval(intervalVar);
+        initializeInterval();
+    });    
 
     var levelModel = function(argObject){
         this.level = argObject.level;
