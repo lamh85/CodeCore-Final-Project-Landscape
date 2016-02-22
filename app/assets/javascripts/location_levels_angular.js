@@ -35,7 +35,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         // reset interval
         clearInterval(intervalVar);
         initializeInterval();
-    });    
+    });
 
     var levelModel = function(argObject){
         this.level = argObject.level;
@@ -114,19 +114,10 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     // ---------------------
 
     $scope.updateName = function(level) {
-        /*
-            keyup
-            if first time, then start countdown, else reset countdown
-            if countdown is finished, send POST
-
-        setTimeout(function(){
-
-        }, 500)
-
-        */
-        $http.post('../location_levels/' +level.id, level).then(function(response){
-            console.log(response.data);
-        });
+        console.log('testing');
+        // $http.post('../location_levels/' +level.id, level).then(function(response){
+            // console.log(response.data);
+        // });
     }
 
     $scope.addLevel = function(params) {
