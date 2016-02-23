@@ -23,6 +23,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 
     // Countdown data
     var intervalVar;
+    $scope.levelNameStatus = "";
 
     var initializeInterval = function(){
         intervalVar = setInterval(function(){
