@@ -13,6 +13,12 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     var levelsRaw = [];
     $scope.levelsSegmented = {};
 
+    var levelModel = function(argObject){
+        this.level = argObject.level;
+        this.name = "UN-NAMED LEVEL";
+        this.thread = argObject.thread;
+    }
+
     // Drag and drop data
     var draggedElement = {};
     var draggedElementData = {};
@@ -23,7 +29,7 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 
     // Countdown data
     var intervalVar;
-    $scope.levelNameStatus = "";
+    $scope.levelNameStatus = "neutral";
 
     var initializeInterval = function(){
         intervalVar = setInterval(function(){
@@ -38,10 +44,11 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         initializeInterval();
     });
 
-    var levelModel = function(argObject){
-        this.level = argObject.level;
-        this.name = "UN-NAMED LEVEL";
-        this.thread = argObject.thread;
+    $scope.$watch('levelNameStatus') = function() {
+        if ($scope.levelNameStatus == "neutral") {
+        } else if ($scope.levelNameStatus == "saving") {
+        } else {
+        }
     }
 
     // Initialize data
