@@ -27,7 +27,9 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     var dropIndex = {};
     var threadAffected = {};
 
-    // Countdown data
+    // Saving Level Name
+    // -----------------
+
     var intervalVar;
     $scope.levelNameStatus = "neutral";
 
@@ -44,12 +46,16 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         initializeInterval();
     });
 
-    $scope.$watch('levelNameStatus') = function() {
-        if ($scope.levelNameStatus == "neutral") {
-        } else if ($scope.levelNameStatus == "saving") {
-        } else {
+    $('.level').on('keyup', function(){
+        console.log('key up');
+    })
+
+    $scope.$watch('levelNameStatus', function(newValue, oldValue){
+        if (newValue == "neutral") {
+        } else if (newValue == "saving") {
+        } else if (newValue == "saved") {
         }
-    }
+    })
 
     // Initialize data
     // ---------------
