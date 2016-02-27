@@ -52,8 +52,11 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 
     $scope.$watch('levelNameStatus', function(newValue, oldValue){
         if (newValue == "neutral") {
+            $('#saving').hide();
         } else if (newValue == "saving") {
+            $('#saving').show().text("Currently saving...");
         } else if (newValue == "saved") {
+            $('#saving').show().text("Saved!");
         }
     })
 
