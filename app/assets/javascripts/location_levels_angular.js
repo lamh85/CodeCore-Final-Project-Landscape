@@ -46,9 +46,13 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
         initializeInterval();
     });
 
-    $('.level').on('keyup', function(){
-        console.log('key up');
-    })
+    $scope.updateName = function(level) {
+        console.log('testing');
+        $scope.levelNameStatus = "saving";
+        // $http.post('../location_levels/' +level.id, level).then(function(response){
+            // console.log(response.data);
+        // });
+    }
 
     $scope.$watch('levelNameStatus', function(newValue, oldValue){
         if (newValue == "neutral") {
@@ -129,13 +133,6 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
 
     // Other event listeners
     // ---------------------
-
-    $scope.updateName = function(level) {
-        console.log('testing');
-        // $http.post('../location_levels/' +level.id, level).then(function(response){
-            // console.log(response.data);
-        // });
-    }
 
     $scope.addLevel = function(params) {
         var newLevel = new levelModel({
