@@ -34,24 +34,21 @@ locationLevelController = locationLevelApp.controller("locationLevelController",
     $scope.levelNameStatus = "neutral";
 
     var initializeInterval = function(){
+        $scope.levelNameStatus = "saving";
         intervalVar = setInterval(function(){
             console.log("Time's up!!!");
             clearInterval(intervalVar);
         }, 500);
     }
 
-    $(document).click(function(){
+    // $(document).click(function(){
         // reset interval
-        clearInterval(intervalVar);
-        initializeInterval();
-    });
+    // });
 
     $scope.updateName = function(level) {
         console.log('testing');
-        $scope.levelNameStatus = "saving";
-        // $http.post('../location_levels/' +level.id, level).then(function(response){
-            // console.log(response.data);
-        // });
+        clearInterval(intervalVar);
+        initializeInterval();
     }
 
     $scope.$watch('levelNameStatus', function(newValue, oldValue){
