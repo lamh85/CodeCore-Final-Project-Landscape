@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   get "searches/competitors" => "searches#competitors"
   get "searches/clients" => "searches#clients"
   get "searches/suppliers" => "searches#suppliers"
-  get "market_searches/new_v2" => "market_searches#new_v2"
   get "market_searches/results" => "market_searches#results"
 
   # USER ADMIN
