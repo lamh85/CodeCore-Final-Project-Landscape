@@ -1,6 +1,10 @@
 class Api::MarketSearchesController < ApplicationController::API
 
-  def show
+  def new
+    render json: Category.all.pluck(:name)
+  end
+
+  def results
     byebug
   end
 end

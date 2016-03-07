@@ -11,7 +11,8 @@ class MarketSearchesController < ApplicationController
     # params: = { "0" => "{\"search_term\":\"something\",\"property\":\"category\"}",
     #             "1" => "{\"search_term\":\"something\",\"property\":\"category\"}",
     #             "controller"  => "market_searches", "action" => "results_v2" }
-    search_filters = params.map{ |key, value| JSON.parse(value) if key.to_i.to_s == key}.compact # Map if key can be converted to integer
+    search_filters = params.map{ |key, value| JSON.parse(value) if key.to_i.to_s == key}.compact 
+    # Map if key can be converted to integer
     search_filters.each do |filter| # for every filter...
         # If there were previous search search_filters, then merge results
         sql_select_clause = @final_results == nil ? Market : @final_results

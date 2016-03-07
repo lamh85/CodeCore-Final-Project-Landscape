@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  #API
+  namespace "api" do
+    get "market_searches/results" => "market_searches#results"
+  end
+
   # CUSTOM ROUTES *** MUST BE MENTIONED HERE BEFORE "resources"
   get "searches/all_orgs" => "searches#all_orgs"
   get "searches/competitors" => "searches#competitors"
