@@ -1,5 +1,4 @@
-class Api::MarketSearchesController < ApplicationController::API
-
+class Api::V1::MarketSearchesController < ApplicationController
   def new
     render json: Category.all.pluck(:name)
   end
@@ -7,4 +6,4 @@ class Api::MarketSearchesController < ApplicationController::API
   def results
     byebug
   end
-end
+end 
