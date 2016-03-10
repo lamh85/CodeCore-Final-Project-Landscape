@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   #API
   namespace "api" do
-    get "market_searches/results" => "market_searches#results"
+    namespace "v1" do
+      get "market_searches/results" => "market_searches#results"
+    end
   end
 
   # CUSTOM ROUTES *** MUST BE MENTIONED HERE BEFORE "resources"
