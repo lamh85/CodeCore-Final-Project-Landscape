@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace "api" do
     namespace "v1" do
       get "market_searches/results" => "market_searches#results"
+      resources :market_searches, only: [:new]
     end
   end
 
