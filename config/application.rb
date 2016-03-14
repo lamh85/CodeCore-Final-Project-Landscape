@@ -40,10 +40,5 @@ module Landscape
     config.active_record.raise_in_transactional_callbacks = true
 
     config.action_view.embed_authenticity_token_in_remote_forms = true
-
-    config.action_dispatch.default_headers = {
-        'Access-Control-Allow-Origin' => 'http://localhost:4000',
-        'Access-Control-Request-Method' => 'GET'
-    }
   end
 end
